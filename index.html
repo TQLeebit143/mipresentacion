@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi Presentación | Perfil Técnico</title>
+
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+ 
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+  <style>
+   
+    :root {
+      --bg-principal: #15090d;    
+      --bg-tarjeta: #210e15;        
+      --guindo-profundo: #38101e;   
+      --guindo-sangre: #5c162b;     
+      --guindo-claro: #8d2342;      
+      --texto-principal: #f5e8eb; 
+      --texto-secundario: #d4a5b0;  
+      --borde-sutil: #421825;       
+    }
+
+    body {
+      background-color: var(--bg-principal);
+      color: var(--texto-principal);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+
+    .navbar {
+      background-color: rgba(21, 9, 13, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--borde-sutil);
+    }
+
+    .carousel-item img {
+      height: 420px;
+      object-fit: cover;
+      border-radius: 12px;
+      filter: brightness(0.85);
+    }
+
+    .card-custom {
+      background-color: var(--bg-tarjeta);
+      border: 1px solid var(--borde-sutil);
+      border-radius: 12px;
+      padding: 1.5rem;
+      height: 100%;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .card-custom:hover {
+      transform: translateY(-3px);
+      border-color: var(--guindo-claro);
+    }
+
+  
+    .border-guindo { border-left: 4px solid var(--guindo-claro); }
+    .border-morado { border-left: 4px solid #7b2cbf; }
+    .border-verde { border-left: 4px solid #2a9d8f; }
+    .border-azul { border-left: 4px solid #3a86ff; }
+
+  
+    .table-custom {
+      color: var(--texto-principal);
+      border-color: var(--borde-sutil);
+    }
+    .table-custom th {
+      background-color: var(--guindo-profundo);
+      color: #ffffff;
+      border-color: var(--borde-sutil);
+    }
+    .table-custom td {
+      background-color: var(--bg-tarjeta);
+      color: var(--texto-principal);
+      border-color: var(--borde-sutil);
+    }
+
+  
+    .badge-custom {
+      background-color: var(--guindo-sangre);
+      color: #f7d6de;
+      border: 1px solid var(--guindo-claro);
+    }
+
+  
+    .text-secondary-custom {
+      color: var(--texto-secundario) !important;
+    }
+
+
+    footer {
+      background-color: #0d0508;
+      border-top: 1px solid var(--borde-sutil);
+    }
+
+    .btn-social {
+      background-color: var(--guindo-profundo);
+      color: var(--texto-principal);
+      border: 1px solid var(--borde-sutil);
+      border-radius: 50%;
+      width: 42px;
+      height: 42px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+
+    .btn-social:hover {
+      background-color: var(--guindo-sangre);
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+
+
+  <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold text-white" href="#">
+        <i class="bi bi-code-slash text-danger me-2"></i>Mi Presentación
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="#carrusel">Fotos</a></li>
+          <li class="nav-item"><a class="nav-link" href="#actividades">Actividades</a></li>
+          <li class="nav-item"><a class="nav-link" href="#horario">Horario</a></li>
+          <li class="nav-item"><a class="nav-link" href="#favoritos">Favoritos</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container my-4">
+
+  
+    <section id="carrusel" class="mb-5">
+      <div id="mainCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
+        <div class="carousel-inner rounded-3 shadow">
+     
+          <div class="carousel-item active">
+            <img src="https://i.pinimg.com/736x/a9/a8/53/a9a8533cd3f519ab8928ef5696f16f9a.jpg" class="d-block w-100" alt="Fotografía 1">
+            <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-75 rounded p-3">
+              <h5 class="text-white">Desarrollo & Sistemas</h5>
+              <p class="text-white-50 mb-0">Exploración visual y conceptual de entornos informáticos.</p>
+            </div>
+          </div>
+          
+          <div class="carousel-item">
+            <img src="https://i.pinimg.com/1200x/82/84/7a/82847a22a2f7c680ac55348568306281.jpg" class="d-block w-100" alt="Fotografía 2">
+            <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-75 rounded p-3">
+              <h5 class="text-white">Diseño & Estructura</h5>
+              <p class="text-white-50 mb-0">Lógica de datos e interfaces orientadas al usuario.</p>
+            </div>
+          </div>
+       
+          <div class="carousel-item">
+            <img src="https://i.pinimg.com/1200x/48/b3/28/48b328850078158308a7b0cf36ab8732.jpg" class="d-block w-100" alt="Fotografía 3">
+            <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-75 rounded p-3">
+              <h5 class="text-white">Espacios de Creación</h5>
+              <p class="text-white-50 mb-0">Proyectos personales y formación continua.</p>
+            </div>
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#mainCarousel" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#mainCarousel" data-bs-slide="next">
+          <span class="carousel-control-next-icon"></span>
+        </button>
+      </div>
+    </section>
+
+    <section id="actividades" class="row g-4 mb-5">
+     
+      <div class="col-md-6">
+        <div class="card-custom border-morado">
+          <h4 class="text-white mb-3">
+            <i class="bi bi-controller me-2 text-warning"></i>Pasatiempos <span class="fs-6 text-secondary-custom">(No productivo)</span>
+          </h4>
+          <ul class="list-unstyled mb-0">
+            <li class="mb-3">
+              <i class="bi bi-film me-2 text-danger"></i><strong>Ver series y películas:</strong> Me gusta ver series y películas en mi tiempo libre, varío mucho en los géneros y también los entornos que nos ofrecen.
+            </li>
+            <li class="mb-3">
+              <i class="bi bi-palette me-2 text-danger"></i><strong>Dibujar:</strong> Disfruto dibujar en mi tiempo libre o pintar, puede ser en un lienzo o en una hoja de papel, conocer distintas técnicas y encontrar nuevas formas de expresión.
+            </li>
+            <li class="mb-0">
+              <i class="bi bi-book me-2 text-danger"></i><strong>Leer:</strong> Leer es una de mis actividades favoritas, me permite sumergirme en diferentes mundos y descubrir nuevas ideas, observar diferentes perspectivas y comprender las decisiones de cada persona.
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="card-custom border-verde">
+          <h4 class="text-white mb-3">
+            <i class="bi bi-cpu me-2 text-success"></i>Intereses <span class="fs-6 text-secondary-custom">(Productivo)</span>
+          </h4>
+          <ul class="list-unstyled mb-0">
+            <li class="mb-3">
+              <i class="bi bi-hstack me-2 text-success"></i><strong>Infraestructura & Redes:</strong> He trabajado con infraestructura de red y servidores, administrando y manteniendo sistemas de comunicación eficientes. Busco profundizar mis conocimientos para dominar entornos virtualizados y en la nube.
+            </li>
+            <li class="mb-3">
+              <i class="bi bi-layout-side-by-side me-2 text-success"></i><strong>Desarrollo Frontend:</strong> Me apasiona la parte visual del desarrollo web. Trabajar con HTML, CSS y frameworks representa un reto constante de estructuración moderna e interfaz limpia.
+            </li>
+            <li class="mb-0">
+              <i class="bi bi-database me-2 text-success"></i><strong>Bases de Datos:</strong> Poseo sólida formación en diseño, normalización, implementación y mantenimiento de arquitecturas relacionales para la gestión eficiente de datos.
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+   
+    <section id="horario" class="mb-5">
+      <div class="card-custom border-azul">
+        <h4 class="text-white mb-3"><i class="bi bi-calendar3 me-2 text-info"></i>Horario & Rutina</h4>
+        <div class="table-responsive">
+          <table class="table table-custom align-middle">
+            <thead>
+              <tr>
+                <th>Tiempo</th>
+                <th>Actividad</th>
+                <th>Detalle</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>08:30 am - 11:45 am</strong></td>
+                <td>Asisto a clases en la Universidad UPDS</td>
+                <td><span class="badge badge-custom">Lunes a Viernes</span></td>
+              </tr>
+              <tr>
+                <td><strong>01:30 pm - 03:00 pm</strong></td>
+                <td>Repaso de material técnico, ejercicios de lógica y aprendizaje de idiomas</td>
+                <td><span class="badge badge-custom">Personal / Formación</span></td>
+              </tr>
+              <tr>
+                <td><strong>03:00 pm - 04:30 pm</strong></td>
+                <td>Tiempo dedicado a pasatiempos creativos (dibujo, lectura, investigación)</td>
+                <td><span class="badge badge-custom">Personal</span></td>
+              </tr>
+              <tr>
+                <td><strong>05:00 pm - 09:00 pm</strong></td>
+                <td>Atención y cuidado familiar</td>
+                <td><span class="badge badge-custom">Diario</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="favoritos" class="row g-4 mb-5">
+      
+    
+      <div class="col-lg-7">
+        <div class="card-custom border-guindo h-100">
+          <h4 class="text-white mb-4"><i class="bi bi-heart-pulse me-2 text-danger"></i>Favoritos</h4>
+          
+       
+          <div class="mb-4">
+            <h6 class="text-uppercase text-danger fw-bold mb-3"><i class="bi bi-music-note-beamed me-2"></i> Música</h6>
+            <p class="mb-2"><strong>1. JJAM / Stray Kids:</strong> Hip-Hop experimental y Trap. La agrupación destaca por explorar fusiones complejas como Dubstep, Hardstyle, Rock, Pop-Punk y R&B.</p>
+            <p class="mb-2"><strong>2. Right Where You Left Me / Taylor Swift:</strong> Folk-Pop y Country-Folk. Refleja una vertiente lírica profunda combinada con arreglos acústicos característicos.</p>
+            <p class="mb-0"><strong>3. Bewitched / Laufey:</strong> Jazz Vocal y Standard Jazz. Destaca por su producción suave, arreglos melódicos e influencias de Bossa Nova y música clásica.</p>
+          </div>
+
+          <hr class="border-secondary my-4">
+
+   
+          <div>
+            <h6 class="text-uppercase text-danger fw-bold mb-3"><i class="bi bi-controller me-2"></i> Juegos</h6>
+            <p class="mb-2"><strong>1. Minecraft:</strong> Sandbox y Construcción / Supervivencia. Un espacio ilimitado para la creatividad, exploración de entornos y desarrollo de arquitecturas complejas.</p>
+            <p class="mb-2"><strong>2. Hollow Knight:</strong> Metroidvania y Acciones / Plataformas 2D. Sobresale por su cuidada dirección de arte atmosférica, combate preciso y narrativa ambiental.</p>
+            <p class="mb-0"><strong>3. Mobile Legends: Bang Bang:</strong> MOBA (Multiplayer Online Battle Arena). Enfocado en estrategia en equipo, control de mapa y toma de decisiones tácticas en tiempo real.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-5">
+        <div class="card-custom border-guindo h-100">
+          
+         
+          <div class="mb-4">
+            <h5 class="text-white mb-2"><i class="bi bi-quote me-1 text-danger"></i> Frase</h5>
+            <blockquote class="blockquote fs-6 text-white-50 fst-italic mb-0">
+              "No matter how high the wall is, I'm just gonna break it."
+            </blockquote>
+            <small class="text-secondary-custom d-block mt-1">(No importa qué tan alta sea la pared, simplemente la voy a romper.)</small>
+          </div>
+
+          <hr class="border-secondary my-3">
+
+        
+          <div class="mb-4">
+            <h5 class="text-white mb-2"><i class="bi bi-star me-2 text-danger"></i> Criterio Técnico Principal</h5>
+            <p class="text-light mb-0"><strong>Resiliencia & Pensamiento Lógico:</strong> Capacidad analítica para el diagnóstico de problemas, perseverancia ante retos complejos de desarrollo y adaptación estructurada a nuevas tecnologías.</p>
+          </div>
+
+          <hr class="border-secondary my-3">
+
+          <div>
+            <h5 class="text-white mb-3"><i class="bi bi-bar-chart-steps me-2 text-danger"></i> Niveles de Dominio</h5>
+            
+            <div class="mb-3">
+              <div class="d-flex justify-content-between mb-1">
+                <small class="text-secondary-custom">Bases de Datos & SQL</small>
+                <small class="text-danger fw-bold">85%</small>
+              </div>
+              <div class="progress bg-dark" style="height: 8px;">
+                <div class="progress-bar" style="width: 85%; background-color: var(--guindo-claro);"></div>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <div class="d-flex justify-content-between mb-1">
+                <small class="text-secondary-custom">Infraestructura & Servidores</small>
+                <small class="text-danger fw-bold">75%</small>
+              </div>
+              <div class="progress bg-dark" style="height: 8px;">
+                <div class="progress-bar" style="width: 75%; background-color: #7b2cbf;"></div>
+              </div>
+            </div>
+
+            <div>
+              <div class="d-flex justify-content-between mb-1">
+                <small class="text-secondary-custom">Desarrollo Frontend (HTML/CSS/Bootstrap)</small>
+                <small class="text-danger fw-bold">80%</small>
+              </div>
+              <div class="progress bg-dark" style="height: 8px;">
+                <div class="progress-bar" style="width: 80%; background-color: #2a9d8f;"></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+
+  <footer class="py-4 text-center">
+    <div class="container">
+      <p class="text-secondary-custom small mb-3">Redes Sociales & Contacto</p>
+      <div class="d-flex justify-content-center gap-3 mb-3">
+        <a href="#" class="btn-social" title="GitHub"><i class="bi bi-github"></i></a>
+        <a href="#" class="btn-social" title="LinkedIn"><i class="bi bi-linkedin"></i></a>
+        <a href="#" class="btn-social" title="Instagram"><i class="bi bi-instagram"></i></a>
+      </div>
+      <small class="text-muted d-block">&copy; Portafolio Personal | Ingeniería de Sistemas</small>
+    </div>
+  </footer>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
