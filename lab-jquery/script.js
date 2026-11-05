@@ -6,39 +6,41 @@ $(document).ready(function() {
         $arrow.text($arrow.text() === '▼' ? '▲' : '▼');
     });
 
-    $('.btn-zone').click(function() {
-       
-        $('.btn-zone').removeClass('active');
+    $('.btn-filter').click(function() {
+        $('.btn-filter').removeClass('active');
         $(this).addClass('active');
 
-        const selectedTheme = $(this).data('theme');
-        const icon = $(this).data('icon');
-        const zone = $(this).data('zone');
+        const filterValue = $(this).data('filter');
 
-        $('body').removeClass('theme-cafe theme-pc theme-console').addClass(selectedTheme);
-
-        $('#main-icon').html(`${icon} CyberCafé & Gaming Lounge`);
-
-        $('.service-card').css('opacity', '0.4');
-        $(`.service-card[data-zone="${zone}"]`).css('opacity', '1').find('.accordion-panel').slideDown('fast');
+        if (filterValue === 'all') {
+            $('.service-card').fadeIn(300);
+        } else {
+            $('.service-card').each(function() {
+                if ($(this).data('category') === filterValue) {
+                    $(this).fadeIn(300);
+                } else {
+                    $(this).fadeOut(200);
+                }
+            });
+        }
     });
-
+    
     $('#booking-form').submit(function(e) {
         e.preventDefault();
 
         const nombre = $('#nombre').val();
-        const servicioText = $('#servicio option:selected').text();
+        const servicio = $('#servicio').val();
         const horas = $('#horas').val();
 
-        const resumenHtml = `
-            <h3>✅ ¡Reserva Confirmada!</h3>
+        const contenidoHtml = `
+            <h3>🎉 ¡Reserva Exitosa!</h3>
             <p><strong>Cliente:</strong> ${nombre}</p>
-            <p><strong>Área Reservada:</strong> ${servicioText}</p>
-            <p><strong>Tiempo:</strong> ${horas} hora(s)</p>
-            <p><em>Te esperamos en recepción para la entrega de tus credenciales/equipo.</em></p>
+            <p><strong>Estación:</strong> ${servicio}</p>
+            <p><strong>Tiempo asignado:</strong> ${horas} hora(s)</p>
+            <p style="margin-top:8px; font-size:0.85rem; color:#a3e635;"><em>Presenta este comprobante en recepción para activar tu sesión.</em></p>
         `;
 
-        $('#booking-summary').html(resumenHtml).fadeIn('slow');
+        $('#booking-summary').hide().html(contenidoHtml).slideDown(400);
     });
 
 });
