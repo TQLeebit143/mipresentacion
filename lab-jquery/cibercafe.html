@@ -7,94 +7,91 @@
     <link rel="stylesheet" href="estilos.css">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
-<body class="theme-default">
+<body>
 
     <header class="header">
-        <h1 id="main-icon">☕ CyberCafé & Gaming Lounge</h1>
-        <p>Selecciona un área para personalizar tu experiencia y realizar tu reserva</p>
+        <h1>☕ CiberCafe & Gaming</h1>
+        <p>Reserva tu estación de alta velocidad, zona de co-working o cabina de juego</p>
     </header>
 
     <main class="container">
         
-        <section class="theme-selector">
-            <h3>Selecciona la Zona:</h3>
-            <div class="selector-buttons">
-                <button class="btn-zone active" data-zone="cafe" data-icon="☕" data-theme="theme-cafe">
-                    Cafetería & Co-Working
-                </button>
-                <button class="btn-zone" data-zone="pc" data-icon="🖥️" data-theme="theme-pc">
-                    Zona PC Gamer / Internet
-                </button>
-                <button class="btn-zone" data-zone="console" data-icon="🎮" data-theme="theme-console">
-                    Estaciones Videojuegos (PS5 / Switch)
-                </button>
+        <section class="filter-section">
+            <h3>Filtrar por Área:</h3>
+            <div class="filter-buttons">
+                <button class="btn-filter active" data-filter="all">🌟 Todas las Áreas</button>
+                <button class="btn-filter" data-filter="cafe">☕ Co-Working & Café</button>
+                <button class="btn-filter" data-filter="pc">🖥️ Internet & PC Gamer</button>
+                <button class="btn-filter" data-filter="console">🎮 Zona Consolas VIP</button>
             </div>
         </section>
 
         <section class="services-section">
-            <h2>Detalles y Disponibilidad de Estaciones</h2>
+            <h2>Estaciones Disponibles</h2>
 
-            <div class="service-card" data-zone="cafe">
+            <div class="service-card" data-category="cafe">
                 <button class="accordion-btn">
-                    <span>☕ Mesas Co-Working & Expreso</span>
+                    <span>☕ Mesas Co-Working & Cafe Grumet</span>
                     <span class="arrow">▼</span>
                 </button>
                 <div class="accordion-panel">
-                    <p><strong>Equipamiento:</strong> Conexiones de alta velocidad, enchufes dedicados, café gourmet ilimitado y bocadillos.</p>
-                    <p><strong>Velocidad de Internet:</strong> 500 Mbps Simétricos vía Wi-Fi 6.</p>
-                    <span class="price">Bs. 15 / Hora</span>
-                </div>
-            </div>
-            <div class="service-card" data-zone="pc">
-                <button class="accordion-btn">
-                    <span>🖥️ Estaciones PC Gamer Pro</span>
-                    <span class="arrow">▼</span>
-                </button>
-                <div class="accordion-panel">
-                    <p><strong>Equipamiento:</strong> Ryzen 7 / RTX 4070, Pantallas 244Hz, Periféricos Mecánicos HyperX.</p>
-                    <p><strong>Catálogo:</strong> Valorant, League of Legends, CS2, DOTA 2 y navegación ultrarrápida.</p>
+                    <p><strong>Equipamiento:</strong> Conexión Wi-Fi 6 de alta velocidad, enchufes multiples, barra de café ilimitado.</p>
+                    <p><strong>Ideal para:</strong> Estudiantes de UPDS, teletrabajo y reuniones de proyectos.</p>
                     <span class="price">Bs. 10 / Hora</span>
                 </div>
             </div>
 
-            <div class="service-card" data-zone="console">
+            <div class="service-card" data-category="pc">
                 <button class="accordion-btn">
-                    <span>🎮 Salas VIP PS5 & Nintendo Switch</span>
+                    <span>🖥️ Cabinas Internet & PC Gamer Pro</span>
                     <span class="arrow">▼</span>
                 </button>
                 <div class="accordion-panel">
-                    <p><strong>Equipamiento:</strong> Pantallas OLED 65", Sillones Reclinables, 4 Mandos DualSense.</p>
-                    <p><strong>Juegos:</strong> EA FC 24, Mortal Kombat 1, Smash Bros Ultimate, Mario Kart 8.</p>
-                    <span class="price">Bs. 20 / Hora</span>
+                    <p><strong>Equipamiento:</strong> Ryzen 7, Gráficos RTX 4060, Monitores 180Hz, Periféricos Mecánicos.</p>
+                    <p><strong>Juegos / Red:</strong> Acceso libre a plataformas de desarrollo, juegos multijugador y fibra óptica dedicada.</p>
+                    <span class="price">Bs. 12 / Hora</span>
+                </div>
+            </div>
+
+            <div class="service-card" data-category="console">
+                <button class="accordion-btn">
+                    <span>🎮 Salas VIP PlayStation 5 & Nintendo Switch</span>
+                    <span class="arrow">▼</span>
+                </button>
+                <div class="accordion-panel">
+                    <p><strong>Equipamiento:</strong> Pantallas 4K de 55 pulgadas, sillones gaming ergonómicos, mandos DualSense.</p>
+                    <p><strong>Catálogo:</strong> EA FC 24, Mortal Kombat 1, Super Smash Bros.</p>
+                    <span class="price">Bs. 18 / Hora</span>
                 </div>
             </div>
         </section>
 
         <section class="booking-section">
-            <h2>Formulario de Reserva</h2>
+            <h2>📝 Formulario de Reserva de Estación</h2>
             <form id="booking-form">
                 <div class="form-group">
                     <label for="nombre">Nombre Completo:</label>
-                    <input type="text" id="nombre" required placeholder="Ej. Ana Ramos">
+                    <input type="text" id="nombre" required placeholder="Ej. Genesis Flores">
                 </div>
 
                 <div class="form-group">
-                    <label for="servicio">Área a Reservar:</label>
+                    <label for="servicio">Seleccionar Estación:</label>
                     <select id="servicio" required>
-                        <option value="cafeteria">Cafetería & Co-Working</option>
-                        <option value="pc-gamer">Zona PC Gamer / Internet</option>
-                        <option value="consolas">Estación Consolas VIP</option>
+                        <option value="Mesas Co-Working & Café">Mesas Co-Working & Café (Bs. 12/h)</option>
+                        <option value="Cabinas Internet & PC Gamer">Cabinas Internet & PC Gamer (Bs. 10/h)</option>
+                        <option value="Salas VIP PlayStation 5">Salas VIP PlayStation 5 (Bs. 18/h)</option>
                     </select>
                 </div>
 
                 <div class="form-group">
-                    <label for="horas">Horas de Permanencia:</label>
-                    <input type="number" id="horas" min="1" max="10" value="1" required>
+                    <label for="horas">Horas de Reserva:</label>
+                    <input type="number" id="horas" min="1" max="8" value="1" required>
                 </div>
 
-                <button type="submit" class="btn-submit">Confirmar Reserva</button>
+                <button type="submit" class="btn-submit">Reservar Ahora</button>
             </form>
-            <div id="booking-summary" class="summary-box"></div>
+
+            <div id="booking-summary" class="summary-box" style="display: none;"></div>
         </section>
 
     </main>
