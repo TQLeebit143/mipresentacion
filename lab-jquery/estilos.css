@@ -3,97 +3,97 @@
     margin: 0;
     padding: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    transition: background 0.4s ease, color 0.3s ease;
 }
 
 body {
+    background: linear-gradient(135deg, #0d0b1e 0%, #171033 50%, #08060f 100%);
+    color: #f3f4f6;
     min-height: 100vh;
     padding: 20px;
-    color: #ffffff;
-}
-
-body.theme-default, body.theme-cafe {
-    background: linear-gradient(135deg, #2c1d11 0%, #4a2e1b 50%, #1a0f0a 100%);
-}
-
-body.theme-pc {
-    background: linear-gradient(135deg, #0f0c20 0%, #1b1035 50%, #080314 100%);
-}
-
-body.theme-console {
-    background: linear-gradient(135deg, #051923 0%, #003554 50%, #000c14 100%);
 }
 
 .container {
-    max-width: 900px;
+    max-width: 850px;
     margin: 0 auto;
 }
 
 .header {
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 25px;
 }
 
 .header h1 {
-    font-size: 2.2rem;
-    margin-bottom: 8px;
+    font-size: 2rem;
+    color: #c084fc;
+    margin-bottom: 5px;
 }
 
-.theme-selector {
-    background: rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(8px);
-    padding: 20px;
+.header p {
+    color: #9ca3af;
+    font-size: 0.95rem;
+}
+
+.filter-section {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 15px;
     border-radius: 12px;
     text-align: center;
-    margin-bottom: 25px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 20px;
 }
 
-.selector-buttons {
+.filter-buttons {
     display: flex;
-    gap: 12px;
+    gap: 8px;
     justify-content: center;
     flex-wrap: wrap;
-    margin-top: 15px;
+    margin-top: 12px;
 }
 
-.btn-zone {
-    padding: 10px 18px;
+.btn-filter {
+    padding: 8px 14px;
     border: none;
-    border-radius: 8px;
-    background: rgba(255, 255, 255, 0.15);
-    color: #fff;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.08);
+    color: #e5e7eb;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.3s ease;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
 }
 
-.btn-zone:hover, .btn-zone.active {
-    background: #ffffff;
-    color: #111;
-    transform: translateY(-2px);
+.btn-filter:hover, .btn-filter.active {
+    background: #a855f7;
+    color: #fff;
+    transform: translateY(-1px);
 }
 
 .services-section {
-    margin-bottom: 30px;
+    margin-bottom: 25px;
+}
+
+.services-section h2 {
+    font-size: 1.2rem;
+    margin-bottom: 12px;
+    color: #e2e8f0;
 }
 
 .service-card {
-    margin-bottom: 15px;
+    margin-bottom: 12px;
     border-radius: 10px;
     overflow: hidden;
-    background: rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .accordion-btn {
     width: 100%;
-    padding: 18px 20px;
-    background: rgba(255, 255, 255, 0.05);
+    padding: 15px 18px;
+    background: rgba(255, 255, 255, 0.03);
     color: #fff;
     border: none;
-    font-size: 1.1rem;
-    font-weight: bold;
+    font-size: 1rem;
+    font-weight: 600;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -102,19 +102,17 @@ body.theme-console {
 }
 
 .accordion-btn:hover {
-    background: rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.08);
 }
 
 .accordion-panel {
     display: none;
-    padding: 20px;
-    background: rgba(0, 0, 0, 0.4);
+    padding: 18px;
+    background: rgba(0, 0, 0, 0.25);
     border-top: 1px solid rgba(255, 255, 255, 0.05);
-    line-height: 1.6;
-}
-
-.accordion-panel p {
-    margin-bottom: 8px;
+    line-height: 1.5;
+    font-size: 0.95rem;
+    color: #cbd5e1;
 }
 
 .price {
@@ -125,35 +123,40 @@ body.theme-console {
     background: rgba(74, 222, 128, 0.1);
     padding: 4px 10px;
     border-radius: 6px;
+    font-size: 0.9rem;
 }
 
 .booking-section {
-    background: rgba(0, 0, 0, 0.3);
-    padding: 25px;
+    background: rgba(15, 23, 42, 0.6);
+    padding: 22px;
     border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .booking-section h2 {
+    font-size: 1.2rem;
     margin-bottom: 15px;
 }
 
 .form-group {
-    margin-bottom: 15px;
+    margin-bottom: 12px;
 }
 
 .form-group label {
     display: block;
-    margin-bottom: 6px;
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+    color: #cbd5e1;
 }
 
 .form-group input, .form-group select {
     width: 100%;
-    padding: 10px 14px;
+    padding: 10px;
     border-radius: 6px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: rgba(0, 0, 0, 0.4);
     color: #fff;
+    font-size: 0.95rem;
 }
 
 .btn-submit {
@@ -161,23 +164,36 @@ body.theme-console {
     padding: 12px;
     border: none;
     border-radius: 8px;
-    background: #2563eb;
+    background: linear-gradient(135deg, #9333ea, #7e22ce);
     color: #fff;
     font-size: 1rem;
     font-weight: bold;
     cursor: pointer;
     margin-top: 10px;
+    transition: opacity 0.2s;
 }
 
 .btn-submit:hover {
-    background: #1d4ed8;
+    opacity: 0.9;
 }
 
 .summary-box {
-    display: none;
-    margin-top: 20px;
-    padding: 15px;
+    margin-top: 18px;
+    padding: 18px;
     border-radius: 8px;
-    background: rgba(34, 197, 94, 0.2);
-    border: 1px solid #22c55e;
+    background: rgba(20, 83, 45, 0.4);
+    border: 2px solid #22c55e;
+    box-shadow: 0 4px 20px rgba(34, 197, 94, 0.15);
+}
+
+.summary-box h3 {
+    color: #4ade80;
+    margin-bottom: 8px;
+    font-size: 1.05rem;
+}
+
+.summary-box p {
+    font-size: 0.95rem;
+    margin-bottom: 4px;
+    color: #e2e8f0;
 }
