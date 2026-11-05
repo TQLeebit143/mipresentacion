@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberCafé & Gaming Zone - Reservas</title>
+    <link rel="stylesheet" href="estilos.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body class="theme-default">
+
+    <header class="header">
+        <h1 id="main-icon">☕ CyberCafé & Gaming Lounge</h1>
+        <p>Selecciona un área para personalizar tu experiencia y realizar tu reserva</p>
+    </header>
+
+    <main class="container">
+        
+        <section class="theme-selector">
+            <h3>Selecciona la Zona:</h3>
+            <div class="selector-buttons">
+                <button class="btn-zone active" data-zone="cafe" data-icon="☕" data-theme="theme-cafe">
+                    Cafetería & Co-Working
+                </button>
+                <button class="btn-zone" data-zone="pc" data-icon="🖥️" data-theme="theme-pc">
+                    Zona PC Gamer / Internet
+                </button>
+                <button class="btn-zone" data-zone="console" data-icon="🎮" data-theme="theme-console">
+                    Estaciones Videojuegos (PS5 / Switch)
+                </button>
+            </div>
+        </section>
+
+        <section class="services-section">
+            <h2>Detalles y Disponibilidad de Estaciones</h2>
+
+            <div class="service-card" data-zone="cafe">
+                <button class="accordion-btn">
+                    <span>☕ Mesas Co-Working & Expreso</span>
+                    <span class="arrow">▼</span>
+                </button>
+                <div class="accordion-panel">
+                    <p><strong>Equipamiento:</strong> Conexiones de alta velocidad, enchufes dedicados, café gourmet ilimitado y bocadillos.</p>
+                    <p><strong>Velocidad de Internet:</strong> 500 Mbps Simétricos vía Wi-Fi 6.</p>
+                    <span class="price">Bs. 15 / Hora</span>
+                </div>
+            </div>
+            <div class="service-card" data-zone="pc">
+                <button class="accordion-btn">
+                    <span>🖥️ Estaciones PC Gamer Pro</span>
+                    <span class="arrow">▼</span>
+                </button>
+                <div class="accordion-panel">
+                    <p><strong>Equipamiento:</strong> Ryzen 7 / RTX 4070, Pantallas 244Hz, Periféricos Mecánicos HyperX.</p>
+                    <p><strong>Catálogo:</strong> Valorant, League of Legends, CS2, DOTA 2 y navegación ultrarrápida.</p>
+                    <span class="price">Bs. 10 / Hora</span>
+                </div>
+            </div>
+
+            <div class="service-card" data-zone="console">
+                <button class="accordion-btn">
+                    <span>🎮 Salas VIP PS5 & Nintendo Switch</span>
+                    <span class="arrow">▼</span>
+                </button>
+                <div class="accordion-panel">
+                    <p><strong>Equipamiento:</strong> Pantallas OLED 65", Sillones Reclinables, 4 Mandos DualSense.</p>
+                    <p><strong>Juegos:</strong> EA FC 24, Mortal Kombat 1, Smash Bros Ultimate, Mario Kart 8.</p>
+                    <span class="price">Bs. 20 / Hora</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="booking-section">
+            <h2>Formulario de Reserva</h2>
+            <form id="booking-form">
+                <div class="form-group">
+                    <label for="nombre">Nombre Completo:</label>
+                    <input type="text" id="nombre" required placeholder="Ej. Ana Ramos">
+                </div>
+
+                <div class="form-group">
+                    <label for="servicio">Área a Reservar:</label>
+                    <select id="servicio" required>
+                        <option value="cafeteria">Cafetería & Co-Working</option>
+                        <option value="pc-gamer">Zona PC Gamer / Internet</option>
+                        <option value="consolas">Estación Consolas VIP</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="horas">Horas de Permanencia:</label>
+                    <input type="number" id="horas" min="1" max="10" value="1" required>
+                </div>
+
+                <button type="submit" class="btn-submit">Confirmar Reserva</button>
+            </form>
+            <div id="booking-summary" class="summary-box"></div>
+        </section>
+
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
