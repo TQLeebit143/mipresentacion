@@ -3,95 +3,115 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CyberCafé & Gaming Zone - Reservas</title>
+    <title>CYBER_NEXUS // Café & Gaming Lounge</title>
     <link rel="stylesheet" href="estilos.css">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 <body>
 
     <header class="header">
-        <h1>☕ CiberCafe & Gaming</h1>
-        <p>Reserva tu estación de alta velocidad, zona de co-working o cabina de juego</p>
+        <h1 class="neon-title">⚡ CYBER_NEXUS ⚡</h1>
+        <p>Café de Especialidad, Alta Velocidad & Gaming Zone</p>
     </header>
 
     <main class="container">
         
+        <section class="schedule-section">
+            <h3>🕒 Horarios de Atención</h3>
+            <div class="schedule-grid">
+                <p><strong>Lunes a Viernes:</strong> 12:00 PM – 10:00 PM</p>
+                <p><strong>Sábados (Especial):</strong> 2:00 PM – 12:00 AM</p>
+                <p><strong>Domingos:</strong> Cerrado </p>
+            </div>
+        </section>
+
         <section class="filter-section">
-            <h3>Filtrar por Área:</h3>
+            <h3>Filtrar Zonas del Local:</h3>
             <div class="filter-buttons">
-                <button class="btn-filter active" data-filter="all">🌟 Todas las Áreas</button>
-                <button class="btn-filter" data-filter="cafe">☕ Co-Working & Café</button>
-                <button class="btn-filter" data-filter="pc">🖥️ Internet & PC Gamer</button>
-                <button class="btn-filter" data-filter="console">🎮 Zona Consolas VIP</button>
+                <button class="btn-filter active" data-filter="all">🌐 Ver Todo</button>
+                <button class="btn-filter" data-filter="cafe">☕ Café & Co-Working</button>
+                <button class="btn-filter" data-filter="pc">🖥️ Internet & PC Pro</button>
+                <button class="btn-filter" data-filter="console">🎮 Consolas VIP</button>
             </div>
         </section>
 
         <section class="services-section">
-            <h2>Estaciones Disponibles</h2>
+            <h2>Estaciones y Menú</h2>
 
             <div class="service-card" data-category="cafe">
                 <button class="accordion-btn">
-                    <span>☕ Mesas Co-Working & Cafe Grumet</span>
+                    <span>☕ Barra Café & Bebidas Energéticas</span>
                     <span class="arrow">▼</span>
                 </button>
                 <div class="accordion-panel">
-                    <p><strong>Equipamiento:</strong> Conexión Wi-Fi 6 de alta velocidad, enchufes multiples, barra de café ilimitado.</p>
-                    <p><strong>Ideal para:</strong> Estudiantes de UPDS, teletrabajo y reuniones de proyectos.</p>
-                    <span class="price">Bs. 10 / Hora</span>
+                    <p><strong>Especialidades:</strong> Espresso doble, Cappuccino artesanal, Iced Latte y bebidas energéticas Monster/RedBull.</p>
+                    <p><strong>Co-Working:</strong> Mesas con conexiones eléctricas y fibra óptica dedicada.</p>
+                    <span class="price">Desde Bs. 15 / Consumo o Hora</span>
                 </div>
             </div>
 
             <div class="service-card" data-category="pc">
                 <button class="accordion-btn">
-                    <span>🖥️ Cabinas Internet & PC Gamer Pro</span>
+                    <span>🖥️ Cabinas Internet & PC Gamer</span>
                     <span class="arrow">▼</span>
                 </button>
                 <div class="accordion-panel">
-                    <p><strong>Equipamiento:</strong> Ryzen 7, Gráficos RTX 4060, Monitores 180Hz, Periféricos Mecánicos.</p>
-                    <p><strong>Juegos / Red:</strong> Acceso libre a plataformas de desarrollo, juegos multijugador y fibra óptica dedicada.</p>
+                    <p><strong>Hardware:</strong> AMD Ryzen 7, RTX 4065 Ti, Monitores curvos 240Hz, Teclados mecánicos RGB.</p>
+                    <p><strong>Conectividad:</strong> Ping ultra bajo (1ms) para eSports y desarrollo.</p>
                     <span class="price">Bs. 12 / Hora</span>
                 </div>
             </div>
 
             <div class="service-card" data-category="console">
                 <button class="accordion-btn">
-                    <span>🎮 Salas VIP PlayStation 5 & Nintendo Switch</span>
+                    <span>🎮 Salas Privadas PS5 & Nintendo Switch</span>
                     <span class="arrow">▼</span>
                 </button>
                 <div class="accordion-panel">
-                    <p><strong>Equipamiento:</strong> Pantallas 4K de 55 pulgadas, sillones gaming ergonómicos, mandos DualSense.</p>
-                    <p><strong>Catálogo:</strong> EA FC 24, Mortal Kombat 1, Super Smash Bros.</p>
-                    <span class="price">Bs. 18 / Hora</span>
+                    <p><strong>Equipamiento:</strong> Pantallas OLED 65", sillones reclinables ergonómicos y mandos DualSense Pro.</p>
+                    <p><strong>Torneos:</strong> FC24, Mortal Kombat 1, Tekken 8 y Smash Bros.</p>
+                    <span class="price">Bs. 20 / Hora</span>
                 </div>
             </div>
         </section>
 
         <section class="booking-section">
-            <h2>📝 Formulario de Reserva de Estación</h2>
+            <h2>📝 Reservar Estación o Mesa</h2>
             <form id="booking-form">
                 <div class="form-group">
-                    <label for="nombre">Nombre Completo:</label>
-                    <input type="text" id="nombre" required placeholder="Ej. Genesis Flores">
+                    <label for="nombre">Nombre del Cliente:</label>
+                    <input type="text" id="nombre" required placeholder="Ej. Alex Vance">
                 </div>
 
                 <div class="form-group">
-                    <label for="servicio">Seleccionar Estación:</label>
+                    <label for="servicio">Seleccionar Zona:</label>
                     <select id="servicio" required>
-                        <option value="Mesas Co-Working & Café">Mesas Co-Working & Café (Bs. 12/h)</option>
-                        <option value="Cabinas Internet & PC Gamer">Cabinas Internet & PC Gamer (Bs. 10/h)</option>
-                        <option value="Salas VIP PlayStation 5">Salas VIP PlayStation 5 (Bs. 18/h)</option>
+                        <option value="Barra Café & Co-Working">Barra Café & Co-Working (Bs. 15)</option>
+                        <option value="Cabinas Internet & PC Gamer">Cabinas Internet & PC Gamer (Bs. 12/h)</option>
+                        <option value="Salas Privadas PS5">Salas Privadas PS5 (Bs. 20/h)</option>
                     </select>
                 </div>
 
                 <div class="form-group">
-                    <label for="horas">Horas de Reserva:</label>
-                    <input type="number" id="horas" min="1" max="8" value="1" required>
+                    <label for="horas">Tiempo (Horas / Packs):</label>
+                    <input type="number" id="horas" min="1" max="6" value="1" required>
                 </div>
 
-                <button type="submit" class="btn-submit">Reservar Ahora</button>
+                <button type="submit" class="btn-submit">Confirmar Reserva Neón</button>
             </form>
-
             <div id="booking-summary" class="summary-box" style="display: none;"></div>
+        </section>
+
+        <section class="cancel-section">
+            <h2>🚫 ¿Deseas Suspender tu Reserva?</h2>
+            <p class="cancel-desc">Si no puedes asistir, ingresa tus datos para liberar el espacio.</p>
+            <form id="cancel-form">
+                <div class="form-group">
+                    <input type="text" id="cancel-nombre" required placeholder="Introduce tu nombre registrado">
+                </div>
+                <button type="submit" class="btn-cancel">Cancelar / Suspender Reserva</button>
+            </form>
+            <div id="cancel-summary" class="summary-cancel-box" style="display: none;"></div>
         </section>
 
     </main>
