@@ -5,7 +5,7 @@ $(document).ready(function() {
         const $arrow = $(this).find('.arrow');
         $arrow.text($arrow.text() === '▼' ? '▲' : '▼');
     });
-
+    
     $('.btn-filter').click(function() {
         $('.btn-filter').removeClass('active');
         $(this).addClass('active');
@@ -24,7 +24,7 @@ $(document).ready(function() {
             });
         }
     });
-    
+
     $('#booking-form').submit(function(e) {
         e.preventDefault();
 
@@ -32,15 +32,29 @@ $(document).ready(function() {
         const servicio = $('#servicio').val();
         const horas = $('#horas').val();
 
-        const contenidoHtml = `
-            <h3>🎉 ¡Reserva Exitosa!</h3>
-            <p><strong>Cliente:</strong> ${nombre}</p>
-            <p><strong>Estación:</strong> ${servicio}</p>
-            <p><strong>Tiempo asignado:</strong> ${horas} hora(s)</p>
-            <p style="margin-top:8px; font-size:0.85rem; color:#a3e635;"><em>Presenta este comprobante en recepción para activar tu sesión.</em></p>
+        const htmlResumen = `
+            <h3>⚡ ¡Reserva Neón Confirmada!</h3>
+            <p><strong>Titular:</strong> ${nombre}</p>
+            <p><strong>Zona Seleccionada:</strong> ${servicio}</p>
+            <p><strong>Tiempo:</strong> ${horas} unidad(es)</p>
+            <p style="margin-top:6px; font-size:0.85rem;"><em>Pásate por caja con tu nombre para acceder a la red.</em></p>
         `;
 
-        $('#booking-summary').hide().html(contenidoHtml).slideDown(400);
+        $('#booking-summary').hide().html(htmlResumen).slideDown(400);
+    });
+
+    $('#cancel-form').submit(function(e) {
+        e.preventDefault();
+
+        const nombreCancel = $('#cancel-nombre').val();
+
+        const htmlCancel = `
+            <h3>🚫 Reserva Suspendida</h3>
+            <p>El registro a nombre de <strong>${nombreCancel}</strong> ha sido cancelado exitosamente del sistema.</p>
+        `;
+
+        $('#cancel-summary').hide().html(htmlCancel).slideDown(400);
+        $('#cancel-form')[0].reset();
     });
 
 });
