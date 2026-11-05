@@ -2,14 +2,15 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Courier New', Courier, monospace, sans-serif;
 }
 
 body {
-    background: linear-gradient(135deg, #0d0b1e 0%, #171033 50%, #08060f 100%);
-    color: #f3f4f6;
+    background-color: #050508;
+    color: #e2e8f0;
     min-height: 100vh;
     padding: 20px;
+    background-image: radial-gradient(circle at 50% 10%, #110c24 0%, #050508 70%);
 }
 
 .container {
@@ -22,24 +23,55 @@ body {
     margin-bottom: 25px;
 }
 
-.header h1 {
-    font-size: 2rem;
-    color: #c084fc;
+.neon-title {
+    font-size: 2.5rem;
+    color: #00f0ff;
+    text-shadow: 0 0 10px rgba(0, 240, 255, 0.6), 0 0 20px rgba(0, 240, 255, 0.4);
     margin-bottom: 5px;
+    letter-spacing: 2px;
 }
 
 .header p {
-    color: #9ca3af;
-    font-size: 0.95rem;
+    color: #ff007f;
+    text-shadow: 0 0 8px rgba(255, 0, 127, 0.5);
+    font-size: 1rem;
+}
+
+.schedule-section {
+    background: rgba(15, 12, 34, 0.7);
+    border: 1px solid #00f0ff;
+    box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.schedule-section h3 {
+    color: #00f0ff;
+    margin-bottom: 8px;
+}
+
+.schedule-grid p {
+    font-size: 0.9rem;
+    margin: 4px 0;
+    color: #cbd5e1;
 }
 
 .filter-section {
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(20, 10, 30, 0.8);
+    border: 1px solid #ff007f;
+    box-shadow: 0 0 10px rgba(255, 0, 127, 0.2);
     padding: 15px;
-    border-radius: 12px;
+    border-radius: 10px;
     text-align: center;
     margin-bottom: 20px;
+}
+
+.filter-section h3 {
+    color: #ff007f;
+    margin-bottom: 10px;
+    font-size: 1.1rem;
 }
 
 .filter-buttons {
@@ -47,27 +79,26 @@ body {
     gap: 8px;
     justify-content: center;
     flex-wrap: wrap;
-    margin-top: 12px;
 }
 
 .btn-filter {
     padding: 8px 14px;
-    border: none;
+    border: 1px solid #ff007f;
     border-radius: 6px;
-    background: rgba(255, 255, 255, 0.08);
-    color: #e5e7eb;
-    font-weight: 600;
+    background: transparent;
+    color: #fff;
+    font-weight: bold;
     cursor: pointer;
-    font-size: 0.9rem;
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
 }
 
 .btn-filter:hover, .btn-filter.active {
-    background: #a855f7;
-    color: #fff;
-    transform: translateY(-1px);
+    background: #ff007f;
+    color: #050508;
+    box-shadow: 0 0 15px #ff007f;
 }
 
+/* Servicios y Acordeón */
 .services-section {
     margin-bottom: 25px;
 }
@@ -75,67 +106,90 @@ body {
 .services-section h2 {
     font-size: 1.2rem;
     margin-bottom: 12px;
-    color: #e2e8f0;
+    color: #39ff14;
+    text-shadow: 0 0 8px rgba(57, 255, 20, 0.4);
 }
 
 .service-card {
     margin-bottom: 12px;
     border-radius: 10px;
     overflow: hidden;
-    background: rgba(15, 23, 42, 0.6);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(10, 10, 18, 0.9);
+    border: 1px solid rgba(0, 240, 255, 0.3);
 }
 
 .accordion-btn {
     width: 100%;
     padding: 15px 18px;
-    background: rgba(255, 255, 255, 0.03);
-    color: #fff;
+    background: rgba(0, 240, 255, 0.05);
+    color: #00f0ff;
     border: none;
     font-size: 1rem;
-    font-weight: 600;
+    font-weight: bold;
     display: flex;
     justify-content: space-between;
     align-items: center;
     cursor: pointer;
     text-align: left;
+    transition: background 0.2s;
 }
 
 .accordion-btn:hover {
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(0, 240, 255, 0.15);
 }
 
 .accordion-panel {
     display: none;
     padding: 18px;
-    background: rgba(0, 0, 0, 0.25);
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
-    line-height: 1.5;
+    background: rgba(0, 0, 0, 0.5);
+    border-top: 1px solid rgba(0, 240, 255, 0.2);
     font-size: 0.95rem;
     color: #cbd5e1;
+    line-height: 1.5;
 }
 
 .price {
     display: inline-block;
     margin-top: 10px;
     font-weight: bold;
-    color: #4ade80;
-    background: rgba(74, 222, 128, 0.1);
+    color: #39ff14;
+    background: rgba(57, 255, 20, 0.1);
+    border: 1px solid #39ff14;
     padding: 4px 10px;
     border-radius: 6px;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
 }
 
-.booking-section {
-    background: rgba(15, 23, 42, 0.6);
+.booking-section, .cancel-section {
+    background: rgba(10, 10, 18, 0.9);
     padding: 22px;
-    border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    border: 1px solid #39ff14;
+    box-shadow: 0 0 10px rgba(57, 255, 20, 0.15);
+    margin-bottom: 20px;
+}
+
+.cancel-section {
+    border-color: #ff007f;
+    box-shadow: 0 0 10px rgba(255, 0, 127, 0.15);
 }
 
 .booking-section h2 {
+    color: #39ff14;
     font-size: 1.2rem;
-    margin-bottom: 15px;
+    margin-bottom: 12px;
+}
+
+.cancel-section h2 {
+    color: #ff007f;
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+}
+
+.cancel-desc {
+    font-size: 0.85rem;
+    color: #94a3b8;
+    margin-bottom: 12px;
 }
 
 .form-group {
@@ -146,15 +200,15 @@ body {
     display: block;
     margin-bottom: 5px;
     font-size: 0.9rem;
-    color: #cbd5e1;
+    color: #e2e8f0;
 }
 
 .form-group input, .form-group select {
     width: 100%;
     padding: 10px;
     border-radius: 6px;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid #00f0ff;
+    background: #030305;
     color: #fff;
     font-size: 0.95rem;
 }
@@ -163,37 +217,54 @@ body {
     width: 100%;
     padding: 12px;
     border: none;
-    border-radius: 8px;
-    background: linear-gradient(135deg, #9333ea, #7e22ce);
+    border-radius: 6px;
+    background: #39ff14;
+    color: #050508;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(57, 255, 20, 0.5);
+    transition: all 0.2s;
+}
+
+.btn-submit:hover {
+    background: #2ebd0f;
+    box-shadow: 0 0 20px #39ff14;
+}
+
+.btn-cancel {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    background: #ff007f;
     color: #fff;
     font-size: 1rem;
     font-weight: bold;
     cursor: pointer;
-    margin-top: 10px;
-    transition: opacity 0.2s;
+    box-shadow: 0 0 10px rgba(255, 0, 127, 0.5);
+    transition: all 0.2s;
 }
 
-.btn-submit:hover {
-    opacity: 0.9;
+.btn-cancel:hover {
+    background: #d9006c;
+    box-shadow: 0 0 20px #ff007f;
 }
 
 .summary-box {
-    margin-top: 18px;
-    padding: 18px;
-    border-radius: 8px;
-    background: rgba(20, 83, 45, 0.4);
-    border: 2px solid #22c55e;
-    box-shadow: 0 4px 20px rgba(34, 197, 94, 0.15);
+    margin-top: 15px;
+    padding: 15px;
+    border-radius: 6px;
+    background: rgba(57, 255, 20, 0.1);
+    border: 1px solid #39ff14;
+    color: #39ff14;
 }
 
-.summary-box h3 {
-    color: #4ade80;
-    margin-bottom: 8px;
-    font-size: 1.05rem;
-}
-
-.summary-box p {
-    font-size: 0.95rem;
-    margin-bottom: 4px;
-    color: #e2e8f0;
+.summary-cancel-box {
+    margin-top: 15px;
+    padding: 15px;
+    border-radius: 6px;
+    background: rgba(255, 0, 127, 0.1);
+    border: 1px solid #ff007f;
+    color: #ff007f;
 }
