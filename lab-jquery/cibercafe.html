@@ -1,121 +1,267 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CYBER_NEXUS // Café & Gaming Lounge</title>
-    <link rel="stylesheet" href="estilos.css">
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CYBER ARENA</title>
+  <link rel="stylesheet" href="estilos.css">
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
-<body>
+<body class="vista-bg-1">
 
-    <header class="header">
-        <h1 class="neon-title">⚡ CYBER_NEXUS ⚡</h1>
-        <p>Café de Especialidad, Alta Velocidad & Gaming Zone</p>
+  <div id="toast-alert" class="toast-hidden">
+    <div class="toast-titulo" id="toast-titulo">SISTEMA</div>
+    <div class="toast-cuerpo" id="toast-cuerpo">Acción completada.</div>
+  </div>
+
+  <div id="app-container-hud">
+
+    <header id="hud-header">
+      <div class="hud-left">
+        <div class="avatar-box">VIP</div>
+        <div class="perfil-info">
+          <span class="jugador-nombre" id="hud-jugador">Cliente: Invitado</span>
+          <span class="jugador-estado">● En Línea</span>
+        </div>
+        <div class="logo-hud">CYBER ARENA ⚡</div>
+      </div>
+
+      <div class="hud-center">
+        <span class="etiqueta-hud">ZONA ACTUAL:</span>
+        <span id="indicador-zona">Lobby Principal</span>
+      </div>
+
+      <div class="hud-right">
+        <div class="moneda-box">
+          <span>Items: <strong id="hud-items">0</strong></span>
+        </div>
+        <div class="moneda-box moneda-oro">
+          <span>Total: <strong id="hud-total">0</strong> BOB</span>
+        </div>
+        <button id="btn-tema" class="btn-theme-toggle" title="Cambiar Tema">🌙 Modo Noche</button>
+      </div>
     </header>
 
-    <main class="container">
-        
-        <section class="schedule-section">
-            <h3>🕒 Horarios de Atención</h3>
-            <div class="schedule-grid">
-                <p><strong>Lunes a Viernes:</strong> 12:00 PM – 10:00 PM</p>
-                <p><strong>Sábados (Especial):</strong> 2:00 PM – 12:00 AM</p>
-                <p><strong>Domingos:</strong> Cerrado </p>
+    <main id="hud-main-content">
+
+      <section id="vista-lobby" class="vista-hud vista-activa">
+        <div class="lobby-grid-pro">
+          <div class="panel-hud-card">
+            <h3>🔍 Radar de Búsqueda</h3>
+            <input type="text" id="inputRadar" placeholder="Buscar PC, Consola, Café..." class="input-field">
+            
+            <h3 style="margin-top: 15px;">🚀 Accesos Rápidos</h3>
+            <div class="btn-group-vertical">
+              <button class="btn-accion-pro" onclick="cambiarVistaCompleta('vista-reservas', 'Zonas y Reservas', 'vista-bg-2')">📌 Zonas & Reservas</button>
+              <button class="btn-accion-pro" onclick="cambiarVistaCompleta('vista-cafeteria', 'Cafetería & Menú', 'vista-bg-3')">🍔 Cafetería & Menú</button>
+              <button class="btn-accion-pro" onclick="cambiarVistaCompleta('vista-cuenta', 'Estado de Cuenta', 'vista-bg-4')">🔍 Estado de Cuenta</button>
+              <button class="btn-accion-pro" onclick="cambiarVistaCompleta('vista-bitacoras', 'Monitor de Bitácoras', 'vista-bg-5')">📜 Monitor de Bitácoras</button>
             </div>
-        </section>
+          </div>
 
-        <section class="filter-section">
-            <h3>Filtrar Zonas del Local:</h3>
-            <div class="filter-buttons">
-                <button class="btn-filter active" data-filter="all">🌐 Ver Todo</button>
-                <button class="btn-filter" data-filter="cafe">☕ Café & Co-Working</button>
-                <button class="btn-filter" data-filter="pc">🖥️ Internet & PC Pro</button>
-                <button class="btn-filter" data-filter="console">🎮 Consolas VIP</button>
+          <div class="panel-hud-card">
+            <h3>🖥️ Panel de Control Central</h3>
+            <p>Bienvenido al centro de operaciones de Cyber Arena. Explora las secciones inferiores para gestionar tu experiencia gaming y de cafetería.</p>
+            <div class="info-banner-glow">
+              <h4>Estado General del Servidor</h4>
+              <p>Red Co-Working: 100% Estable | Latencia: 4ms | Conexión Segura</p>
             </div>
-        </section>
+          </div>
 
-        <section class="services-section">
-            <h2>Estaciones y Menú</h2>
+          <div class="panel-hud-card">
+            <h3>🛒 Inventario de Orden</h3>
+            <ul id="lista-carrito-lobby" class="lista-carrito-box">
+              <li class="carrito-vacio">Sin reservas ni snacks activos.</li>
+            </ul>
+            <div style="margin-top: auto;">
+              <div style="display: flex; justify-content: space-between; margin-bottom: 6px; font-weight: bold;">
+                <span>TOTAL:</span>
+                <span id="carritoTotalLabel" style="color: var(--section-title);">0 BOB</span>
+              </div>
+              <button class="btn-buy" onclick="abrirCheckoutModal()">CONFIRMAR Y PAGAR</button>
+            </div>
+          </div>
+        </div>
+      </section>
 
-            <div class="service-card" data-category="cafe">
-                <button class="accordion-btn">
-                    <span>☕ Barra Café & Bebidas Energéticas</span>
-                    <span class="arrow">▼</span>
-                </button>
-                <div class="accordion-panel">
-                    <p><strong>Especialidades:</strong> Espresso doble, Cappuccino artesanal, Iced Latte y bebidas energéticas Monster/RedBull.</p>
-                    <p><strong>Co-Working:</strong> Mesas con conexiones eléctricas y fibra óptica dedicada.</p>
-                    <span class="price">Desde Bs. 15 / Consumo o Hora</span>
-                </div>
+      <section id="vista-reservas" class="vista-hud" style="display: none;">
+        <div class="barra-vista-interna">
+          <button class="btn-volver" onclick="cambiarVistaCompleta('vista-lobby', 'Lobby Principal', 'vista-bg-1')">⬅ Volver al Lobby</button>
+          <h2 class="titulo-vista">GESTIÓN DE ZONAS, MAPA Y RESERVAS</h2>
+        </div>
+        <div class="contenedor-scroll-vista">
+          <div class="grid-dos-columnas">
+            
+            <div class="panel-hud-card">
+              <h3>Fichas de Selección (Haz clic para asignar)</h3>
+              <div class="service-card product-selectable" onclick="seleccionarEstacionTarjeta(this, 'Cabinas PC Gamer Pro')">
+                <button class="accordion-btn">🖥️ Cabinas PC Gamer Pro (RTX 4060) <span class="arrow">▼</span></button>
+                <div class="accordion-panel"><p>Monitores 180Hz, periféricos mecánicos.</p><span class="price">10 BOB / h</span></div>
+              </div>
+              <div class="service-card product-selectable" onclick="seleccionarEstacionTarjeta(this, 'Salas VIP Consolas (PS5)')">
+                <button class="accordion-btn">🎮 Salas VIP Consolas (PS5 / Series X) <span class="arrow">▼</span></button>
+                <div class="accordion-panel"><p>Pantallas 4K 65", Mandos DualSense Pro.</p><span class="price">18 BOB / h</span></div>
+              </div>
+              <div class="service-card product-selectable" onclick="seleccionarEstacionTarjeta(this, 'Salas Normales Consolas (PS4/PS3)')">
+                <button class="accordion-btn">🕹️ Salas Normales Consolas (PS4 / PS3) <span class="arrow">▼</span></button>
+                <div class="accordion-panel"><p>Pantallas LED 43", catálogos clásicos.</p><span class="price">12 BOB / h</span></div>
+              </div>
+              <div class="service-card product-selectable" onclick="seleccionarEstacionTarjeta(this, 'Mesas Co-Working & Café')">
+                <button class="accordion-btn">☕ Mesas Co-Working & Café <span class="arrow">▼</span></button>
+                <div class="accordion-panel"><p>Wi-Fi 6 de alta velocidad, enchufes y confort.</p><span class="price">12 BOB / h</span></div>
+              </div>
             </div>
 
-            <div class="service-card" data-category="pc">
-                <button class="accordion-btn">
-                    <span>🖥️ Cabinas Internet & PC Gamer</span>
-                    <span class="arrow">▼</span>
-                </button>
-                <div class="accordion-panel">
-                    <p><strong>Hardware:</strong> AMD Ryzen 7, RTX 4065 Ti, Monitores curvos 240Hz, Teclados mecánicos RGB.</p>
-                    <p><strong>Conectividad:</strong> Ping ultra bajo (1ms) para eSports y desarrollo.</p>
-                    <span class="price">Bs. 12 / Hora</span>
-                </div>
+            <div class="panel-hud-card">
+              <h3>Formulario de Reserva con Validación</h3>
+              <form id="form-reserva">
+                <label>Nombre del Jugador / Cliente:</label>
+                <input type="text" id="nombreCliente" placeholder="Ej: Genesis Alejandra" class="input-field">
+                
+                <label>Zona o Estación a Reservar:</label>
+                <select id="areaReserva" class="input-field">
+                  <option value="Cabinas PC Gamer Pro">Cabinas PC Gamer Pro (10 BOB/h)</option>
+                  <option value="Salas VIP Consolas (PS5)">Salas VIP Consolas (18 BOB/h)</option>
+                  <option value="Salas Normales Consolas (PS4/PS3)">Salas Normales Consolas (12 BOB/h)</option>
+                  <option value="Mesas Co-Working & Café">Mesas Co-Working & Café (12 BOB/h)</option>
+                </select>
+
+                <label>Duración en Horas:</label>
+                <input type="number" id="horasReserva" class="input-field" step="0.5" min="0.5" max="10" value="1" required>
+
+                <button type="submit" class="btn-buy">Confirmar y Asignar Estación</button>
+              </form>
+
+              <h3 style="margin-top: 15px;">🗺️ Mapa Ampliado de Equipos</h3>
+              <div id="mapaGridCompleto" class="mapa-grid-ampliado">
+                <div class="mapa-card libre" data-id="PC-01">PC-01 <br><small>Disponible</small></div>
+                <div class="mapa-card libre" data-id="PC-02">PC-02 <br><small>Disponible</small></div>
+                <div class="mapa-card libre" data-id="PS5-01">PS5-01 <br><small>Disponible</small></div>
+                <div class="mapa-card libre" data-id="PS4-01">PS4-01 <br><small>Disponible</small></div>
+                <div class="mapa-card libre" data-id="MESA-01">MESA-01 <br><small>Disponible</small></div>
+              </div>
             </div>
 
-            <div class="service-card" data-category="console">
-                <button class="accordion-btn">
-                    <span>🎮 Salas Privadas PS5 & Nintendo Switch</span>
-                    <span class="arrow">▼</span>
-                </button>
-                <div class="accordion-panel">
-                    <p><strong>Equipamiento:</strong> Pantallas OLED 65", sillones reclinables ergonómicos y mandos DualSense Pro.</p>
-                    <p><strong>Torneos:</strong> FC24, Mortal Kombat 1, Tekken 8 y Smash Bros.</p>
-                    <span class="price">Bs. 20 / Hora</span>
-                </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="vista-cafeteria" class="vista-hud" style="display: none;">
+        <div class="barra-vista-interna">
+          <button class="btn-volver" onclick="cambiarVistaCompleta('vista-lobby', 'Lobby Principal', 'vista-bg-1')">⬅ Volver al Lobby</button>
+          <h2 class="titulo-vista">CAFETERÍA & MENÚ "SOL CAFÉ" (SERVICIO A ESTACIÓN)</h2>
+        </div>
+        <div class="contenedor-scroll-vista">
+          <div style="margin-bottom: 12px; background: var(--card-bg-sub); padding: 10px; border-radius: 6px; border: 1px solid var(--border);">
+            <label style="color: var(--section-title); font-weight: bold;">Selecciona tu Estación Activa para enviar el pedido:</label>
+            <select id="selectEquipoMenu" class="input-field" style="max-width: 400px; margin-top: 4px;">
+              <option value="">-- Primero reserva una estación --</option>
+            </select>
+          </div>
+
+          <div class="menu-categorias-grid">
+     
+            <div class="panel-hud-card">
+              <h3>☕ Cafés & Especiales</h3>
+              <div class="menu-item-row" onclick="pedirItem('Espresso', 10)"><span>Espresso</span><strong>10 BOB</strong></div>
+              <div class="menu-item-row" onclick="pedirItem('Americano', 12)"><span>Americano</span><strong>12 BOB</strong></div>
+              <div class="menu-item-row" onclick="pedirItem('Cappuccino', 15)"><span>Cappuccino</span><strong>15 BOB</strong></div>
+              <div class="menu-item-row" onclick="pedirItem('Latte / Macchiato', 15)"><span>Latte / Macchiato</span><strong>15 BOB</strong></div>
+              <div class="menu-item-row" onclick="pedirItem('Café Helado / Frappé', 16)"><span>Café Helado / Frappé</span><strong>16 BOB</strong></div>
             </div>
-        </section>
+          
+            <div class="panel-hud-card">
+              <h3>🥪 Panes & Sándwiches</h3>
+              <div class="menu-item-row" onclick="pedirItem('Pan con Chicharrón', 22)"><span>Pan con Chicharrón</span><strong>22 BOB</strong></div>
+              <div class="menu-item-row" onclick="pedirItem('Sándwich Club', 28)"><span>Sándwich Club</span><strong>28 BOB</strong></div>
+              <div class="menu-item-row" onclick="pedirItem('Wrap de Pollo', 20)"><span>Wrap de Pollo</span><strong>20 BOB</strong></div>
+              <div class="menu-item-row" onclick="pedirItem('Salchipapa Gamer', 18)"><span>Salchipapa Gamer</span><strong>18 BOB</strong></div>
+              <div class="menu-item-row" onclick="pedirItem('Mini Pizzeta Pepperoni', 18)"><span>Mini Pizzeta</span><strong>18 BOB</strong></div>
+            </div>
+         
+            <div class="panel-hud-card">
+              <h3>🍰 Postres & Bebidas</h3>
+              <div class="menu-item-row" onclick="pedirItem('Cheesecake', 18)"><span>Cheesecake</span><strong>18 BOB</strong></div>
+              <div class="menu-item-row" onclick="pedirItem('Brownie con Helado', 16)"><span>Brownie con Helado</span><strong>16 BOB</strong></div>
+              <div class="menu-item-row" onclick="pedirItem('Bebida Energética Monster', 15)"><span>Bebida Monster</span><strong>15 BOB</strong></div>
+              <div class="menu-item-row" onclick="pedirItem('Pie de Limón', 17)"><span>Pie de Limón</span><strong>17 BOB</strong></div>
+              <div class="menu-item-row" onclick="pedirItem('Croissant / Muffin', 12)"><span>Croissant / Muffin</span><strong>12 BOB</strong></div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-        <section class="booking-section">
-            <h2>📝 Reservar Estación o Mesa</h2>
-            <form id="booking-form">
-                <div class="form-group">
-                    <label for="nombre">Nombre del Cliente:</label>
-                    <input type="text" id="nombre" required placeholder="Ej. Alex Vance">
-                </div>
+      <section id="vista-cuenta" class="vista-hud" style="display: none;">
+        <div class="barra-vista-interna">
+          <button class="btn-volver" onclick="cambiarVistaCompleta('vista-lobby', 'Lobby Principal', 'vista-bg-1')">⬅ Volver al Lobby</button>
+          <h2 class="titulo-vista">ESTADO DE CUENTA & LIBERACIÓN DE ESTACIÓN</h2>
+        </div>
+        <div class="contenedor-scroll-vista">
+          <div class="grid-dos-columnas">
+            <div class="panel-hud-card">
+              <h3>🔍 Consultar Cuenta Activa</h3>
+              <label>Cliente o Código de Estación:</label>
+              <input type="text" id="inputBusquedaCuenta" placeholder="Ej: Genesis o PC-01" class="input-field">
+              <button class="btn-buy" onclick="consultarCuentaCliente()">Buscar Cuenta</button>
+              <div id="resultadoConsultaCuenta" class="log-box-grande" style="margin-top: 10px; height: 160px;"></div>
+            </div>
+            <div class="panel-hud-card">
+              <h3>❌ Liberar / Suspender Estación</h3>
+              <label>Selecciona equipo a liberar:</label>
+              <select id="selectCancelarEstacion" class="input-field"><option value="">-- Seleccionar --</option></select>
+              <button class="btn-buy" style="background: #ef4444; margin-top: 10px;" onclick="liberarEstacionSistema()">Liberar y Finalizar Sesión</button>
+            </div>
+          </div>
+        </div>
+      </section>
 
-                <div class="form-group">
-                    <label for="servicio">Seleccionar Zona:</label>
-                    <select id="servicio" required>
-                        <option value="Barra Café & Co-Working">Barra Café & Co-Working (Bs. 15)</option>
-                        <option value="Cabinas Internet & PC Gamer">Cabinas Internet & PC Gamer (Bs. 12/h)</option>
-                        <option value="Salas Privadas PS5">Salas Privadas PS5 (Bs. 20/h)</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="horas">Tiempo (Horas / Packs):</label>
-                    <input type="number" id="horas" min="1" max="6" value="1" required>
-                </div>
-
-                <button type="submit" class="btn-submit">Confirmar Reserva Neón</button>
-            </form>
-            <div id="booking-summary" class="summary-box" style="display: none;"></div>
-        </section>
-
-        <section class="cancel-section">
-            <h2>🚫 ¿Deseas Suspender tu Reserva?</h2>
-            <p class="cancel-desc">Si no puedes asistir, ingresa tus datos para liberar el espacio.</p>
-            <form id="cancel-form">
-                <div class="form-group">
-                    <input type="text" id="cancel-nombre" required placeholder="Introduce tu nombre registrado">
-                </div>
-                <button type="submit" class="btn-cancel">Cancelar / Suspender Reserva</button>
-            </form>
-            <div id="cancel-summary" class="summary-cancel-box" style="display: none;"></div>
-        </section>
+      <section id="vista-bitacoras" class="vista-hud" style="display: none;">
+        <div class="barra-vista-interna">
+          <button class="btn-volver" onclick="cambiarVistaCompleta('vista-lobby', 'Lobby Principal', 'vista-bg-1')">⬅ Volver al Lobby</button>
+          <h2 class="titulo-vista">MONITOR DE REGISTROS Y BITÁCORAS DEL SISTEMA</h2>
+        </div>
+        <div class="contenedor-scroll-vista">
+          <div class="grid-dos-columnas">
+            <div class="panel-hud-card">
+              <h3>📜 Bitácora de Acciones y Navegación DOM</h3>
+              <div id="logOutputEventos" class="log-box-grande">
+                <div>[Sistema] Monitor inicializado correctamente.</div>
+              </div>
+            </div>
+            <div class="panel-hud-card">
+              <h3>💰 Bitácora de Ventas & Transacciones</h3>
+              <div id="logOutputVentas" class="log-box-grande">
+                <div>[Caja] Sin transacciones completadas en esta sesión.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
     </main>
 
-    <script src="script.js"></script>
+    <footer class="hud-dock">
+      <button class="btn-dock-nav active" onclick="cambiarVistaCompleta('vista-lobby', 'Lobby Principal', 'vista-bg-1')">🏠 LOBBY</button>
+      <button class="btn-dock-nav" onclick="cambiarVistaCompleta('vista-reservas', 'Zonas y Reservas', 'vista-bg-2')">📌 RESERVAS</button>
+      <button class="btn-dock-nav" onclick="cambiarVistaCompleta('vista-cafeteria', 'Cafetería & Menú', 'vista-bg-3')">🍔 CAFETERÍA</button>
+      <button class="btn-dock-nav" onclick="cambiarVistaCompleta('vista-cuenta', 'Estado de Cuenta', 'vista-bg-4')">🔍 CUENTA</button>
+      <button class="btn-dock-nav" onclick="cambiarVistaCompleta('vista-bitacoras', 'Monitor de Bitácoras', 'vista-bg-5')">📜 BITÁCORAS</button>
+    </footer>
+
+  </div>
+
+  <div id="modal-checkout" class="modal-overlay" style="display: none;">
+    <div class="modal-contenido">
+      <h2>CHECKOUT DE PAGO</h2>
+      <div id="modal-resumen" style="margin: 10px 0; font-size: 0.85rem; max-height: 120px; overflow-y: auto;"></div>
+      <p style="font-weight: bold; color: var(--section-title); margin-bottom: 10px;">Total a Pagar: <span id="modalTotalPagar">0</span> BOB</p>
+      <label>Nombre del Jugador / Cliente:</label>
+      <input type="text" id="inputModalCliente" placeholder="Nombre obligatorio para el ticket" class="input-field">
+      <button class="btn-buy" onclick="procesarPagoFinal()">Pagar y Confirmar</button>
+      <button class="btn-action" style="background: #475569; margin-top: 6px;" onclick="$('#modal-checkout').fadeOut('fast')">Cancelar</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
