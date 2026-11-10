@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark" data-bs-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Presentación personal PWA de Ale, estudiante de Ingeniería de Sistemas.">
+  <title>Ale | Presentación PWA Versión Mobile</title>
+  
+  <script>
+    (function () {
+      var tema = 'dark';
+      try { tema = localStorage.getItem('tema') || 'dark'; } catch (error) {}
+      document.documentElement.dataset.theme = tema;
+      document.documentElement.dataset.bsTheme = tema;
+    })();
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  
+  <link rel="stylesheet" href="presentacion.css">
+</head>
+<body class="pwa-body">
+
+  <div class="pwa-container">
+
+    <nav class="navbar px-3 py-2">
+      <div class="container-fluid position-relative p-0">
+        <a class="navbar-brand m-0 nav-link-vista" href="#" data-target="inicio"><i class="bi bi-code-slash me-1"></i>Ale</a>
+
+        <div class="d-flex align-items-center gap-2">
+          <button id="themeBtn" class="btn-menu" type="button" aria-label="Cambiar tema"><i class="bi bi-sun"></i></button>
+          <button id="menuBtn" class="btn-menu" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="menuPrincipal" aria-label="Abrir menú de navegación">
+            <i class="bi bi-list"></i>
+          </button>
+        </div>
+
+        <div class="menu-panel" id="menuPrincipal">
+          <ul class="menu-list">
+            <li><a class="menu-link nav-link-vista active" href="#" data-target="inicio"><i class="bi bi-house me-2"></i>Inicio</a></li>
+            <li><a class="menu-link nav-link-vista" href="#" data-target="galeria-actividades"><i class="bi bi-images me-2"></i>Galería & Actividades</a></li>
+            <li><a class="menu-link nav-link-vista" href="#" data-target="horario"><i class="bi bi-calendar-week me-2"></i>Horario</a></li>
+            <li><a class="menu-link nav-link-vista" href="#" data-target="favoritos"><i class="bi bi-heart me-2"></i>Favoritos</a></li>
+            <li><a class="menu-link nav-link-vista" href="#" data-target="contacto"><i class="bi bi-envelope me-2"></i>Contacto</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <main class="pwa-viewport">
+
+      <section id="vista-inicio" class="vista-seccion activa">
+        <div class="h-100 d-flex flex-column justify-content-center text-center px-2 py-4">
+          <h1 class="hero-title">Hola, soy Ale</h1>
+          <p class="hero-lead mx-auto text-soft mb-4">Estudio Ingeniería de Sistemas en la UPDS. Me interesan el desarrollo frontend, las bases de datos y la infraestructura de redes.</p>
+          <blockquote class="hero-quote mb-4 p-3 rounded mx-auto">
+            <p class="mb-1 fst-italic small">"It's okay to take a break when things get hard."</p>
+            <footer class="text-soft small">— Bang Chan (Stray Kids) <span class="d-block mt-1">("Está bien tomarse un descanso cuando las cosas se ponen difíciles")</span></footer>
+          </blockquote>
+          <div class="d-flex justify-content-center gap-2">
+            <button class="btn btn-brand btn-sm nav-link-vista" data-target="contacto">Contáctame</button>
+            <button class="btn btn-ghost btn-sm nav-link-vista" data-target="favoritos">Mis favoritos</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="vista-galeria-actividades" class="vista-seccion">
+        <div class="section-head mb-3">
+          <h2 class="section-title fs-5">Galería & Actividades</h2>
+        </div>
+        
+        <div id="mainCarousel" class="carousel slide carousel-fade carousel-frame mb-3" data-bs-ride="carousel">
+          <div class="carousel-inner rounded">
+            <div class="carousel-item active">
+              <img src="https://i.pinimg.com/736x/a9/a8/53/a9a8533cd3f519ab8928ef5696f16f9a.jpg" alt="Desarrollo y sistemas" class="w-100 carousel-img">
+              <div class="carousel-caption p-2 rounded">
+                <h6 class="mb-0">Desarrollo y sistemas</h6>
+                <small class="fs-micro text-soft">Exploración visual y conceptual de entornos informáticos.</small>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <img src="https://i.pinimg.com/1200x/82/84/7a/82847a22a2f7c680ac55348568306281.jpg" alt="Diseño y estructura" class="w-100 carousel-img">
+              <div class="carousel-caption p-2 rounded">
+                <h6 class="mb-0">Diseño y estructura</h6>
+                <small class="fs-micro text-soft">Lógica de datos e interfaces orientadas al usuario.</small>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <img src="https://i.pinimg.com/1200x/48/b3/28/48b328850078158308a7b0cf36ab8732.jpg" alt="Espacios de creación" class="w-100 carousel-img">
+              <div class="carousel-caption p-2 rounded">
+                <h6 class="mb-0">Espacios de creación</h6>
+                <small class="fs-micro text-soft">Proyectos personales y formación continua.</small>
+              </div>
+            </div>
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#mainCarousel" data-bs-slide="prev"><span class="carousel-control-prev-icon"></span></button>
+          <button class="carousel-control-next" type="button" data-bs-target="#mainCarousel" data-bs-slide="next"><span class="carousel-control-next-icon"></span></button>
+        </div>
+
+        <div class="row g-2">
+          <div class="col-12">
+            <div class="panel panel--plata p-3">
+              <h3 class="panel-title fs-6 mb-2">Pasatiempos <span class="panel-note text-soft small">No productivo</span></h3>
+              <ul class="item-list list-unstyled mb-0 small">
+                <li class="mb-2"><i class="bi bi-film me-1 text-carmesi"></i><strong>Ver series y películas:</strong> Variedad de géneros y mundos.</li>
+                <li class="mb-2"><i class="bi bi-palette me-1 text-carmesi"></i><strong>Dibujar:</strong> Pintura y nuevas técnicas de expresión.</li>
+                <li class="mb-0"><i class="bi bi-book me-1 text-carmesi"></i><strong>Leer:</strong> Descubrir nuevas ideas y mundos.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="panel panel--carmesi p-3">
+              <h3 class="panel-title fs-6 mb-2">Intereses <span class="panel-note text-soft small">Productivo</span></h3>
+              <ul class="item-list list-unstyled mb-0 small">
+                <li class="mb-2"><i class="bi bi-hdd-network me-1 text-carmesi"></i><strong>Infraestructura y redes:</strong> Servidores y virtualización.</li>
+                <li class="mb-2"><i class="bi bi-layout-text-window me-1 text-carmesi"></i><strong>Desarrollo frontend:</strong> HTML, CSS y JS.</li>
+                <li class="mb-0"><i class="bi bi-database me-1 text-carmesi"></i><strong>Bases de datos:</strong> Diseño y arquitectura relacional.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="vista-horario" class="vista-seccion">
+        <div class="section-head mb-3">
+          <h2 class="section-title fs-5">Horario y Rutina</h2>
+        </div>
+        <div class="panel panel--plata p-2">
+          <div class="table-responsive">
+            <table class="table table-custom align-middle small mb-0">
+              <thead>
+                <tr><th>Tiempo</th><th>Actividad</th><th>Detalle</th></tr>
+              </thead>
+              <tbody>
+                <tr><td class="fw-bold">08:30 - 11:45</td><td>Clases en la Universidad UPDS</td><td><span class="tag">Lunes a viernes</span></td></tr>
+                <tr><td class="fw-bold">13:30 - 15:00</td><td>Repaso de material técnico y lógica</td><td><span class="tag">Formación</span></td></tr>
+                <tr><td class="fw-bold">15:00 - 16:30</td><td>Pasatiempos creativos (dibujo, lectura)</td><td><span class="tag">Personal</span></td></tr>
+                <tr><td class="fw-bold">17:00 - 21:00</td><td>Atención y cuidado familiar</td><td><span class="tag">Diario</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section id="vista-favoritos" class="vista-seccion">
+        <div class="section-head mb-2">
+          <h2 class="section-title fs-5">Favoritos</h2>
+          <p class="section-desc text-soft fs-micro mb-2">Explora canciones, grupos de K-Pop, solistas y videojuegos recomendados.</p>
+        </div>
+
+        <div class="chip-row mb-2" role="group" aria-label="Categoría principal">
+          <button type="button" class="chip is-active btn-sm py-1 px-3" data-filtro="todos" aria-pressed="true">Todo</button>
+          <button type="button" class="chip btn-sm py-1 px-3" data-filtro="musica" aria-pressed="false">Música</button>
+          <button type="button" class="chip btn-sm py-1 px-3" data-filtro="juegos" aria-pressed="false">Juegos</button>
+        </div>
+
+        <div id="sub-musica" class="subfilters chip-row mb-2" role="group" aria-label="Filtros de música" hidden>
+          <button type="button" class="chip chip--sub is-active btn-sm py-0 px-2" data-sub-filtro="">Toda la música</button>
+          <button type="button" class="chip chip--sub btn-sm py-0 px-2" data-sub-filtro="cancion">Canciones Favoritas</button>
+          <button type="button" class="chip chip--sub btn-sm py-0 px-2" data-sub-filtro="kpop-grupo">Grupos K-Pop</button>
+          <button type="button" class="chip chip--sub btn-sm py-0 px-2" data-sub-filtro="solista-pop">Solistas Pop / Jazz</button>
+          <button type="button" class="chip chip--sub btn-sm py-0 px-2" data-sub-filtro="rnb-indie">R&amp;B / Solistas Urbano</button>
+          <button type="button" class="chip chip--sub btn-sm py-0 px-2" data-sub-filtro="krock">K-Rock y Bandas</button>
+        </div>
+
+        <div id="sub-juegos" class="subfilters chip-row mb-2" role="group" aria-label="Filtros de juegos" hidden>
+          <button type="button" class="chip chip--sub is-active btn-sm py-0 px-2" data-sub-filtro="">Todos los juegos</button>
+          <button type="button" class="chip chip--sub btn-sm py-0 px-2" data-sub-filtro="moba">MOBA</button>
+          <button type="button" class="chip chip--sub btn-sm py-0 px-2" data-sub-filtro="construccion">Construcción / Supervivencia</button>
+          <button type="button" class="chip chip--sub btn-sm py-0 px-2" data-sub-filtro="plataforma">Plataforma 2D</button>
+        </div>
+
+        <p id="conteoFavoritos" class="filter-count small mb-2 text-soft fs-micro" aria-live="polite"></p>
+
+        <div class="row g-2" id="gridFavoritos">
+
+          <div class="col-6 col-md-6" data-tipo="musica" data-sub="cancion">
+            <article class="fav-card p-2 h-100">
+              <div class="fav-tags mb-1"><span class="tag tag--music">Canción</span></div>
+              <h4 class="h6 mb-0">Butterfly</h4>
+              <p class="fav-meta text-soft fs-micro mb-1">BTS</p>
+              <p class="fav-text text-soft fs-micro mb-1">Canción emotiva con melodías suaves y arreglos pop.</p>
+              <a class="link-more" href="https://www.youtube.com/results?search_query=Butterfly+BTS" target="_blank" rel="noopener">YouTube &rarr;</a>
+            </article>
+          </div>
+
+          <div class="col-6 col-md-6" data-tipo="musica" data-sub="cancion">
+            <article class="fav-card p-2 h-100">
+              <div class="fav-tags mb-1"><span class="tag tag--music">Canción</span></div>
+              <h4 class="h6 mb-0">JJAM</h4>
+              <p class="fav-meta text-soft fs-micro mb-1">Stray Kids</p>
+              <p class="fav-text text-soft fs-micro mb-1">Hip-hop experimental y trap con fusiones dubstep.</p>
+              <a class="link-more" href="https://www.youtube.com/results?search_query=JJAM+Stray+Kids" target="_blank" rel="noopener">YouTube &rarr;</a>
+            </article>
+          </div>
+
+          <div class="col-6 col-md-6" data-tipo="musica" data-sub="cancion">
+            <article class="fav-card p-2 h-100">
+              <div class="fav-tags mb-1"><span class="tag tag--music">Canción</span></div>
+              <h4 class="h6 mb-0">Right Where You Left Me</h4>
+              <p class="fav-meta text-soft fs-micro mb-1">Taylor Swift</p>
+              <p class="fav-text text-soft fs-micro mb-1">Folk-pop con vertiente lírica profunda y acústica.</p>
+              <a class="link-more" href="https://www.youtube.com/results?search_query=Right+Where+You+Left+Me+Taylor+Swift" target="_blank" rel="noopener">YouTube &rarr;</a>
+            </article>
+          </div>
+
+          <div class="col-6 col-md-6" data-tipo="musica" data-sub="cancion">
+            <article class="fav-card p-2 h-100">
+              <div class="fav-tags mb-1"><span class="tag tag--music">Canción</span></div>
+              <h4 class="h6 mb-0">Bewitched</h4>
+              <p class="fav-meta text-soft fs-micro mb-1">Laufey</p>
+              <p class="fav-text text-soft fs-micro mb-1">Jazz vocal elegante e influencias de bossa nova.</p>
+              <a class="link-more" href="https://www.youtube.com/results?search_query=Bewitched+Laufey" target="_blank" rel="noopener">YouTube &rarr;</a>
+            </article>
+          </div>
+
+          <div class="col-6 col-md-6" data-tipo="musica" data-sub="cancion">
+            <article class="fav-card p-2 h-100">
+              <div class="fav-tags mb-1"><span class="tag tag--music">Canción</span></div>
+              <h4 class="h6 mb-0">God's Menu</h4>
+              <p class="fav-meta text-soft fs-micro mb-1">Stray Kids</p>
+              <p class="fav-text text-soft fs-micro mb-1">Energía desbordante y estilo único.</p>
+              <a class="link-more" href="https://www.youtube.com/results?search_query=Gods+Menu+Stray+Kids" target="_blank" rel="noopener">YouTube &rarr;</a>
+            </article>
+          </div>
+
+          <div class="col-6 col-md-6" data-tipo="musica" data-sub="cancion">
+            <article class="fav-card p-2 h-100">
+              <div class="fav-tags mb-1"><span class="tag tag--music">Canción</span></div>
+              <h4 class="h6 mb-0">Spring Day</h4>
+              <p class="fav-meta text-soft fs-micro mb-1">BTS</p>
+              <p class="fav-text text-soft fs-micro mb-1">Balada nostálgica icónica sobre la amistad.</p>
+              <a class="link-more" href="https://www.youtube.com/results?search_query=Spring+Day+BTS" target="_blank" rel="noopener">YouTube &rarr;</a>
+            </article>
+          </div>
+
+          <div class="col-6 col-md-6" data-tipo="musica" data-sub="cancion">
+            <article class="fav-card p-2 h-100">
+              <div class="fav-tags mb-1"><span class="tag tag--music">Canción</span></div>
+              <h4 class="h6 mb-0">Espresso</h4>
+              <p class="fav-meta text-soft fs-micro mb-1">Sabrina Carpenter</p>
+              <p class="fav-text text-soft fs-micro mb-1">Pop contagioso con ritmo funk veraniego.</p>
+              <a class="link-more" href="https://www.youtube.com/results?search_query=Espresso+Sabrina+Carpenter" target="_blank" rel="noopener">YouTube &rarr;</a>
+            </article>
+          </div>
+
+          <div class="col-6 col-md-6" data-tipo="musica" data-sub="kpop-grupo">
+            <article class="fav-card p-0 overflow-hidden h-100">
+              <img src="https://i.pinimg.com/736x/83/87/f4/8387f41775c294462ab276f9842b35be.jpg" alt="Stray Kids" class="fav-card-img">
+              <div class="p-2 d-flex flex-column flex-grow-1">
+                <div class="fav-tags mb-1"><span class="tag tag--music">K-Pop</span></div>
+                <h4 class="h6 mb-0">Stray Kids</h4>
+                <p class="fav-meta text-soft fs-micro mb-1">Debut: 2018 | JYP</p>
+                <p class="fav-text text-soft fs-micro mb-1">Autosuficiencia musical (3RACHA).</p>
+                <a class="link-more mt-auto" href="https://kprofiles.com/stray-kids-members-profile/" target="_blank" rel="noopener">Perfil &rarr;</a>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-6 col-md-6" data-tipo="musica" data-sub="kpop-grupo">
+            <article class="fav-card p-0 overflow-hidden h-100">
+              <img src="https://i.pinimg.com/1200x/3d/a0/3b/3da03b3f536f3f527a9759b58cff0210.jpg" alt="SEVENTEEN" class="fav-card-img">
+              <div class="p-2 d-flex flex-column flex-grow-1">
+                <div class="fav-tags mb-1"><span class="tag tag--music">K-Pop</span></div>
+                <h4 class="h6 mb-0">SEVENTEEN</h4>
+                <p class="fav-meta text-soft fs-micro mb-1">Debut: 2015 | PLEDIS</p>
+                <p class="fav-text text-soft fs-micro mb-1">13 miembros, gran sincronización.</p>
+                <a class="link-more mt-auto" href="https://kprofiles.com/seventeen-members-profile/" target="_blank" rel="noopener">Perfil &rarr;</a>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-6 col-md-6" data-tipo="musica" data-sub="kpop-grupo">
+            <article class="fav-card p-0 overflow-hidden h-100">
+              <img src="https://i.pinimg.com/736x/3a/b4/cf/3ab4cfd97022bacb6ef6474f20eed9be.jpg" alt="BTS" class="fav-card-img">
+              <div class="p-2 d-flex flex-column flex-grow-1">
+                <div class="fav-tags mb-1"><span class="tag tag--music">K-Pop</span></div>
+                <h4 class="h6 mb-0">BTS</h4>
+                <p class="fav-meta text-soft fs-micro mb-1">Debut: 2013 | BIGHIT</p>
+                <p class="fav-text text-soft fs-micro mb-1">Íconos globales de la industria.</p>
+                <a class="link-more mt-auto" href="https://kprofiles.com/bts-bangtan-boys-members-profile/" target="_blank" rel="noopener">Perfil &rarr;</a>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-6 col-md-6" data-tipo="musica" data-sub="kpop-grupo">
+            <article class="fav-card p-0 overflow-hidden h-100">
+              <img src="https://i.pinimg.com/736x/a2/cd/a5/a2cda54f8160205e221e829e3e9c2319.jpg" alt="BLACKPINK" class="fav-card-img">
+              <div class="p-2 d-flex flex-column flex-grow-1">
+                <div class="fav-tags mb-1"><span class="tag tag--music">K-Pop</span></div>
+                <h4 class="h6 mb-0">BLACKPINK</h4>
+                <p class="fav-meta text-soft fs-micro mb-1">Debut: 2016 | YG</p>
+                <p class="fav-text text-soft fs-micro mb-1">Referente moda y pop global.</p>
+                <a class="link-more mt-auto" href="https://kprofiles.com/black-pink-members-profile/" target="_blank" rel="noopener">Perfil &rarr;</a>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-6 col-md-6" data-tipo="musica" data-sub="kpop-grupo">
+            <article class="fav-card p-0 overflow-hidden h-100">
+              <img src="https://i.pinimg.com/736x/1c/bb/cd/1cbbcdbf0f5aa4c26f2e0b02b69b079b.jpg" alt="TWICE" class="fav-card-img">
+              <div class="p-2 d-flex flex-column flex-grow-1">
+                <div class="fav-tags mb-1"><span class="tag tag--music">K-Pop</span></div>
+                <h4 class="h6 mb-0">TWICE</h4>
+                <p class="fav-meta text-soft fs-micro mb-1">Debut: 2015 | JYP</p>
+                <p class="fav-text text-soft fs-micro mb-1">Coreografías contagiosas.</p>
+                <a class="link-more mt-auto" href="https://kprofiles.com/twice-members-profile/" target="_blank" rel="noopener">Perfil &rarr;</a>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-6 col-md-6" data-tipo="musica" data-sub="kpop-grupo">
+            <article class="fav-card p-0 overflow-hidden h-100">
+              <img src="https://i.pinimg.com/1200x/6f/30/76/6f30760ff0ea93c2ac0cba7a0f417534.jpg" alt="NewJeans" class="fav-card-img">
+              <div class="p-2 d-flex flex-column flex-grow-1">
+                <div class="fav-tags mb-1"><span class="tag tag--music">K-Pop</span></div>
+                <h4 class="h6 mb-0">NewJeans</h4>
+                <p class="fav-meta text-soft fs-micro mb-1">Debut: 2022 | ADOR</p>
+                <p class="fav-text text-soft fs-micro mb-1">Sonido nostálgico 2000s R&B.</p>
+                <a class="link-more mt-auto" href="https://kprofiles.com/newjeans-members-profile/" target="_blank" rel="noopener">Perfil &rarr;</a>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-6 col-md-6" data-tipo="musica" data-sub="kpop-grupo">
+            <article class="fav-card p-0 overflow-hidden h-100">
+              <img src="https://i.pinimg.com/1200x/ee/ec/03/eeec035f01fc10dedfabfb610cad8eda.jpg" alt="EXO" class="fav-card-img">
+              <div class="p-2 d-flex flex-column flex-grow-1">
+                <div class="fav-tags mb-1"><span class="tag tag--music">K-Pop</span></div>
+                <h4 class="h6 mb-0">EXO</h4>
+                <p class="fav-meta text-soft fs-micro mb-1">Debut: 2012 | SM</p>
+                <p class="fav-text text-soft fs-micro mb-1">Potentes armonías vocales.</p>
+                <a class="link-more mt-auto" href="https://kprofiles.com/exo-members-profile/" target="_blank" rel="noopener">Perfil &rarr;</a>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-6 col-md-6" data-tipo="musica" data-sub="kpop-grupo">
+            <article class="fav-card p-0 overflow-hidden h-100">
+              <img src="https://i.pinimg.com/736x/f8/88/fb/f888fb48095f9b2c62b4b960469eddd5.jpg" alt="Red Velvet" class="fav-card-img">
+              <div class="p-2 d-flex flex-column flex-grow-1">
+                <div class="fav-tags mb-1"><span class="tag tag--music">K-Pop</span></div>
+                <h4 class="h6 mb-0">Red Velvet</h4>
+                <p class="fav-meta text-soft fs-micro mb-1">Debut: 2014 | SM</p>
+                <p class="fav-text text-soft fs-micro mb-1">Dualidad musical única.</p>
+                <a class="link-more mt-auto" href="https://kprofiles.com/red-velvet-members-profile/" target="_blank" rel="noopener">Perfil &rarr;</a>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-6 col-md-6" data-tipo="musica" data-sub="kpop-grupo">
+            <article class="fav-card p-0 overflow-hidden h-100">
+              <img src="https://i.pinimg.com/736x/c3/47/80/c3478007e75f0c762b0eca2f82119a30.jpg" alt="(G)I-DLE" class="fav-card-img">
+              <div class="p-2 d-flex flex-column flex-grow-1">
+                <div class="fav-tags mb-1"><span class="tag tag--music">K-Pop</span></div>
+                <h4 class="h6 mb-0">(G)I-DLE</h4>
+                <p class="fav-meta text-soft fs-micro mb-1">Debut: 2018 | Cube</p>
+                <p class="fav-text text-soft fs-micro mb-1">Autosuficiencia creativa (Soyeon).</p>
+                <a class="link-more mt-auto" href="https://kprofiles.com/g-i-dle-members-profile/" target="_blank" rel="noopener">Perfil &rarr;</a>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-6 col-md-6" data-tipo="musica" data-sub="solista-pop">
+            <article class="fav-card p-0 overflow-hidden h-100">
+              <img src="https://i.pinimg.com/1200x/9f/15/ea/9f15eacf43da0cea8670f131a5682052.jpg" alt="Taylor Swift" class="fav-card-img">
+              <div class="p-2 d-flex flex-column flex-grow-1">
+                <div class="fav-tags mb-1"><span class="tag tag--music">Pop</span></div>
+                <h4 class="h6 mb-0">Taylor Swift</h4>
+                <p class="fav-meta text-soft fs-micro mb-1">Debut: 2006</p>
+                <p class="fav-text text-soft fs-micro mb-1">Narrativa poética en folk y pop.</p>
+                <a class="link-more mt-auto" href="https://www.taylorswift.com" target="_blank" rel="noopener">Sitio Oficial &rarr;</a>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-6 col-md-6" data-tipo="musica" data-sub="solista-pop">
+            <article class="fav-card p-0 overflow-hidden h-100">
+              <img src="https://i.pinimg.com/736x/4a/41/58/4a415877e62701bea38e2575621fbaa6.jpg" alt="Laufey" class="fav-card-img">
+              <div class="p-2 d-flex flex-column flex-grow-1">
+                <div class="fav-tags mb-1"><span class="tag tag--music">Jazz</span></div>
+                <h4 class="h6 mb-0">Laufey</h4>
+                <p class="fav-meta text-soft fs-micro mb-1">Debut: 2020</p>
+                <p class="fav-text text-soft fs-micro mb-1">Jazz moderno y clásico.</p>
+                <a class="link-more mt-auto" href="https://www.laufeymusic.com" target="_blank" rel="noopener">Sitio Oficial &rarr;</a>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-6 col-md-6" data-tipo="musica" data-sub="solista-pop">
+            <article class="fav-card p-0 overflow-hidden h-100">
+              <img src="https://i.pinimg.com/736x/2c/72/c0/2c72c054d1063bd15571b523f7ae31c7.jpg" alt="Sabrina Carpenter" class="fav-card-img">
+              <div class="p-2 d-flex flex-column flex-grow-1">
+                <div class="fav-tags mb-1"><span class="tag tag--music">Pop</span></div>
+                <h4 class="h6 mb-0">Sabrina Carpenter</h4>
+                <p class="fav-meta text-soft fs-micro mb-1">Debut: 2014</p>
+                <p class="fav-text text-soft fs-micro mb-1">Pop de producción pegadiza.</p>
+                <a class="link-more mt-auto" href="https://www.sabrinacarpenter.com" target="_blank" rel="noopener">Sitio Oficial &rarr;</a>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-6 col-md-6" data-tipo="musica" data-sub="solista-pop">
+            <article class="fav-card p-0 overflow-hidden h-100">
+              <img src="https://i.pinimg.com/736x/a7/96/eb/a796ebd37e5c8aabd7b206210798c46f.jpg" alt="Olivia Rodrigo" class="fav-card-img">
+              <div class="p-2 d-flex flex-column flex-grow-1">
+                <div class="fav-tags mb-1"><span class="tag tag--music">Pop Rock</span></div>
+                <h4 class="h6 mb-0">Olivia Rodrigo</h4>
+                <p class="fav-meta text-soft fs-micro mb-1">Debut: 2021</p>
+                <p class="fav-text text-soft fs-micro mb-1">Pop rock e intensas emociones.</p>
+                <a class="link-more mt-auto" href="https://www.oliviarodrigo.com" target="_blank" rel="noopener">Sitio Oficial &rarr;</a>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-6 col-md-6" data-tipo="musica" data-sub="rnb-indie">
+            <article class="fav-card p-0 overflow-hidden h-100">
+              <img src="https://i.pinimg.com/1200x/85/d4/2b/85d42b9f1e6a4719fddeaedae1f1b71a.jpg" alt="DPR" class="fav-card-img">
+              <div class="p-2 d-flex flex-column flex-grow-1">
+                <div class="fav-tags mb-1"><span class="tag tag--music">R&amp;B</span></div>
+                <h4 class="h6 mb-0">DPR</h4>
+                <p class="fav-meta text-soft fs-micro mb-1">Origen: Seúl</p>
+                <p class="fav-text text-soft fs-micro mb-1">Colectivo audiovisual independiente.</p>
+                <a class="link-more mt-auto" href="https://kprofiles.com/dpr-ian-profile-facts/" target="_blank" rel="noopener">Perfil &rarr;</a>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-6 col-md-6" data-tipo="musica" data-sub="rnb-indie">
+            <article class="fav-card p-0 overflow-hidden h-100">
+              <img src="https://i.pinimg.com/736x/6c/82/fb/6c82fb4b618304ece4ea6fe897ce4b3a.jpg" alt="BIBI" class="fav-card-img">
+              <div class="p-2 d-flex flex-column flex-grow-1">
+                <div class="fav-tags mb-1"><span class="tag tag--music">R&amp;B</span></div>
+                <h4 class="h6 mb-0">BIBI</h4>
+                <p class="fav-meta text-soft fs-micro mb-1">Debut: 2019</p>
+                <p class="fav-text text-soft fs-micro mb-1">Estética oscura y cinematográfica.</p>
+                <a class="link-more mt-auto" href="https://kprofiles.com/bibi-profile-facts/" target="_blank" rel="noopener">Perfil &rarr;</a>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-6 col-md-6" data-tipo="musica" data-sub="rnb-indie">
+            <article class="fav-card p-0 overflow-hidden h-100">
+              <img src="https://i.pinimg.com/1200x/14/6d/30/146d304f80aa2bca8f063e38019a6c2d.jpg" alt="DEAN" class="fav-card-img">
+              <div class="p-2 d-flex flex-column flex-grow-1">
+                <div class="fav-tags mb-1"><span class="tag tag--music">R&amp;B</span></div>
+                <h4 class="h6 mb-0">DEAN</h4>
+                <p class="fav-meta text-soft fs-micro mb-1">Debut: 2015</p>
+                <p class="fav-text text-soft fs-micro mb-1">Vocalista R&B alternativo asiático.</p>
+                <a class="link-more mt-auto" href="https://kprofiles.com/dean-profile/" target="_blank" rel="noopener">Perfil &rarr;</a>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-6 col-md-6" data-tipo="musica" data-sub="krock">
+            <article class="fav-card p-0 overflow-hidden h-100">
+              <img src="https://i.pinimg.com/1200x/55/0d/93/550d938e2490917894b56d8653a02752.jpg" alt="DAY6" class="fav-card-img">
+              <div class="p-2 d-flex flex-column flex-grow-1">
+                <div class="fav-tags mb-1"><span class="tag tag--music">K-Rock</span></div>
+                <h4 class="h6 mb-0">DAY6</h4>
+                <p class="fav-meta text-soft fs-micro mb-1">Debut: 2015 | JYP</p>
+                <p class="fav-text text-soft fs-micro mb-1">Banda de rock alternativo con temas propios.</p>
+                <a class="link-more mt-auto" href="https://kprofiles.com/day6-profile/" target="_blank" rel="noopener">Perfil &rarr;</a>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-6 col-md-6" data-tipo="juegos" data-sub="supervivencia coop">
+            <article class="fav-card p-0 overflow-hidden h-100">
+              <img src="https://i.pinimg.com/736x/8f/21/2e/8f212e3e57f5c7c2b09a96e4811a221b.jpg" alt="R.E.P.O." class="fav-card-img">
+              <div class="p-2 d-flex flex-column flex-grow-1">
+                <div class="fav-tags mb-1">
+                  <span class="tag tag--game">Juego</span>
+                  <span class="tag tag--game">Supervivencia / Coop</span>
+                </div>
+                <h4 class="h6 mb-0">R.E.P.O.</h4>
+                <p class="fav-text text-soft fs-micro mb-1">Juego multijugador cooperativo táctico de extracción y supervivencia física.</p>
+                <a class="link-more mt-auto" href="https://store.steampowered.com" target="_blank" rel="noopener">Ver en Steam &nearr;</a>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-6 col-md-6" data-tipo="juegos" data-sub="construccion">
+            <article class="fav-card p-0 overflow-hidden h-100">
+              <img src="https://i.pinimg.com/736x/4a/12/35/4a1235b2e9d29b01538600fef0a48b5f.jpg" alt="Minecraft" class="fav-card-img">
+              <div class="p-2 d-flex flex-column flex-grow-1">
+                <div class="fav-tags mb-1">
+                  <span class="tag tag--game">Juego</span>
+                  <span class="tag tag--game">Construcción</span>
+                </div>
+                <h4 class="h6 mb-0">Minecraft</h4>
+                <p class="fav-text text-soft fs-micro mb-1">Sandbox ilimitado de construcción, exploración y supervivencia.</p>
+                <a class="link-more mt-auto" href="https://www.minecraft.net/" target="_blank" rel="noopener">Sitio Oficial &nearr;</a>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-6 col-md-6" data-tipo="juegos" data-sub="moba">
+            <article class="fav-card p-0 overflow-hidden h-100">
+              <img src="https://i.pinimg.com/736x/b2/89/65/b289658e4588b39077271e8bf404431e.jpg" alt="Mobile Legends: Bang Bang" class="fav-card-img">
+              <div class="p-2 d-flex flex-column flex-grow-1">
+                <div class="fav-tags mb-1">
+                  <span class="tag tag--game">Juego</span>
+                  <span class="tag tag--game">MOBA</span>
+                </div>
+                <h4 class="h6 mb-0">Mobile Legends: Bang Bang</h4>
+                <p class="fav-text text-soft fs-micro mb-1">MOBA estratégico 5v5 para móviles enfocado en trabajo en equipo.</p>
+                <a class="link-more mt-auto" href="https://m.mobilelegends.com/" target="_blank" rel="noopener">Sitio Oficial &nearr;</a>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-6 col-md-6" data-tipo="juegos" data-sub="moba">
+            <article class="fav-card p-0 overflow-hidden h-100">
+              <img src="https://i.pinimg.com/736x/55/92/7d/55927d31215b2e2d93e1177651e7f72f.jpg" alt="League of Legends" class="fav-card-img">
+              <div class="p-2 d-flex flex-column flex-grow-1">
+                <div class="fav-tags mb-1">
+                  <span class="tag tag--game">Juego</span>
+                  <span class="tag tag--game">MOBA</span>
+                </div>
+                <h4 class="h6 mb-0">League of Legends</h4>
+                <p class="fav-text text-soft fs-micro mb-1">El MOBA competitivo de estrategia 5v5 en PC por excelencia.</p>
+                <a class="link-more mt-auto" href="https://www.leagueoflegends.com/" target="_blank" rel="noopener">Sitio Oficial &nearr;</a>
+              </div>
+            </article>
+          </div>
+
+        </div>
+      </section>
+
+      <section id="vista-contacto" class="vista-seccion">
+        <div class="section-head mb-2">
+          <h2 class="section-title fs-5">Solicitud de Servicios</h2>
+        </div>
+        <div class="panel panel--carmesi p-3">
+          <form id="contactoForm" novalidate>
+            <div class="row g-2 mb-2">
+              <div class="col-12 field">
+                <label for="nombre" class="field-label small">Nombre</label>
+                <input type="text" id="nombre" name="nombre" class="form-control field-control form-control-sm" maxlength="30" placeholder="Tu nombre">
+                <div id="err-nombre" class="field-error small"></div>
+              </div>
+
+              <div class="col-12 field">
+                <label for="email" class="field-label small">Correo</label>
+                <input type="email" id="email" name="email" class="form-control field-control form-control-sm" maxlength="60" placeholder="correo@ejemplo.com">
+                <div id="err-email" class="field-error small"></div>
+              </div>
+
+              <div class="col-12 field">
+                <label for="celular" class="field-label small">Celular</label>
+                <input type="tel" id="celular" name="celular" class="form-control field-control form-control-sm" maxlength="8" placeholder="61234567">
+                <div id="err-celular" class="field-error small"></div>
+              </div>
+
+              <div class="col-12 field">
+                <label for="servicio" class="field-label small">Servicio</label>
+                <select id="servicio" name="servicio" class="form-select field-control form-control-sm">
+                  <option value="">Selecciona</option>
+                  <option value="frontend">Frontend</option>
+                  <option value="base_datos">Base de Datos</option>
+                </select>
+                <div id="err-servicio" class="field-error small"></div>
+              </div>
+
+              <div class="col-12 field">
+                <label for="mensaje" class="field-label small">Mensaje</label>
+                <textarea id="mensaje" name="mensaje" class="form-control field-control form-control-sm" rows="2" maxlength="500" placeholder="Detalles..."></textarea>
+                <span id="contadorMensaje" class="field-count">0/500</span>
+                <div id="err-mensaje" class="field-error small"></div>
+              </div>
+
+              <div class="col-12 field">
+                <div class="field-check small">
+                  <input type="checkbox" id="acepto" name="acepto">
+                  <label for="acepto">Acepto términos</label>
+                </div>
+                <div id="err-acepto" class="field-error small"></div>
+              </div>
+            </div>
+
+            <button type="submit" id="btnEnviar" class="btn btn-brand btn-sm w-100">Enviar Solicitud</button>
+            <div id="formAlert" class="form-alert p-1 small mt-2" role="alert" hidden></div>
+          </form>
+
+          <div id="formSuccess" class="form-success p-3 text-center" hidden>
+            <i class="bi bi-check2-circle text-success fs-3"></i>
+            <h6 class="mt-2" id="successText"></h6>
+            <button type="button" id="nuevaSolicitud" class="btn btn-ghost btn-sm mt-2">Enviar otro</button>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="site-footer py-2 text-center mt-auto">
+      <div class="social-row mb-1">
+        <a href="https://wa.me/59160000000" target="_blank" rel="noopener" class="btn-social" title="WhatsApp"><i class="bi bi-whatsapp"></i></a>
+        <a href="https://instagram.com" target="_blank" rel="noopener" class="btn-social" title="Instagram"><i class="bi bi-instagram"></i></a>
+        <a href="https://github.com/TQLeebit143" target="_blank" rel="noopener" class="btn-social" title="GitHub"><i class="bi bi-github"></i></a>
+      </div>
+      <small class="text-soft" style="font-size: 11px;">&copy; 2026 Ale. Ingeniería de Sistemas, UPDS.</small>
+    </footer>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <script src="script.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      function mostrarVista(nombreVista) {
+        document.querySelectorAll('.vista-seccion').forEach(sec => {
+          sec.classList.remove('activa');
+          sec.style.display = 'none';
+        });
+        
+        const targetSec = document.getElementById('vista-' + nombreVista);
+        if (targetSec) {
+          targetSec.classList.add('activa');
+          targetSec.style.display = 'block';
+        }
+
+        const menuPrincipal = document.getElementById('menuPrincipal');
+        const menuBtn = document.getElementById('menuBtn');
+        if (menuPrincipal) menuPrincipal.classList.remove('is-open');
+        if (menuBtn) menuBtn.setAttribute('aria-expanded', 'false');
+      }
+
+      document.querySelectorAll('.nav-link-vista').forEach(link => {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          const target = this.getAttribute('data-target');
+          if (target) {
+            mostrarVista(target);
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
