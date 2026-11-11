@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+  // 1. TEMA CLARO / OSCURO
   const themeBtn = document.getElementById('themeBtn');
   function aplicarTema(tema) {
     document.documentElement.dataset.theme = tema;
@@ -18,6 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // 2. MENÚ HAMBURGUESA DESPLEGABLE
   const menuBtn = document.getElementById('menuBtn');
   const menuPrincipal = document.getElementById('menuPrincipal');
 
@@ -34,70 +36,47 @@ document.addEventListener('DOMContentLoaded', () => {
         menuBtn.setAttribute('aria-expanded', 'false');
       }
     });
-
-    menuPrincipal.querySelectorAll('.menu-link').forEach(link => {
-      link.addEventListener('click', () => {
-        menuPrincipal.classList.remove('is-open');
-        menuBtn.setAttribute('aria-expanded', 'false');
-      });
-    });
   }
 
-  const grid = document.getElementById('gridFavoritos');
-  if (grid) {
-    const tarjetas = grid.querySelectorAll('[data-tipo]');
-    const botonesTipo = document.querySelectorAll('[data-filtro]');
-    const botonesSub = document.querySelectorAll('[data-sub-filtro]');
-    const subMusica = document.getElementById('sub-musica');
-    const subJuegos = document.getElementById('sub-juegos');
-    const conteo = document.getElementById('conteoFavoritos');
+  // 3. SISTEMA DE MODALES HUD FLOTANTES (SIN SCROLL GLOBAL)
+  const triggers = document.querySelectorAll('[data-modal]');
+  const closeButtons = document.querySelectorAll('[data-close]');
+  const modals = document.querySelectorAll('.hud-modal');
 
-    let estado = { tipo: 'todos', sub: '' };
-
-    function actualizar() {
-      let visibles = 0;
-      tarjetas.forEach(tarjeta => {
-        const matchTipo = estado.tipo === 'todos' || tarjeta.dataset.tipo === estado.tipo;
-        const subCategorias = tarjeta.dataset.sub.split(' ');
-        const matchSub = !estado.sub || subCategorias.includes(estado.sub);
-        const mostrar = matchTipo && matchSub;
-
-        tarjeta.closest('.col-md-6').hidden = !mostrar;
-        if (mostrar) visibles++;
-      });
-
-      botonesTipo.forEach(btn => {
-        btn.classList.toggle('is-active', btn.dataset.filtro === estado.tipo);
-      });
-
-      subMusica.hidden = estado.tipo !== 'musica';
-      subJuegos.hidden = estado.tipo !== 'juegos';
-
-      botonesSub.forEach(btn => {
-        btn.classList.toggle('is-active', btn.dataset.subFiltro === estado.sub);
-      });
-
-      conteo.textContent = `Mostrando ${visibles} de ${tarjetas.length}`;
+  function abrirModal(modalId) {
+    modals.forEach(m => m.classList.remove('is-open'));
+    const target = document.getElementById(modalId);
+    if (target) {
+      target.classList.add('is-open');
     }
-
-    botonesTipo.forEach(btn => {
-      btn.addEventListener('click', () => {
-        estado.tipo = btn.dataset.filtro;
-        estado.sub = '';
-        actualizar();
-      });
-    });
-
-    botonesSub.forEach(btn => {
-      btn.addEventListener('click', () => {
-        estado.sub = btn.dataset.subFiltro;
-        actualizar();
-      });
-    });
-
-    actualizar();
+    if (menuPrincipal) menuPrincipal.classList.remove('is-open');
   }
 
+  function cerrarModales() {
+    modals.forEach(m => m.classList.remove('is-open'));
+  }
+
+  triggers.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const modalTarget = btn.getAttribute('data-modal');
+      abrirModal(modalTarget);
+    });
+  });
+
+  closeButtons.forEach(btn => {
+    btn.addEventListener('click', cerrarModales);
+  });
+
+  modals.forEach(modal => {
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        cerrarModales();
+      }
+    });
+  });
+
+  // 4. FORMULARIO DE CONTACTO Y VALIDACIONES
   const contactoForm = document.getElementById('contactoForm');
   if (contactoForm) {
     const campos = {
@@ -125,30 +104,30 @@ document.addEventListener('DOMContentLoaded', () => {
     const reglas = {
       nombre: (v) => {
         v = v.trim();
-        if (!v) return 'El nombre es obligatorio.';
+        if (!v) return 'Obligatorio.';
         if (v.length < 2 || v.length > 30) return 'Entre 2 y 30 caracteres.';
         if (/\d/.test(v)) return 'Sin números.';
         return '';
       },
       email: (v) => {
         v = v.trim();
-        if (!v) return 'El correo es obligatorio.';
-        return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(v) ? '' : 'Ingresa un correo válido (ej: usuario@gmail.com).';
+        if (!v) return 'Obligatorio.';
+        return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(v) ? '' : 'Correo inválido.';
       },
       celular: (v) => {
         v = v.trim();
-        if (!v) return 'El celular es obligatorio.';
+        if (!v) return 'Obligatorio.';
         if (!/^\d{8}$/.test(v)) return 'Debe tener 8 dígitos.';
-        return (v.startsWith('6') || v.startsWith('7')) ? '' : 'Debe empezar con 6 o 7.';
+        return (v.startsWith('6') || v.startsWith('7')) ? '' : 'Debe iniciar con 6 o 7.';
       },
-      servicio: (v) => v ? '' : 'Selecciona un servicio.',
+      servicio: (v) => v ? '' : 'Selecciona.',
       mensaje: (v) => {
         v = v.trim();
-        if (!v) return 'Escribe los detalles de tu proyecto.';
+        if (!v) return 'Escribe detalles.';
         if (v.length < 15) return 'Mínimo 15 caracteres.';
-        return esTextoCoherente(v) ? '' : 'Escribe un mensaje legible.';
+        return esTextoCoherente(v) ? '' : 'Mensaje no legible.';
       },
-      acepto: (v) => v ? '' : 'Debes aceptar los términos.'
+      acepto: (v) => v ? '' : 'Acepta términos.'
     };
 
     function validar(nombre) {
@@ -158,20 +137,24 @@ document.addEventListener('DOMContentLoaded', () => {
       const parent = el.closest('.field');
       const errDiv = document.getElementById(`err-${nombre}`);
 
-      parent.classList.toggle('is-invalid', !!error);
-      parent.classList.toggle('is-valid', !error);
-      errDiv.textContent = error;
+      if (parent) {
+        parent.classList.toggle('is-invalid', !!error);
+        parent.classList.toggle('is-valid', !error);
+      }
+      if (errDiv) errDiv.textContent = error;
       return !error;
     }
 
     Object.keys(campos).forEach(key => {
       const el = campos[key];
-      const ev = (el.tagName === 'SELECT' || el.type === 'checkbox') ? 'change' : 'input';
-      el.addEventListener(ev, () => {
-        if (key === 'celular') el.value = el.value.replace(/\D/g, '').slice(0, 8);
-        if (key === 'mensaje') contador.textContent = `${el.value.length}/500`;
-        validar(key);
-      });
+      if (el) {
+        const ev = (el.tagName === 'SELECT' || el.type === 'checkbox') ? 'change' : 'input';
+        el.addEventListener(ev, () => {
+          if (key === 'celular') el.value = el.value.replace(/\D/g, '').slice(0, 8);
+          if (key === 'mensaje' && contador) contador.textContent = `${el.value.length}/500`;
+          validar(key);
+        });
+      }
     });
 
     contactoForm.addEventListener('submit', (e) => {
@@ -180,9 +163,9 @@ document.addEventListener('DOMContentLoaded', () => {
       Object.keys(campos).forEach(k => { if (!validar(k)) valido = false; });
 
       if (valido) {
-        successText.textContent = `Gracias ${campos.nombre.value}. He recibido tu mensaje y me pondré en contacto pronto.`;
+        if (successText) successText.textContent = `¡Gracias ${campos.nombre.value}! Mensaje recibido con éxito.`;
         contactoForm.hidden = true;
-        formSuccess.hidden = false;
+        if (formSuccess) formSuccess.hidden = false;
       }
     });
 
@@ -190,12 +173,16 @@ document.addEventListener('DOMContentLoaded', () => {
       nuevaSolicitud.addEventListener('click', () => {
         contactoForm.reset();
         Object.keys(campos).forEach(k => {
-          const p = campos[k].closest('.field');
-          p.classList.remove('is-valid', 'is-invalid');
-          document.getElementById(`err-${k}`).textContent = '';
+          const el = campos[k];
+          if (el) {
+            const p = el.closest('.field');
+            if (p) p.classList.remove('is-valid', 'is-invalid');
+            const errDiv = document.getElementById(`err-${k}`);
+            if (errDiv) errDiv.textContent = '';
+          }
         });
-        contador.textContent = '0/500';
-        formSuccess.hidden = true;
+        if (contador) contador.textContent = '0/500';
+        if (formSuccess) formSuccess.hidden = true;
         contactoForm.hidden = false;
       });
     }
@@ -203,35 +190,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
 });
 
+// Hidratación SSR y jQuery
 $(document).ready(function () {
-
   function simularHidratacionSSR() {
     let $box = $('#contenedorHidratacion');
     if ($box.attr('data-hidratado') === 'true') return;
 
-    $('#btnPWAEstado').off('click').text('⚡ PWA Activa (Hidratada)').removeClass('btn-outline-secondary').addClass('btn-outline-success').on('click', function () {
-      alert('¡Aplicación hidratada correctamente en el cliente sin recargar el DOM!');
-    });
+    $('#btnPWAEstado')
+      .off('click')
+      .text('⚡ HUD Active')
+      .addClass('active-sync')
+      .on('click', function () {
+        alert('¡Interfaz HUD sincronizada correctamente!');
+      });
 
     $box.attr('data-hidratado', 'true');
   }
 
   setTimeout(simularHidratacionSSR, 400);
-
-  function mostrarVista(nombreVista) {
-    $('.vista-seccion').removeClass('activa').css('display', 'none');
-    $('#vista-' + nombreVista).addClass('activa').css('display', 'block');
-    $('#menuPrincipal').removeClass('is-open');
-    $('#menuBtn').attr('aria-expanded', 'false');
-    $('.pwa-viewport').scrollTop(0);
-  }
-
-  $(document).off('click', '.nav-link-vista').on('click', '.nav-link-vista', function (e) {
-    e.preventDefault();
-    let target = $(this).attr('data-target') || $(this).data('target');
-    if (target) {
-      mostrarVista(target);
-    }
-  });
-
 });
