@@ -38,9 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 3. SISTEMA DE MODALES HUD FLOTANTES (SIN SCROLL GLOBAL)
-  const triggers = document.querySelectorAll('[data-modal]');
-  const closeButtons = document.querySelectorAll('[data-close]');
+  // 3. SISTEMA DE MODALES HUD FLOTANTES (DELEGACIÓN POR EVENT BUBBLING)
   const modals = document.querySelectorAll('.hud-modal');
 
   function abrirModal(modalId) {
@@ -56,16 +54,14 @@ document.addEventListener('DOMContentLoaded', () => {
     modals.forEach(m => m.classList.remove('is-open'));
   }
 
-  triggers.forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      const modalTarget = btn.getAttribute('data-modal');
-      abrirModal(modalTarget);
-    });
+  $(document).off('click', '[data-modal]').on('click', '[data-modal]', function (e) {
+    e.preventDefault();
+    const modalTarget = $(this).attr('data-modal');
+    abrirModal(modalTarget);
   });
 
-  closeButtons.forEach(btn => {
-    btn.addEventListener('click', cerrarModales);
+  $(document).off('click', '[data-close]').on('click', '[data-close]', function () {
+    cerrarModales();
   });
 
   modals.forEach(modal => {
@@ -76,7 +72,67 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // 4. FORMULARIO DE CONTACTO Y VALIDACIONES
+  // 4. FILTRADO DE FAVORITOS EN MÓVIL Y LAPTOP
+  const grid = document.getElementById('gridFavoritos');
+  if (grid) {
+    const tarjetas = grid.querySelectorAll('.fav-item-col');
+    const botonesTipo = document.querySelectorAll('[data-filtro]');
+    const botonesSub = document.querySelectorAll('[data-sub-filtro]');
+    const subMusica = document.getElementById('sub-musica');
+    const subJuegos = document.getElementById('sub-juegos');
+    const conteo = document.getElementById('conteoFavoritos');
+
+    let estado = { tipo: 'todos', sub: '' };
+
+    function actualizarFiltros() {
+      let visibles = 0;
+      tarjetas.forEach(tarjeta => {
+        const matchTipo = estado.tipo === 'todos' || tarjeta.dataset.tipo === estado.tipo;
+        const subCategorias = tarjeta.dataset.sub ? tarjeta.dataset.sub.split(' ') : [];
+        const matchSub = !estado.sub || subCategorias.includes(estado.sub);
+        const mostrar = matchTipo && matchSub;
+
+        if (mostrar) {
+          tarjeta.style.display = 'block';
+          visibles++;
+        } else {
+          tarjeta.style.display = 'none';
+        }
+      });
+
+      botonesTipo.forEach(btn => {
+        btn.classList.toggle('is-active', btn.dataset.filtro === estado.tipo);
+      });
+
+      if (subMusica) subMusica.hidden = estado.tipo !== 'musica';
+      if (subJuegos) subJuegos.hidden = estado.tipo !== 'juegos';
+
+      botonesSub.forEach(btn => {
+        btn.classList.toggle('is-active', btn.dataset.subFiltro === estado.sub);
+      });
+
+      if (conteo) conteo.textContent = `Mostrando ${visibles} de ${tarjetas.length} elementos`;
+    }
+
+    botonesTipo.forEach(btn => {
+      btn.addEventListener('click', () => {
+        estado.tipo = btn.dataset.filtro;
+        estado.sub = '';
+        actualizarFiltros();
+      });
+    });
+
+    botonesSub.forEach(btn => {
+      btn.addEventListener('click', () => {
+        estado.sub = btn.dataset.subFiltro;
+        actualizarFiltros();
+      });
+    });
+
+    actualizarFiltros();
+  }
+
+  // 5. FORMULARIO Y VALIDACIÓN
   const contactoForm = document.getElementById('contactoForm');
   if (contactoForm) {
     const campos = {
@@ -188,24 +244,58 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-});
-
-// Hidratación SSR y jQuery
-$(document).ready(function () {
-  function simularHidratacionSSR() {
-    let $box = $('#contenedorHidratacion');
-    if ($box.attr('data-hidratado') === 'true') return;
-
-    $('#btnPWAEstado')
-      .off('click')
-      .text('⚡ HUD Active')
-      .addClass('active-sync')
-      .on('click', function () {
-        alert('¡Interfaz HUD sincronizada correctamente!');
+  // 6. HERRAMIENTA DE DIAGNÓSTICO (INGE MIGUEL)
+  const btnAnalizar = document.getElementById('btnAnalizar');
+  if (btnAnalizar) {
+    btnAnalizar.addEventListener('click', function() {
+      let src = document.getElementById('codigoInput').value;
+      if(!src.trim()) return alert('Por favor pega algún código.');
+      
+      let hallazgos = [];
+      let limpio = src;
+      
+      let clasesBloqueo = [/ad-banner/gi, /promo-box/gi, /social-ads/gi, /analytics/gi, /tracker/gi];
+      clasesBloqueo.forEach(regex => {
+        if(regex.test(src)) {
+          hallazgos.push('<span class="badge-danger">BLOQUEO GRAVE</span> Detectada clase sospechosa ' + regex + ' (Brave/Opera la ocultarán).');
+          limpio = limpio.replace(regex, 'seccion-destacada');
+        }
       });
-
-    $box.attr('data-hidratado', 'true');
+      
+      if(/100vh/gi.test(src) && !/min-height/gi.test(src)) {
+        hallazgos.push('<span class="badge-danger">DESBORDAMIENTO</span> Se detectó 100vh rígido. Reemplazar por min-height: 100dvh.');
+        limpio = limpio.replace(/height:\s*100vh;/gi, 'min-height: 100dvh;');
+      }
+      
+      let viabilidad = hallazgos.length <= 2 
+        ? '<span class="badge-success">CÓDIGO RESCATABLE</span> Aplica los cambios sugeridos abajo.' 
+        : '<span class="badge-danger">REFACTORIZAR</span> Demasiadas inconsistencias.';
+      
+      let htmlReporte = '<p><b>Dictamen:</b> ' + viabilidad + '</p><ul style="padding-left:20px;">';
+      hallazgos.forEach(h => htmlReporte += '<li style="margin-bottom:4px;">' + h + '</li>');
+      if(hallazgos.length === 0) {
+        htmlReporte += '<li><span class="badge-success">EXCELENTE</span> No se encontraron nombres de clases bloqueables ni errores de viewport.</li>';
+      }
+      htmlReporte += '</ul>';
+      
+      document.getElementById('detallesReporte').innerHTML = htmlReporte;
+      document.getElementById('codigoSugerido').value = limpio;
+      document.getElementById('panelResultado').style.display = 'block';
+    });
   }
 
-  setTimeout(simularHidratacionSSR, 400);
+});
+
+// Hidratación SSR y Estado de Red
+$(document).ready(function () {
+  function actualizarEstadoRed() {
+    if (navigator.onLine) {
+      $('#btnPWAEstado').html('<i class="bi bi-lightning-charge-fill me-1"></i>En Línea').addClass('active-sync');
+    } else {
+      $('#btnPWAEstado').html('<i class="bi bi-wifi-off me-1"></i>Modo Offline Activo').removeClass('active-sync');
+    }
+  }
+
+  $(window).on('online offline', actualizarEstadoRed);
+  actualizarEstadoRed();
 });

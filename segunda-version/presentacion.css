@@ -14,13 +14,12 @@
   --fuente-texto: 'Manrope', system-ui, sans-serif;
 }
 
-/* MODO DÍA - BLANCO PERLA SUAVE Y ELEGANTE */
 [data-theme='light'] {
-  --fondo: #f4f1ea;        /* Blanco perla suave a la vista */
-  --superficie: #ffffff;   /* Superficies limpias */
+  --fondo: #f4f1ea;        /* Blanco perla suave */
+  --superficie: #ffffff;   
   --superficie-alt: #eae5dc;
   --linea: #d8d0c5;
-  --texto: #2a2225;        /* Texto oscuro con gran contraste */
+  --texto: #2a2225;        
   --texto-suave: #6b5c62;
   --carmesi: #9c1a2d;
   --carmesi-fuerte: #9c1a2d;
@@ -29,12 +28,12 @@
   --sombra: 0 14px 32px rgba(60, 30, 35, 0.12);
 }
 
-/* ESTRUCTURA HUD JUEGO (SIN SCROLLING GLOBAL) */
 html, body.hud-game-body {
   margin: 0;
   padding: 0;
   width: 100vw;
   height: 100vh;
+  min-height: 100dvh;
   overflow: hidden !important;
   background-color: var(--fondo);
   color: var(--texto);
@@ -45,6 +44,7 @@ html, body.hud-game-body {
   position: relative;
   width: 100vw;
   height: 100vh;
+  min-height: 100dvh;
   display: flex;
   flex-direction: column;
 }
@@ -97,6 +97,12 @@ html, body.hud-game-body {
   font-size: 0.75rem;
 }
 
+.hud-sync-pill.active-sync {
+  background: var(--carmesi-tinte);
+  color: var(--carmesi-texto);
+  border-color: var(--carmesi);
+}
+
 .hud-icon-btn {
   width: 36px;
   height: 36px;
@@ -116,7 +122,7 @@ html, body.hud-game-body {
   color: var(--carmesi-texto);
 }
 
-/* CANVAS CENTRAL (CARRUSEL HERO) */
+/* CANVAS CENTRAL */
 .hud-canvas-center {
   position: absolute;
   top: 0;
@@ -162,7 +168,7 @@ html, body.hud-game-body {
   margin: 0;
 }
 
-/* BOTTOM DOCK NAV (BARRA TIPO JUEGO CON ÍCONOS MUY NÍTIDOS) */
+/* BOTTOM DOCK NAV */
 .hud-bottom-dock {
   position: absolute;
   bottom: 15px;
@@ -201,7 +207,7 @@ html, body.hud-game-body {
 .hud-dock-item i {
   font-size: 1.3rem;
   margin-bottom: 2px;
-  color: var(--texto); /* Iconos totalmente visibles en modo noche y día */
+  color: var(--texto);
 }
 
 .hud-dock-item:hover, .hud-dock-item.btn-carmesi-glow {
@@ -246,7 +252,7 @@ html, body.hud-game-body {
   border-color: var(--carmesi-fuerte);
 }
 
-/* VENTANITAS MODALES HUD (POPUP) */
+/* VENTANITAS MODALES HUD */
 .hud-modal {
   position: fixed;
   top: 0;
@@ -303,14 +309,14 @@ html, body.hud-game-body {
   cursor: pointer;
 }
 
-/* MENÚ HAMBURGUESA DESPLEGABLE */
+/* MENÚ HAMBURGUESA */
 .menu-panel {
   position: absolute;
   top: calc(100% + 0.5rem);
   right: 0;
   z-index: 1100;
   display: none;
-  min-width: 220px;
+  min-width: 230px;
   padding: 0.5rem;
   background-color: var(--superficie);
   border: 1px solid var(--carmesi);
@@ -345,7 +351,23 @@ html, body.hud-game-body {
   color: var(--texto);
 }
 
-/* CHIPS Y TARJETAS */
+/* TARJETAS Y ELEMENTOS */
+.card-item {
+  background-color: var(--superficie-alt);
+  border: 1px solid var(--linea);
+  border-radius: 10px;
+}
+
+.panel--carmesi {
+  background-color: var(--superficie-alt);
+  border-left: 3px solid var(--carmesi);
+}
+
+.panel--plata {
+  background-color: var(--superficie-alt);
+  border-left: 3px solid var(--linea);
+}
+
 .chip-row { display: flex; flex-wrap: wrap; gap: 0.4rem; }
 .chip {
   padding: 0.35rem 0.85rem;
@@ -358,3 +380,25 @@ html, body.hud-game-body {
 }
 .chip.is-active { color: #ffffff; background-color: var(--carmesi-fuerte); border-color: var(--carmesi-fuerte); }
 .subfilters { padding: 0.6rem; background-color: var(--superficie-alt); border-radius: 10px; border: 1px solid var(--linea); }
+
+.fav-card {
+  background-color: var(--superficie-alt);
+  border: 1px solid var(--linea);
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.fav-card-img {
+  width: 100%;
+  height: 90px;
+  object-fit: cover;
+}
+
+.badge-danger { background: #ef4444; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; }
+.badge-success { background: #22c55e; color: white; padding: 2px 6px; border-radius: 3px; font-size: 11px; }
+.font-orbitron { font-family: 'Orbitron', sans-serif; }
+.text-carmesi { color: var(--carmesi-texto) !important; }
+.btn-brand { background-color: var(--carmesi-fuerte); color: #ffffff; border: none; }
+.btn-brand:hover { background-color: var(--carmesi); color: #ffffff; }

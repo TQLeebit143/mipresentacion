@@ -1,0 +1,21 @@
+{
+  "short_name": "AlePortfolio",
+  "name": "Ale | HUD Portfolio PWA",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/1006/1006771.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/1006/1006771.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "./presentacion.html",
+  "background_color": "#0d0a0c",
+  "theme_color": "#c3283c",
+  "display": "standalone",
+  "orientation": "portrait"
+}
