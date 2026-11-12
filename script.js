@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-  // TEMA CLARO / OSCURO
+  // 1. TEMA CLARO / OSCURO
   const themeBtn = document.getElementById('themeBtn');
   function aplicarTema(tema) {
     document.documentElement.dataset.theme = tema;
@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // NAVEGACIÓN HAMBURGUESA ÚNICA
+  // 2. MENÚ HAMBURGUESA DE NAVEGACIÓN
   const menuBtn = document.getElementById('menuBtn');
   const menuPrincipal = document.getElementById('menuPrincipal');
 
@@ -45,7 +45,44 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // FILTRADO DE FAVORITOS
+  // 3. MODAL DINÁMICO PARA LOS LIBROS (PRÓLOGO, AUTOR Y AÑO)
+  const modalLibro = document.getElementById('modalLibro');
+  if (modalLibro) {
+    modalLibro.addEventListener('show.bs.modal', event => {
+      const card = event.relatedTarget;
+      if (!card) return;
+      const titulo = card.getAttribute('data-titulo');
+      const autor = card.getAttribute('data-autor');
+      const anio = card.getAttribute('data-anio');
+      const desc = card.getAttribute('data-desc');
+
+      document.getElementById('libroTitulo').textContent = titulo;
+      document.getElementById('libroAutorAnio').textContent = `Autor: ${autor} | Año: ${anio}`;
+      document.getElementById('libroDesc').textContent = desc;
+    });
+  }
+
+  // 4. FILTRADO DE CINE, SERIES Y ANIMES
+  const gridCine = document.getElementById('gridCine');
+  if (gridCine) {
+    const itemsCine = gridCine.querySelectorAll('.cine-item-col');
+    const botonesCine = document.querySelectorAll('[data-cine-filtro]');
+
+    botonesCine.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const filtro = btn.dataset.cineFiltro;
+        botonesCine.forEach(b => b.classList.remove('is-active'));
+        btn.classList.add('is-active');
+
+        itemsCine.forEach(item => {
+          const match = filtro === 'todos' || item.dataset.tipo === filtro;
+          item.style.display = match ? 'block' : 'none';
+        });
+      });
+    });
+  }
+
+  // 5. FILTRADO DE FAVORITOS (MÚSICA Y JUEGOS)
   const grid = document.getElementById('gridFavoritos');
   if (grid) {
     const tarjetas = grid.querySelectorAll('[data-tipo]');
@@ -61,11 +98,12 @@ document.addEventListener('DOMContentLoaded', () => {
       let visibles = 0;
       tarjetas.forEach(tarjeta => {
         const matchTipo = estado.tipo === 'todos' || tarjeta.dataset.tipo === estado.tipo;
-        const subCategorias = tarjeta.dataset.sub.split(' ');
+        const subCategorias = tarjeta.dataset.sub ? tarjeta.dataset.sub.split(' ') : [];
         const matchSub = !estado.sub || subCategorias.includes(estado.sub);
         const mostrar = matchTipo && matchSub;
 
-        tarjeta.closest('.col-md-6').hidden = !mostrar;
+        const contenedorCol = tarjeta.closest('.col-md-6, .col-lg-4');
+        if (contenedorCol) contenedorCol.hidden = !mostrar;
         if (mostrar) visibles++;
       });
 
@@ -73,14 +111,14 @@ document.addEventListener('DOMContentLoaded', () => {
         btn.classList.toggle('is-active', btn.dataset.filtro === estado.tipo);
       });
 
-      subMusica.hidden = estado.tipo !== 'musica';
-      subJuegos.hidden = estado.tipo !== 'juegos';
+      if (subMusica) subMusica.hidden = estado.tipo !== 'musica';
+      if (subJuegos) subJuegos.hidden = estado.tipo !== 'juegos';
 
       botonesSub.forEach(btn => {
         btn.classList.toggle('is-active', btn.dataset.subFiltro === estado.sub);
       });
 
-      conteo.textContent = `Mostrando ${visibles} de ${tarjetas.length}`;
+      if (conteo) conteo.textContent = `Mostrando ${visibles} de ${tarjetas.length}`;
     }
 
     botonesTipo.forEach(btn => {
@@ -101,7 +139,7 @@ document.addEventListener('DOMContentLoaded', () => {
     actualizar();
   }
 
-  // FORMULARIO DE CONTACTO Y VALIDACIONES
+  // 6. VALIDACIÓN DEL FORMULARIO DE CONTACTO
   const contactoForm = document.getElementById('contactoForm');
   if (contactoForm) {
     const campos = {
@@ -118,64 +156,41 @@ document.addEventListener('DOMContentLoaded', () => {
     const successText = document.getElementById('successText');
     const nuevaSolicitud = document.getElementById('nuevaSolicitud');
 
-    function esTextoCoherente(texto) {
-      const v = texto.trim().toLowerCase();
-      if (v.length < 15) return false;
-      if (/[bcdfghjklmnpqrstvwxyz]{6,}/i.test(v)) return false;
-      if (/(.)\1{4,}/.test(v)) return false;
-      return new Set(v.replace(/\s+/g, '')).size >= 5;
-    }
-
     const reglas = {
-      nombre: (v) => {
-        v = v.trim();
-        if (!v) return 'El nombre es obligatorio.';
-        if (v.length < 2 || v.length > 30) return 'Entre 2 y 30 caracteres.';
-        if (/\d/.test(v)) return 'Sin números.';
-        return '';
-      },
-      email: (v) => {
-        v = v.trim();
-        if (!v) return 'El correo es obligatorio.';
-        return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(v) ? '' : 'Ingresa un correo válido (ej: usuario@gmail.com).';
-      },
-      celular: (v) => {
-        v = v.trim();
-        if (!v) return 'El celular es obligatorio.';
-        if (!/^\d{8}$/.test(v)) return 'Debe tener 8 dígitos.';
-        return (v.startsWith('6') || v.startsWith('7')) ? '' : 'Debe empezar con 6 o 7.';
-      },
-      servicio: (v) => v ? '' : 'Selecciona un servicio.',
-      mensaje: (v) => {
-        v = v.trim();
-        if (!v) return 'Escribe los detalles de tu proyecto.';
-        if (v.length < 15) return 'Mínimo 15 caracteres.';
-        return esTextoCoherente(v) ? '' : 'Escribe un mensaje legible.';
-      },
-      acepto: (v) => v ? '' : 'Debes aceptar los términos.'
+      nombre: (v) => v.trim() ? (v.trim().length >= 2 ? '' : 'Mínimo 2 caracteres.') : 'Obligatorio.',
+      email: (v) => v.trim() ? (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) ? '' : 'Correo inválido.') : 'Obligatorio.',
+      celular: (v) => v.trim() ? (/^\d{8}$/.test(v) ? '' : 'Debe tener 8 dígitos.') : 'Obligatorio.',
+      servicio: (v) => v ? '' : 'Selecciona una opción.',
+      mensaje: (v) => v.trim().length >= 10 ? '' : 'Mínimo 10 caracteres.',
+      acepto: (v) => v ? '' : 'Debes aceptar.'
     };
 
     function validar(nombre) {
+      if (!campos[nombre]) return true;
       const el = campos[nombre];
       const val = el.type === 'checkbox' ? el.checked : el.value;
-      const error = reglas[nombre](val);
+      const error = reglas[nombre] ? reglas[nombre](val) : '';
       const parent = el.closest('.field');
       const errDiv = document.getElementById(`err-${nombre}`);
 
-      parent.classList.toggle('is-invalid', !!error);
-      parent.classList.toggle('is-valid', !error);
-      errDiv.textContent = error;
+      if (parent) {
+        parent.classList.toggle('is-invalid', !!error);
+        parent.classList.toggle('is-valid', !error);
+      }
+      if (errDiv) errDiv.textContent = error;
       return !error;
     }
 
     Object.keys(campos).forEach(key => {
       const el = campos[key];
-      const ev = (el.tagName === 'SELECT' || el.type === 'checkbox') ? 'change' : 'input';
-      el.addEventListener(ev, () => {
-        if (key === 'celular') el.value = el.value.replace(/\D/g, '').slice(0, 8);
-        if (key === 'mensaje') contador.textContent = `${el.value.length}/500`;
-        validar(key);
-      });
+      if (el) {
+        const ev = (el.tagName === 'SELECT' || el.type === 'checkbox') ? 'change' : 'input';
+        el.addEventListener(ev, () => {
+          if (key === 'celular') el.value = el.value.replace(/\D/g, '').slice(0, 8);
+          if (key === 'mensaje' && contador) contador.textContent = `${el.value.length}/500`;
+          validar(key);
+        });
+      }
     });
 
     contactoForm.addEventListener('submit', (e) => {
@@ -184,9 +199,9 @@ document.addEventListener('DOMContentLoaded', () => {
       Object.keys(campos).forEach(k => { if (!validar(k)) valido = false; });
 
       if (valido) {
-        successText.textContent = `Gracias ${campos.nombre.value}. He recibido tu mensaje y me pondré en contacto pronto.`;
+        if (successText) successText.textContent = `¡Gracias ${campos.nombre.value}! Mensaje recibido con éxito.`;
         contactoForm.hidden = true;
-        formSuccess.hidden = false;
+        if (formSuccess) formSuccess.hidden = false;
       }
     });
 
@@ -194,12 +209,16 @@ document.addEventListener('DOMContentLoaded', () => {
       nuevaSolicitud.addEventListener('click', () => {
         contactoForm.reset();
         Object.keys(campos).forEach(k => {
-          const p = campos[k].closest('.field');
-          p.classList.remove('is-valid', 'is-invalid');
-          document.getElementById(`err-${k}`).textContent = '';
+          const el = campos[k];
+          if (el) {
+            const p = el.closest('.field');
+            if (p) p.classList.remove('is-valid', 'is-invalid');
+            const errDiv = document.getElementById(`err-${k}`);
+            if (errDiv) errDiv.textContent = '';
+          }
         });
-        contador.textContent = '0/500';
-        formSuccess.hidden = true;
+        if (contador) contador.textContent = '0/500';
+        if (formSuccess) formSuccess.hidden = true;
         contactoForm.hidden = false;
       });
     }

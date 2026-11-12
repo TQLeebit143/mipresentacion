@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark" data-bs-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Presentación PWA HUD Gaming - Genesis Alejandra Flores Tarqui">
+  <meta name="theme-color" content="#c3283c">
+  <link rel="manifest" href="manifest.json">
+  <title>Ale | HUD Portfolio PWA</title>
+  
+  <script>
+    (function () {
+      var tema = 'dark';
+      try { tema = localStorage.getItem('tema') || 'dark'; } catch (e) {}
+      document.documentElement.dataset.theme = tema;
+      document.documentElement.dataset.bsTheme = tema;
+    })();
+  </script>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&family=Orbitron:wght@600;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="presentacion.css">
+</head>
+<body class="hud-game-body">
+
+  <div class="hud-container-fluid">
+
+    <!-- BARRA SUPERIOR HUD -->
+    <header class="hud-top-bar px-3 py-2">
+      <div class="d-flex align-items-center gap-2">
+        <div class="hud-user-avatar">
+          <i class="bi bi-code-slash"></i>
+        </div>
+        <div>
+          <span class="d-block fw-bold fs-7 text-white font-orbitron">ALE.SYS</span>
+          <small class="text-soft fs-micro">UPDS • Ing. Sistemas</small>
+        </div>
+      </div>
+
+      <div class="d-flex align-items-center gap-2 position-relative">
+        <div id="contenedorHidratacion" data-hidratado="false">
+          <button id="btnPWAEstado" class="hud-sync-pill"><i class="bi bi-lightning-charge-fill me-1"></i>Sync</button>
+        </div>
+        <button id="themeBtn" class="hud-icon-btn" title="Cambiar Tema"><i class="bi bi-sun"></i></button>
+        
+        <button id="menuBtn" class="hud-icon-btn" aria-expanded="false" title="Menú de Navegación">
+          <i class="bi bi-list"></i>
+        </button>
+
+        <!-- MENÚ PRINCIPAL DESPLEGABLE -->
+        <div class="menu-panel" id="menuPrincipal">
+          <ul class="menu-list">
+            <li><a class="menu-link" href="#" data-modal="modal-perfil"><i class="bi bi-person-badge me-2"></i>Perfil</a></li>
+            <li><a class="menu-link" href="#" data-modal="modal-actividades"><i class="bi bi-cpu me-2"></i>Sistemas & Hobbies</a></li>
+            <li><a class="menu-link" href="#" data-modal="modal-entretenimiento"><i class="bi bi-youtube me-2"></i>Media & Streams</a></li>
+            <li><a class="menu-link" href="#" data-modal="modal-libros"><i class="bi bi-book me-2"></i>Biblioteca Literaria</a></li>
+            <li><a class="menu-link" href="#" data-modal="modal-peliculas"><i class="bi bi-film me-2"></i>Cine, Series & Animes</a></li>
+            <li><a class="menu-link" href="#" data-modal="modal-horario"><i class="bi bi-calendar-week me-2"></i>Horario</a></li>
+            <li><a class="menu-link" href="#" data-modal="modal-favoritos"><i class="bi bi-controller me-2"></i>Favoritos</a></li>
+            <li><a class="menu-link" href="#" data-modal="modal-contacto"><i class="bi bi-envelope me-2"></i>Contacto</a></li>
+            <li><a class="menu-link text-carmesi fw-bold" href="#" data-modal="modal-diagnostico"><i class="bi bi-shield-check me-2"></i>Diagnóstico PWA</a></li>
+          </ul>
+        </div>
+      </div>
+    </header>
+
+    <!-- NAVEGACIÓN LATERAL IZQUIERDA -->
+    <div class="hud-side-nav left">
+      <button class="hud-side-btn" data-modal="modal-libros"><i class="bi bi-book"></i><span>LIBROS</span></button>
+      <button class="hud-side-btn" data-modal="modal-peliculas"><i class="bi bi-film"></i><span>CINE & ANIME</span></button>
+      <button class="hud-side-btn" data-modal="modal-entretenimiento"><i class="bi bi-youtube"></i><span>MEDIA</span></button>
+    </div>
+
+    <!-- NAVEGACIÓN LATERAL DERECHA (REDES) -->
+    <div class="hud-side-nav right">
+      <a href="https://whatsapp.com" target="_blank" class="hud-side-btn"><i class="bi bi-whatsapp"></i><span>WA</span></a>
+      <a href="https://instagram.com" target="_blank" class="hud-side-btn"><i class="bi bi-instagram"></i><span>IG</span></a>
+      <a href="https://github.com/TQLeebit143" target="_blank" class="hud-side-btn"><i class="bi bi-github"></i><span>GIT</span></a>
+    </div>
+
+    <!-- CANVAS CENTRAL CON CARRUSEL ORDENADO -->
+    <main class="hud-canvas-center">
+      <div id="gameHeroCarousel" class="carousel slide carousel-fade h-100" data-bs-ride="carousel" data-bs-interval="4500">
+        <div class="carousel-inner h-100">
+          
+          <div class="carousel-item active h-100">
+            <img src="https://i.pinimg.com/736x/d3/fd/09/d3fd09d234163e9f21f3dbc93670e1e9.jpg" class="d-block w-100 h-100 object-fit-cover" alt="Estética Gamer 1">
+            <div class="hud-hero-caption">
+              <span class="hud-tag-game">ESTUDIANTE PWA</span>
+              <h1 class="hud-title-game">GENESIS ALEJANDRA</h1>
+              <p class="hud-desc-game">Sistemas en UPDS • Creando experiencias de interfaz con estilo y lógica rigurosa.</p>
+            </div>
+          </div>
+
+          <div class="carousel-item h-100">
+            <img src="https://i.pinimg.com/1200x/47/93/12/4793127ad3b98043758cfd9be66161a2.jpg" class="d-block w-100 h-100 object-fit-cover" alt="Estética Gamer 2">
+            <div class="hud-hero-caption">
+              <blockquote class="hud-quote-game mb-0">
+                <p class="mb-1 fst-italic">"It's okay to take a break when things get hard."</p>
+                <footer class="text-soft small">— Bang Chan (Stray Kids)</footer>
+              </blockquote>
+            </div>
+          </div>
+
+          <div class="carousel-item h-100">
+            <img src="https://i.pinimg.com/736x/fb/3a/b8/fb3ab83b94f5f364ec255c1bf07b9fdc.jpg" class="d-block w-100 h-100 object-fit-cover" alt="Estética Gamer 3">
+            <div class="hud-hero-caption">
+              <span class="hud-tag-game">FORMACIÓN CONTINUA</span>
+              <h1 class="hud-title-game">UPDS BOLIVIA</h1>
+              <p class="hud-desc-game">Construyendo el camino paso a paso.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </main>
+
+    <!-- DOCK INFERIOR -->
+    <nav class="hud-bottom-dock">
+      <div class="hud-dock-menu">
+        <button class="hud-dock-item" data-modal="modal-perfil">
+          <i class="bi bi-person-bounding-box"></i>
+          <span>Perfil</span>
+        </button>
+        <button class="hud-dock-item" data-modal="modal-actividades">
+          <i class="bi bi-cpu"></i>
+          <span>Sistemas</span>
+        </button>
+        <button class="hud-dock-item" data-modal="modal-libros">
+          <i class="bi bi-book-half"></i>
+          <span>Libros</span>
+        </button>
+        <button class="hud-dock-item" data-modal="modal-peliculas">
+          <i class="bi bi-film"></i>
+          <span>Cine</span>
+        </button>
+        <button class="hud-dock-item" data-modal="modal-horario">
+          <i class="bi bi-calendar-range"></i>
+          <span>Horario</span>
+        </button>
+        <button class="hud-dock-item btn-carmesi-glow" data-modal="modal-contacto">
+          <i class="bi bi-envelope-paper-fill"></i>
+          <span>Contacto</span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- VENTANAS MODALES HUD -->
+    <div id="modal-perfil" class="hud-modal">
+      <div class="hud-modal-box">
+        <div class="hud-modal-header">
+          <h3 class="fs-6 mb-0 font-orbitron text-carmesi"><i class="bi bi-person-badge me-2"></i>IDENTIFICACIÓN DE USUARIO</h3>
+          <button class="hud-modal-close" data-close><i class="bi bi-x-lg"></i></button>
+        </div>
+        <div class="hud-modal-body small">
+          <p class="mb-2 text-light"><strong>Nombre:</strong> Genesis Alejandra Flores Tarqui</p>
+          <p class="mb-2 text-light"><strong>Carrera:</strong> Ingeniería de Sistemas - UPDS (Bolivia).</p>
+          <hr class="border-secondary my-2">
+          <p class="mb-1 text-soft"><strong>Competencias técnicas:</strong></p>
+          <p class="mb-2 text-light">C#, ASP.NET Core, PHP, Angular, HTML, CSS, JavaScript, PostgreSQL, SQL Server, Docker, VMware.</p>
+        </div>
+      </div>
+    </div>
+
+    <div id="modal-actividades" class="hud-modal">
+      <div class="hud-modal-box">
+        <div class="hud-modal-header">
+          <h3 class="fs-6 mb-0 font-orbitron text-carmesi"><i class="bi bi-cpu me-2"></i>INTERESES & HOBBIES</h3>
+          <button class="hud-modal-close" data-close><i class="bi bi-x-lg"></i></button>
+        </div>
+        <div class="hud-modal-body small">
+          <div class="row g-2">
+            <div class="col-12"><div class="p-2 card-item rounded text-light"><strong>Redes & Infraestructura:</strong> SSH, DNS, Telnet en Rocky Linux y Docker.</div></div>
+            <div class="col-12"><div class="p-2 card-item rounded text-light"><strong>Pasatiempos:</strong> Voleibol, dibujo digital y lectura de novelas existenciales.</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="modal-entretenimiento" class="hud-modal">
+      <div class="hud-modal-box hud-box-lg">
+        <div class="hud-modal-header">
+          <h3 class="fs-6 mb-0 font-orbitron text-carmesi"><i class="bi bi-youtube me-2"></i>STREAMING & PLAYLISTS YOUTUBE</h3>
+          <button class="hud-modal-close" data-close><i class="bi bi-x-lg"></i></button>
+        </div>
+        <div class="hud-modal-body small">
+          <p class="text-soft mb-2">Mis programas de variedades y creadores favoritos:</p>
+          <div class="list-group list-group-dark gap-2">
+            <a href="https://youtube.com/playlist?list=PLKz4-03B3FoseT1cHKClif-Bv0RVCcwQJ&si=0YmLfAfdfaX_JMek" target="_blank" class="list-group-item list-group-item-action bg-dark text-light border border-secondary rounded d-flex justify-content-between align-items-center">
+              <span><i class="bi bi-play-circle-fill text-carmesi me-2"></i>Going Seventeen (SEVENTEEN)</span>
+              <i class="bi bi-box-arrow-up-right text-soft"></i>
+            </a>
+            <a href="https://youtube.com/playlist?list=PLfugIzRxZT6FDTy3xETUB7j-H_mgSL7Fw" target="_blank" class="list-group-item list-group-item-action bg-dark text-light border border-secondary rounded d-flex justify-content-between align-items-center">
+              <span><i class="bi bi-play-circle-fill text-carmesi me-2"></i>SKZ CODE (Stray Kids)</span>
+              <i class="bi bi-box-arrow-up-right text-soft"></i>
+            </a>
+            <a href="https://youtube.com/@carola2183?si=siokBPqwW8Vz61qy" target="_blank" class="list-group-item list-group-item-action bg-dark text-light border border-secondary rounded d-flex justify-content-between align-items-center">
+              <span><i class="bi bi-person-video3 text-carmesi me-2"></i>Carola (Streamer)</span>
+              <i class="bi bi-box-arrow-up-right text-soft"></i>
+            </a>
+            <a href="https://youtube.com/@auron?si=WLFrzqkeG22dG9e-" target="_blank" class="list-group-item list-group-item-action bg-dark text-light border border-secondary rounded d-flex justify-content-between align-items-center">
+              <span><i class="bi bi-person-video3 text-carmesi me-2"></i>AuronPlay</span>
+              <i class="bi bi-box-arrow-up-right text-soft"></i>
+            </a>
+            <a href="https://youtube.com/@juegagerman?si=os34YA1xckr53UZd" target="_blank" class="list-group-item list-group-item-action bg-dark text-light border border-secondary rounded d-flex justify-content-between align-items-center">
+              <span><i class="bi bi-person-video3 text-carmesi me-2"></i>JuegaGerman</span>
+              <i class="bi bi-box-arrow-up-right text-soft"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BIBLIOTECA -->
+    <div id="modal-libros" class="hud-modal">
+      <div class="hud-modal-box hud-box-lg">
+        <div class="hud-modal-header">
+          <h3 class="fs-6 mb-0 font-orbitron text-carmesi"><i class="bi bi-book-half me-2"></i>BIBLIOTECA LITERARIA (Toca para ver prólogo)</h3>
+          <button class="hud-modal-close" data-close><i class="bi bi-x-lg"></i></button>
+        </div>
+        <div class="hud-modal-body small">
+          <div class="row g-2" style="max-height: 50vh; overflow-y: auto;">
+            
+            <div class="col-6 col-md-4">
+              <div class="card-book h-100 p-2 text-center" data-libro="true" data-titulo="Los siete maridos de Evelyn Hugo" data-autor="Taylor Jenkins Reid" data-anio="2017" data-desc="Evelyn Hugo, un ícono de Hollywood retirada y de avanzada edad, decide finalmente contar la verdad sobre su glamorosa y tormentosa vida, revelando secretos impactantes sobre sus siete matrimonios y un amor prohibido.">
+                <img src="https://i.pinimg.com/1200x/c0/b8/d1/c0b8d107d3324b987ee1ad4c5d7277e5.jpg" class="book-thumb mb-1 w-100" style="height: 140px; object-fit: cover; border-radius: 6px;">
+                <strong class="fs-micro d-block text-light">Los siete maridos de Evelyn Hugo</strong>
+                <small class="text-soft" style="font-size: 0.7rem;">Taylor Jenkins Reid</small>
+              </div>
+            </div>
+
+            <div class="col-6 col-md-4">
+              <div class="card-book h-100 p-2 text-center" data-libro="true" data-titulo="El jardín de las mariposas" data-autor="Dot Hutchison" data-anio="2016" data-desc="Un thriller psicológico absorbente centrado en un jardín aislado donde un coleccionista maniático mantiene a jóvenes mujeres retenidas contra su voluntad, nombrándolas como sus mariposas favoritas.">
+                <img src="https://i.pinimg.com/1200x/77/56/8e/77568e2d0bd2d6b392da500bf4db1324.jpg" class="book-thumb mb-1 w-100" style="height: 140px; object-fit: cover; border-radius: 6px;">
+                <strong class="fs-micro d-block text-light">El jardín de las mariposas</strong>
+                <small class="text-soft" style="font-size: 0.7rem;">Dot Hutchison</small>
+              </div>
+            </div>
+
+            <div class="col-6 col-md-4">
+              <div class="card-book h-100 p-2 text-center" data-libro="true" data-titulo="Las rosas de mayo" data-autor="Dot Hutchison" data-anio="2017" data-desc="Secuela de la saga El coleccionista, donde se explora la recuperación emocional, los traumas del pasado y la búsqueda de justicia tras los terribles acontecimientos del jardín.">
+                <img src="https://i.pinimg.com/736x/7d/23/cd/7d23cd9362e583e1f2a7f104210cddde.jpg" class="book-thumb mb-1 w-100" style="height: 140px; object-fit: cover; border-radius: 6px;">
+                <strong class="fs-micro d-block text-light">Las rosas de mayo</strong>
+                <small class="text-soft" style="font-size: 0.7rem;">Dot Hutchison</small>
+              </div>
+            </div>
+
+            <div class="col-6 col-md-4">
+              <div class="card-book h-100 p-2 text-center" data-libro="true" data-titulo="Los niños del verano" data-autor="Chris Whitaker" data-anio="2021" data-desc="Una novela conmovedora y profunda sobre segundas oportunidades, crímenes del pasado, la culpa y la redención en un pequeño pueblo de California.">
+                <img src="https://i.pinimg.com/736x/fc/ad/27/fcad2795a06ffddb709208a96569dfff.jpg" class="book-thumb mb-1 w-100" style="height: 140px; object-fit: cover; border-radius: 6px;">
+                <strong class="fs-micro d-block text-light">Los niños del verano</strong>
+                <small class="text-soft" style="font-size: 0.7rem;">Chris Whitaker</small>
+              </div>
+            </div>
+
+            <div class="col-6 col-md-4">
+              <div class="card-book h-100 p-2 text-center" data-libro="true" data-titulo="Noches Blancas" data-autor="Fiódor Dostoyevski" data-anio="1848" data-desc="Una obra maestra de la literatura rusa que narra cuatro noches de ilusión, melancolía y amor platónico en San Petersburgo entre un joven solitario y soñador y una muchacha llamada Nástenka.">
+                <img src="https://i.pinimg.com/1200x/e8/65/c7/e865c7448d1b455bae890ac93e1ba330.jpg" class="book-thumb mb-1 w-100" style="height: 140px; object-fit: cover; border-radius: 6px;">
+                <strong class="fs-micro d-block text-light">Noches Blancas</strong>
+                <small class="text-soft" style="font-size: 0.7rem;">Fiódor Dostoyevski</small>
+              </div>
+            </div>
+
+            <div class="col-6 col-md-4">
+              <div class="card-book h-100 p-2 text-center" data-libro="true" data-titulo="Ella y su gato" data-autor="Makoto Shinkai y Naruki Nagakawa" data-anio="2016" data-desc="Una serie de relatos conmovedores y tiernos sobre la perspectiva de los gatos acerca de la vida cotidiana de sus dueñas humanas y la conexión emocional que comparten en la gran ciudad.">
+                <img src="https://i.pinimg.com/736x/e0/22/9e/e0229ede7685999b5f958a8d4a4154c4.jpg" class="book-thumb mb-1 w-100" style="height: 140px; object-fit: cover; border-radius: 6px;">
+                <strong class="fs-micro d-block text-light">Ella y su gato</strong>
+                <small class="text-soft" style="font-size: 0.7rem;">Makoto Shinkai</small>
+              </div>
+            </div>
+
+            <div class="col-6 col-md-4">
+              <div class="card-book h-100 p-2 text-center" data-libro="true" data-titulo="Tokio Blues (Norwegian Wood)" data-autor="Haruki Murakami" data-anio="1987" data-desc="Una novela nostálgica e intimista sobre la juventud, el amor pasional, la pérdida y la complejidad emocional ambientada en el Tokio contestatario de finales de los años sesenta.">
+                <img src="https://i.pinimg.com/736x/de/39/37/de393776da63eb2bf0fc746c8ee56767.jpg" class="book-thumb mb-1 w-100" style="height: 140px; object-fit: cover; border-radius: 6px;">
+                <strong class="fs-micro d-block text-light">Tokio Blues</strong>
+                <small class="text-soft" style="font-size: 0.7rem;">Haruki Murakami</small>
+              </div>
+            </div>
+
+            <div class="col-6 col-md-4">
+              <div class="card-book h-100 p-2 text-center" data-libro="true" data-titulo="Soy un gato" data-autor="Natsume Sōseki" data-anio="1905" data-desc="Una brillante y cínica sátira de la sociedad japonesa de la era Meiji contada enteramente desde el punto de vista perspicaz, irónico y humorístico de un gato sin nombre.">
+                <img src="https://i.pinimg.com/736x/19/90/87/199087687057356ca23ab475dbfa8e62.jpg" class="book-thumb mb-1 w-100" style="height: 140px; object-fit: cover; border-radius: 6px;">
+                <strong class="fs-micro d-block text-light">Soy un gato</strong>
+                <small class="text-soft" style="font-size: 0.7rem;">Natsume Sōseki</small>
+              </div>
+            </div>
+
+            <div class="col-6 col-md-4">
+              <div class="card-book h-100 p-2 text-center" data-libro="true" data-titulo="Tan poca vida" data-autor="Hanya Yanagihara" data-anio="2015" data-desc="Una novela monumental, desgarradora e inolvidable que sigue la vida de cuatro amigos a lo largo de décadas en Nueva York, explorando con crudeza el trauma, la amistad y la resiliencia humana.">
+                <img src="https://i.pinimg.com/736x/3c/ff/9b/3cff9bbd3e195742460a56f4d03a931d.jpg" class="book-thumb mb-1 w-100" style="height: 140px; object-fit: cover; border-radius: 6px;">
+                <strong class="fs-micro d-block text-light">Tan poca vida</strong>
+                <small class="text-soft" style="font-size: 0.7rem;">Hanya Yanagihara</small>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL DETALLE LIBRO -->
+    <div id="modal-detalle-libro" class="hud-modal">
+      <div class="hud-modal-box">
+        <div class="hud-modal-header">
+          <h3 class="fs-6 mb-0 font-orbitron text-carmesi">Detalles de la obra</h3>
+          <button class="hud-modal-close" id="cerrarDetalleLibro"><i class="bi bi-x-lg"></i></button>
+        </div>
+        <div class="hud-modal-body small">
+          <h4 id="libroTituloModal" class="h6 fw-bold mb-1 text-white"></h4>
+          <p id="libroAutorAnio" class="text-warning small mb-2"></p>
+          <hr class="border-secondary my-2">
+          <p id="libroDesc" class="mb-0 text-light" style="line-height: 1.6;"></p>
+        </div>
+        <div class="hud-modal-footer border-top border-secondary pt-2 text-end mt-3">
+          <button type="button" id="btnCerrarDetalle" class="btn btn-brand btn-sm px-3 text-white">Cerrar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- CINE Y SERIES -->
+    <div id="modal-peliculas" class="hud-modal">
+      <div class="hud-modal-box hud-box-lg">
+        <div class="hud-modal-header">
+          <h3 class="fs-6 mb-0 font-orbitron text-carmesi"><i class="bi bi-film me-2"></i>CINE, SERIES & ANIMES FAVORITOS</h3>
+          <button class="hud-modal-close" data-close><i class="bi bi-x-lg"></i></button>
+        </div>
+        <div class="hud-modal-body small">
+          <div class="chip-row mb-2">
+            <button type="button" class="chip is-active btn-sm py-1 px-2" data-cine-filtro="todos">Todo</button>
+            <button type="button" class="chip btn-sm py-1 px-2" data-cine-filtro="anime">Animes</button>
+            <button type="button" class="chip btn-sm py-1 px-2" data-cine-filtro="series">Series</button>
+            <button type="button" class="chip btn-sm py-1 px-2" data-cine-filtro="peliculas">Películas</button>
+          </div>
+
+          <div class="row g-2" id="gridCine" style="max-height: 45vh; overflow-y: auto;">
+            <div class="col-6 col-md-4 cine-item-col" data-tipo="anime"><div class="p-2 card-item h-100 text-light"><span class="tag tag--music">Anime</span><h6 class="mb-0 mt-1 fs-micro text-white">Boku no Hero Academia</h6><small class="text-soft fs-micro">Acción / Héroes</small></div></div>
+            <div class="col-6 col-md-4 cine-item-col" data-tipo="anime"><div class="p-2 card-item h-100 text-light"><span class="tag tag--music">Anime</span><h6 class="mb-0 mt-1 fs-micro text-white">Naruto</h6><small class="text-soft fs-micro">Ninja / Aventura</small></div></div>
+            <div class="col-6 col-md-4 cine-item-col" data-tipo="anime"><div class="p-2 card-item h-100 text-light"><span class="tag tag--music">Anime</span><h6 class="mb-0 mt-1 fs-micro text-white">Tokyo Revengers</h6><small class="text-soft fs-micro">Pandillas</small></div></div>
+            <div class="col-6 col-md-4 cine-item-col" data-tipo="anime"><div class="p-2 card-item h-100 text-light"><span class="tag tag--music">Anime</span><h6 class="mb-0 mt-1 fs-micro text-white">Jujutsu Kaisen</h6><small class="text-soft fs-micro">Sobrenatural</small></div></div>
+            <div class="col-6 col-md-4 cine-item-col" data-tipo="anime"><div class="p-2 card-item h-100 text-light"><span class="tag tag--music">Anime</span><h6 class="mb-0 mt-1 fs-micro text-white">Kimetsu no Yaiba</h6><small class="text-soft fs-micro">Demonios</small></div></div>
+            <div class="col-6 col-md-4 cine-item-col" data-tipo="anime"><div class="p-2 card-item h-100 text-light"><span class="tag tag--music">Anime</span><h6 class="mb-0 mt-1 fs-micro text-white">Shingeki no Kyojin</h6><small class="text-soft fs-micro">Titanes</small></div></div>
+            <div class="col-6 col-md-4 cine-item-col" data-tipo="series"><div class="p-2 card-item h-100 text-light"><span class="tag tag--game">Serie</span><h6 class="mb-0 mt-1 fs-micro text-white">Las chicas Gilmore</h6><small class="text-soft fs-micro">Comedia dramática</small></div></div>
+            <div class="col-6 col-md-4 cine-item-col" data-tipo="series"><div class="p-2 card-item h-100 text-light"><span class="tag tag--game">Serie</span><h6 class="mb-0 mt-1 fs-micro text-white">Gossip Girl</h6><small class="text-soft fs-micro">Drama juvenil</small></div></div>
+            <div class="col-6 col-md-4 cine-item-col" data-tipo="series"><div class="p-2 card-item h-100 text-light"><span class="tag tag--game">Serie</span><h6 class="mb-0 mt-1 fs-micro text-white">The Walking Dead</h6><small class="text-soft fs-micro">Supervivencia</small></div></div>
+            <div class="col-6 col-md-4 cine-item-col" data-tipo="peliculas"><div class="p-2 card-item h-100 text-light"><span class="tag tag--plata">Película</span><h6 class="mb-0 mt-1 fs-micro text-white">Mujercitas</h6><small class="text-soft fs-micro">Clásico</small></div></div>
+            <div class="col-6 col-md-4 cine-item-col" data-tipo="peliculas"><div class="p-2 card-item h-100 text-light"><span class="tag tag--plata">Película</span><h6 class="mb-0 mt-1 fs-micro text-white">Nimona</h6><small class="text-soft fs-micro">Animación</small></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- HORARIO -->
+    <div id="modal-horario" class="hud-modal">
+      <div class="hud-modal-box">
+        <div class="hud-modal-header">
+          <h3 class="fs-6 mb-0 font-orbitron text-carmesi"><i class="bi bi-calendar-range me-2"></i>HORARIO & RUTINA</h3>
+          <button class="hud-modal-close" data-close><i class="bi bi-x-lg"></i></button>
+        </div>
+        <div class="hud-modal-body small">
+          <div class="table-responsive">
+            <table class="table table-dark table-sm align-middle mb-0 text-light">
+              <thead><tr><th>Horario</th><th>Actividad</th></tr></thead>
+              <tbody>
+                <tr><td>08:30 - 11:45</td><td>Clases UPDS (Sistemas)</td></tr>
+                <tr><td>13:30 - 15:00</td><td>Repaso de Código & Lógica</td></tr>
+                <tr><td>15:00 - 16:30</td><td>Lectura / Dibujo</td></tr>
+                <tr><td>17:00 - 21:00</td><td>Atención Familiar</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAVORITOS (CATÁLOGO COMPLETO) -->
+    <div id="modal-favoritos" class="hud-modal">
+      <div class="hud-modal-box hud-box-lg">
+        <div class="hud-modal-header">
+          <h3 class="fs-6 mb-0 font-orbitron text-carmesi"><i class="bi bi-controller me-2"></i>CATÁLOGO DE FAVORITOS</h3>
+          <button class="hud-modal-close" data-close><i class="bi bi-x-lg"></i></button>
+        </div>
+        <div class="hud-modal-body small">
+          <div class="chip-row mb-2" role="group" aria-label="Categoría principal">
+            <button type="button" class="chip is-active btn-sm py-1 px-2" data-filtro="todos">Todo</button>
+            <button type="button" class="chip btn-sm py-1 px-2" data-filtro="musica">Música</button>
+            <button type="button" class="chip btn-sm py-1 px-2" data-filtro="juegos">Juegos</button>
+          </div>
+
+          <div id="sub-musica" class="subfilters chip-row mb-2" hidden>
+            <button type="button" class="chip chip--sub is-active btn-sm py-1 px-2" data-sub-filtro="">Toda</button>
+            <button type="button" class="chip chip--sub btn-sm py-1 px-2" data-sub-filtro="cancion">Canciones</button>
+            <button type="button" class="chip chip--sub btn-sm py-1 px-2" data-sub-filtro="kpop-grupo">K-Pop</button>
+            <button type="button" class="chip chip--sub btn-sm py-1 px-2" data-sub-filtro="solista-pop">Solistas</button>
+            <button type="button" class="chip chip--sub btn-sm py-1 px-2" data-sub-filtro="rnb-indie">R&amp;B</button>
+            <button type="button" class="chip chip--sub btn-sm py-1 px-2" data-sub-filtro="krock">K-Rock</button>
+          </div>
+
+          <div id="sub-juegos" class="subfilters chip-row mb-2" hidden>
+            <button type="button" class="chip chip--sub is-active btn-sm py-1 px-2" data-sub-filtro="">Todos</button>
+            <button type="button" class="chip chip--sub btn-sm py-1 px-2" data-sub-filtro="moba">MOBA</button>
+            <button type="button" class="chip chip--sub btn-sm py-1 px-2" data-sub-filtro="construccion">Sandbox</button>
+            <button type="button" class="chip chip--sub btn-sm py-1 px-2" data-sub-filtro="plataforma">Plataforma</button>
+          </div>
+
+          <p id="conteoFavoritos" class="filter-count small text-soft mb-2"></p>
+
+          <div class="row g-2" id="gridFavoritos" style="max-height: 48vh; overflow-y: auto;">
+            <div class="col-6 col-md-4" data-tipo="musica" data-sub="cancion"><article class="fav-card p-2 h-100"><div class="fav-tags"><span class="tag tag--music">Canción</span></div><h6 class="fav-title text-white mb-1">Butterfly</h6><p class="fav-meta text-soft mb-1" style="font-size:0.75rem;">BTS</p><a class="link-more" href="https://www.youtube.com/results?search_query=Butterfly+BTS" target="_blank" rel="noopener">YouTube <i class="bi bi-arrow-up-right"></i></a></article></div>
+            <div class="col-6 col-md-4" data-tipo="musica" data-sub="cancion"><article class="fav-card p-2 h-100"><div class="fav-tags"><span class="tag tag--music">Canción</span></div><h6 class="fav-title text-white mb-1">JJAM</h6><p class="fav-meta text-soft mb-1" style="font-size:0.75rem;">Stray Kids</p><a class="link-more" href="https://www.youtube.com/results?search_query=JJAM+Stray+Kids" target="_blank" rel="noopener">YouTube <i class="bi bi-arrow-up-right"></i></a></article></div>
+            <div class="col-6 col-md-4" data-tipo="musica" data-sub="cancion"><article class="fav-card p-2 h-100"><div class="fav-tags"><span class="tag tag--music">Canción</span></div><h6 class="fav-title text-white mb-1">Right Where You Left Me</h6><p class="fav-meta text-soft mb-1" style="font-size:0.75rem;">Taylor Swift</p><a class="link-more" href="https://www.youtube.com/results?search_query=Right+Where+You+Left+Me+Taylor+Swift" target="_blank" rel="noopener">YouTube <i class="bi bi-arrow-up-right"></i></a></article></div>
+            <div class="col-6 col-md-4" data-tipo="musica" data-sub="cancion"><article class="fav-card p-2 h-100"><div class="fav-tags"><span class="tag tag--music">Canción</span></div><h6 class="fav-title text-white mb-1">Bewitched</h6><p class="fav-meta text-soft mb-1" style="font-size:0.75rem;">Laufey</p><a class="link-more" href="https://www.youtube.com/results?search_query=Bewitched+Laufey" target="_blank" rel="noopener">YouTube <i class="bi bi-arrow-up-right"></i></a></article></div>
+            <div class="col-6 col-md-4" data-tipo="musica" data-sub="cancion"><article class="fav-card p-2 h-100"><div class="fav-tags"><span class="tag tag--music">Canción</span></div><h6 class="fav-title text-white mb-1">God's Menu</h6><p class="fav-meta text-soft mb-1" style="font-size:0.75rem;">Stray Kids</p><a class="link-more" href="https://www.youtube.com/results?search_query=Gods+Menu+Stray+Kids" target="_blank" rel="noopener">YouTube <i class="bi bi-arrow-up-right"></i></a></article></div>
+            <div class="col-6 col-md-4" data-tipo="musica" data-sub="cancion"><article class="fav-card p-2 h-100"><div class="fav-tags"><span class="tag tag--music">Canción</span></div><h6 class="fav-title text-white mb-1">Spring Day</h6><p class="fav-meta text-soft mb-1" style="font-size:0.75rem;">BTS</p><a class="link-more" href="https://www.youtube.com/results?search_query=Spring+Day+BTS" target="_blank" rel="noopener">YouTube <i class="bi bi-arrow-up-right"></i></a></article></div>
+            <div class="col-6 col-md-4" data-tipo="musica" data-sub="cancion"><article class="fav-card p-2 h-100"><div class="fav-tags"><span class="tag tag--music">Canción</span></div><h6 class="fav-title text-white mb-1">Espresso</h6><p class="fav-meta text-soft mb-1" style="font-size:0.75rem;">Sabrina Carpenter</p><a class="link-more" href="https://www.youtube.com/results?search_query=Espresso+Sabrina+Carpenter" target="_blank" rel="noopener">YouTube <i class="bi bi-arrow-up-right"></i></a></article></div>
+
+            <div class="col-6 col-md-4" data-tipo="musica" data-sub="kpop-grupo"><article class="fav-card p-0 overflow-hidden h-100"><img src="https://i.pinimg.com/736x/83/87/f4/8387f41775c294462ab276f9842b35be.jpg" alt="Stray Kids" class="w-100" style="height: 100px; object-fit: cover;"><div class="p-2"><span class="tag tag--music">K-Pop</span><h6 class="fav-title text-white mb-1" style="font-size:0.8rem;">Stray Kids</h6><a class="link-more" href="https://kprofiles.com/stray-kids-members-profile/" target="_blank" rel="noopener">Perfil <i class="bi bi-arrow-up-right"></i></a></div></article></div>
+            <div class="col-6 col-md-4" data-tipo="musica" data-sub="kpop-grupo"><article class="fav-card p-0 overflow-hidden h-100"><img src="https://i.pinimg.com/1200x/3d/a0/3b/3da03b3f536f3f527a9759b58cff0210.jpg" alt="SEVENTEEN" class="w-100" style="height: 100px; object-fit: cover;"><div class="p-2"><span class="tag tag--music">K-Pop</span><h6 class="fav-title text-white mb-1" style="font-size:0.8rem;">SEVENTEEN</h6><a class="link-more" href="https://kprofiles.com/seventeen-members-profile/" target="_blank" rel="noopener">Perfil <i class="bi bi-arrow-up-right"></i></a></div></article></div>
+            <div class="col-6 col-md-4" data-tipo="musica" data-sub="kpop-grupo"><article class="fav-card p-0 overflow-hidden h-100"><img src="https://i.pinimg.com/736x/3a/b4/cf/3ab4cfd97022bacb6ef6474f20eed9be.jpg" alt="BTS" class="w-100" style="height: 100px; object-fit: cover;"><div class="p-2"><span class="tag tag--music">K-Pop</span><h6 class="fav-title text-white mb-1" style="font-size:0.8rem;">BTS</h6><a class="link-more" href="https://kprofiles.com/bts-bangtan-boys-members-profile/" target="_blank" rel="noopener">Perfil <i class="bi bi-arrow-up-right"></i></a></div></article></div>
+            <div class="col-6 col-md-4" data-tipo="musica" data-sub="kpop-grupo"><article class="fav-card p-0 overflow-hidden h-100"><img src="https://i.pinimg.com/736x/a2/cd/a5/a2cda54f8160205e221e829e3e9c2319.jpg" alt="BLACKPINK" class="w-100" style="height: 100px; object-fit: cover;"><div class="p-2"><span class="tag tag--music">K-Pop</span><h6 class="fav-title text-white mb-1" style="font-size:0.8rem;">BLACKPINK</h6><a class="link-more" href="https://kprofiles.com/black-pink-members-profile/" target="_blank" rel="noopener">Perfil <i class="bi bi-arrow-up-right"></i></a></div></article></div>
+            <div class="col-6 col-md-4" data-tipo="musica" data-sub="kpop-grupo"><article class="fav-card p-0 overflow-hidden h-100"><img src="https://i.pinimg.com/736x/1c/bb/cd/1cbbcdbf0f5aa4c26f2e0b02b69b079b.jpg" alt="TWICE" class="w-100" style="height: 100px; object-fit: cover;"><div class="p-2"><span class="tag tag--music">K-Pop</span><h6 class="fav-title text-white mb-1" style="font-size:0.8rem;">TWICE</h6><a class="link-more" href="https://kprofiles.com/twice-members-profile/" target="_blank" rel="noopener">Perfil <i class="bi bi-arrow-up-right"></i></a></div></article></div>
+            <div class="col-6 col-md-4" data-tipo="musica" data-sub="kpop-grupo"><article class="fav-card p-0 overflow-hidden h-100"><img src="https://i.pinimg.com/1200x/6f/30/76/6f30760ff0ea93c2ac0cba7a0f417534.jpg" alt="NewJeans" class="w-100" style="height: 100px; object-fit: cover;"><div class="p-2"><span class="tag tag--music">K-Pop</span><h6 class="fav-title text-white mb-1" style="font-size:0.8rem;">NewJeans</h6><a class="link-more" href="https://kprofiles.com/newjeans-members-profile/" target="_blank" rel="noopener">Perfil <i class="bi bi-arrow-up-right"></i></a></div></article></div>
+            <div class="col-6 col-md-4" data-tipo="musica" data-sub="kpop-grupo"><article class="fav-card p-0 overflow-hidden h-100"><img src="https://i.pinimg.com/1200x/ee/ec/03/eeec035f01fc10dedfabfb610cad8eda.jpg" alt="EXO" class="w-100" style="height: 100px; object-fit: cover;"><div class="p-2"><span class="tag tag--music">K-Pop</span><h6 class="fav-title text-white mb-1" style="font-size:0.8rem;">EXO</h6><a class="link-more" href="https://kprofiles.com/exo-members-profile/" target="_blank" rel="noopener">Perfil <i class="bi bi-arrow-up-right"></i></a></div></article></div>
+            <div class="col-6 col-md-4" data-tipo="musica" data-sub="kpop-grupo"><article class="fav-card p-0 overflow-hidden h-100"><img src="https://i.pinimg.com/736x/f8/88/fb/f888fb48095f9b2c62b4b960469eddd5.jpg" alt="Red Velvet" class="w-100" style="height: 100px; object-fit: cover;"><div class="p-2"><span class="tag tag--music">K-Pop</span><h6 class="fav-title text-white mb-1" style="font-size:0.8rem;">Red Velvet</h6><a class="link-more" href="https://kprofiles.com/red-velvet-members-profile/" target="_blank" rel="noopener">Perfil <i class="bi bi-arrow-up-right"></i></a></div></article></div>
+            <div class="col-6 col-md-4" data-tipo="musica" data-sub="kpop-grupo"><article class="fav-card p-0 overflow-hidden h-100"><img src="https://i.pinimg.com/736x/c3/47/80/c3478007e75f0c762b0eca2f82119a30.jpg" alt="(G)I-DLE" class="w-100" style="height: 100px; object-fit: cover;"><div class="p-2"><span class="tag tag--music">K-Pop</span><h6 class="fav-title text-white mb-1" style="font-size:0.8rem;">(G)I-DLE</h6><a class="link-more" href="https://kprofiles.com/g-i-dle-members-profile/" target="_blank" rel="noopener">Perfil <i class="bi bi-arrow-up-right"></i></a></div></article></div>
+
+            <div class="col-6 col-md-4" data-tipo="musica" data-sub="solista-pop"><article class="fav-card p-0 overflow-hidden h-100"><img src="https://i.pinimg.com/1200x/9f/15/ea/9f15eacf43da0cea8670f131a5682052.jpg" alt="Taylor" class="w-100" style="height: 100px; object-fit: cover;"><div class="p-2"><span class="tag tag--music">Solista</span><h6 class="fav-title text-white mb-1" style="font-size:0.8rem;">Taylor Swift</h6><a class="link-more" href="https://www.taylorswift.com" target="_blank" rel="noopener">Web <i class="bi bi-arrow-up-right"></i></a></div></article></div>
+            <div class="col-6 col-md-4" data-tipo="musica" data-sub="solista-pop"><article class="fav-card p-0 overflow-hidden h-100"><img src="https://i.pinimg.com/736x/4a/41/58/4a415877e62701bea38e2575621fbaa6.jpg" alt="Laufey" class="w-100" style="height: 100px; object-fit: cover;"><div class="p-2"><span class="tag tag--music">Jazz</span><h6 class="fav-title text-white mb-1" style="font-size:0.8rem;">Laufey</h6><a class="link-more" href="https://www.laufeymusic.com" target="_blank" rel="noopener">Web <i class="bi bi-arrow-up-right"></i></a></div></article></div>
+            <div class="col-6 col-md-4" data-tipo="musica" data-sub="solista-pop"><article class="fav-card p-0 overflow-hidden h-100"><img src="https://i.pinimg.com/736x/2c/72/c0/2c72c054d1063bd15571b523f7ae31c7.jpg" alt="Sabrina" class="w-100" style="height: 100px; object-fit: cover;"><div class="p-2"><span class="tag tag--music">Pop</span><h6 class="fav-title text-white mb-1" style="font-size:0.8rem;">Sabrina Carpenter</h6><a class="link-more" href="https://www.sabrinacarpenter.com" target="_blank" rel="noopener">Web <i class="bi bi-arrow-up-right"></i></a></div></article></div>
+            <div class="col-6 col-md-4" data-tipo="musica" data-sub="solista-pop"><article class="fav-card p-0 overflow-hidden h-100"><img src="https://i.pinimg.com/736x/a7/96/eb/a796ebd37e5c8aabd7b206210798c46f.jpg" alt="Olivia" class="w-100" style="height: 100px; object-fit: cover;"><div class="p-2"><span class="tag tag--music">Pop Rock</span><h6 class="fav-title text-white mb-1" style="font-size:0.8rem;">Olivia Rodrigo</h6><a class="link-more" href="https://www.oliviarodrigo.com" target="_blank" rel="noopener">Web <i class="bi bi-arrow-up-right"></i></a></div></article></div>
+
+            <div class="col-6 col-md-4" data-tipo="musica" data-sub="rnb-indie"><article class="fav-card p-0 overflow-hidden h-100"><img src="https://i.pinimg.com/1200x/85/d4/2b/85d42b9f1e6a4719fddeaedae1f1b71a.jpg" alt="DPR" class="w-100" style="height: 100px; object-fit: cover;"><div class="p-2"><span class="tag tag--music">R&amp;B</span><h6 class="fav-title text-white mb-1" style="font-size:0.8rem;">DPR</h6><a class="link-more" href="https://kprofiles.com/dpr-ian-profile-facts/" target="_blank" rel="noopener">Perfil <i class="bi bi-arrow-up-right"></i></a></div></article></div>
+            <div class="col-6 col-md-4" data-tipo="musica" data-sub="rnb-indie"><article class="fav-card p-0 overflow-hidden h-100"><img src="https://i.pinimg.com/736x/6c/82/fb/6c82fb4b618304ece4ea6fe897ce4b3a.jpg" alt="BIBI" class="w-100" style="height: 100px; object-fit: cover;"><div class="p-2"><span class="tag tag--music">R&amp;B</span><h6 class="fav-title text-white mb-1" style="font-size:0.8rem;">BIBI</h6><a class="link-more" href="https://kprofiles.com/bibi-profile-facts/" target="_blank" rel="noopener">Perfil <i class="bi bi-arrow-up-right"></i></a></div></article></div>
+            <div class="col-6 col-md-4" data-tipo="musica" data-sub="rnb-indie"><article class="fav-card p-0 overflow-hidden h-100"><img src="https://i.pinimg.com/1200x/14/6d/30/146d304f80aa2bca8f063e38019a6c2d.jpg" alt="DEAN" class="w-100" style="height: 100px; object-fit: cover;"><div class="p-2"><span class="tag tag--music">R&amp;B</span><h6 class="fav-title text-white mb-1" style="font-size:0.8rem;">DEAN</h6><a class="link-more" href="https://kprofiles.com/dean-profile/" target="_blank" rel="noopener">Perfil <i class="bi bi-arrow-up-right"></i></a></div></article></div>
+
+            <div class="col-6 col-md-4" data-tipo="musica" data-sub="krock"><article class="fav-card p-0 overflow-hidden h-100"><img src="https://i.pinimg.com/1200x/55/0d/93/550d938e2490917894b56d8653a02752.jpg" alt="DAY6" class="w-100" style="height: 100px; object-fit: cover;"><div class="p-2"><span class="tag tag--music">K-Rock</span><h6 class="fav-title text-white mb-1" style="font-size:0.8rem;">DAY6</h6><a class="link-more" href="https://kprofiles.com/day6-profile/" target="_blank" rel="noopener">Perfil <i class="bi bi-arrow-up-right"></i></a></div></article></div>
+            <div class="col-6 col-md-4" data-tipo="musica" data-sub="krock"><article class="fav-card p-0 overflow-hidden h-100"><img src="https://i.pinimg.com/1200x/e0/95/63/e09563c08e180f884ac1cfa8ada0b3ba.jpg" alt="The Rose" class="w-100" style="height: 100px; object-fit: cover;"><div class="p-2"><span class="tag tag--music">Indie Rock</span><h6 class="fav-title text-white mb-1" style="font-size:0.8rem;">The Rose</h6><a class="link-more" href="https://kprofiles.com/the-rose-members-profile/" target="_blank" rel="noopener">Perfil <i class="bi bi-arrow-up-right"></i></a></div></article></div>
+
+            <div class="col-6 col-md-4" data-tipo="juegos" data-sub="construccion"><article class="fav-card p-0 overflow-hidden h-100"><img src="https://i.pinimg.com/736x/90/d8/82/90d8826b31d14ffe061d7525f0a9ecaa.jpg" alt="R.E.P.O." class="w-100" style="height: 100px; object-fit: cover;"><div class="p-2"><span class="tag tag--game">Juego</span><h6 class="fav-title text-white mb-1" style="font-size:0.8rem;">R.E.P.O.</h6><a class="link-more" href="https://store.steampowered.com" target="_blank" rel="noopener">Steam <i class="bi bi-arrow-up-right"></i></a></div></article></div>
+            <div class="col-6 col-md-4" data-tipo="juegos" data-sub="construccion"><article class="fav-card p-0 overflow-hidden h-100"><img src="https://i.pinimg.com/736x/9a/31/16/9a3116733571bb94a1c57220400f747a.jpg" alt="Minecraft" class="w-100" style="height: 100px; object-fit: cover;"><div class="p-2"><span class="tag tag--game">Juego</span><h6 class="fav-title text-white mb-1" style="font-size:0.8rem;">Minecraft</h6><a class="link-more" href="https://www.minecraft.net" target="_blank" rel="noopener">Web <i class="bi bi-arrow-up-right"></i></a></div></article></div>
+            <div class="col-6 col-md-4" data-tipo="juegos" data-sub="moba"><article class="fav-card p-0 overflow-hidden h-100"><img src="https://i.pinimg.com/736x/71/d2/14/71d2141b6bedf4841528fce2c181597e.jpg" alt="Mobile Legends" class="w-100" style="height: 100px; object-fit: cover;"><div class="p-2"><span class="tag tag--game">Juego</span><h6 class="fav-title text-white mb-1" style="font-size:0.8rem;">Mobile Legends</h6><a class="link-more" href="https://m.mobilelegends.com" target="_blank" rel="noopener">Web <i class="bi bi-arrow-up-right"></i></a></div></article></div>
+            <div class="col-6 col-md-4" data-tipo="juegos" data-sub="moba"><article class="fav-card p-0 overflow-hidden h-100"><img src="https://i.pinimg.com/1200x/a3/a6/26/a3a62657736e502e9d9a3224706bbba5.jpg" alt="LoL" class="w-100" style="height: 100px; object-fit: cover;"><div class="p-2"><span class="tag tag--game">Juego</span><h6 class="fav-title text-white mb-1" style="font-size:0.8rem;">League of Legends</h6><a class="link-more" href="https://www.leagueoflegends.com" target="_blank" rel="noopener">Web <i class="bi bi-arrow-up-right"></i></a></div></article></div>
+            <div class="col-6 col-md-4" data-tipo="juegos" data-sub="plataforma"><article class="fav-card p-0 overflow-hidden h-100"><img src="https://i.pinimg.com/736x/75/99/57/75995716056598b79703b7a4cadc1546.jpg" alt="Hollow Knight" class="w-100" style="height: 100px; object-fit: cover;"><div class="p-2"><span class="tag tag--game">Juego</span><h6 class="fav-title text-white mb-1" style="font-size:0.8rem;">Hollow Knight</h6><a class="link-more" href="https://www.hollowknight.com" target="_blank" rel="noopener">Web <i class="bi bi-arrow-up-right"></i></a></div></article></div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTACTO -->
+    <div id="modal-contacto" class="hud-modal">
+      <div class="hud-modal-box">
+        <div class="hud-modal-header">
+          <h3 class="fs-6 mb-0 font-orbitron text-carmesi"><i class="bi bi-envelope-paper me-2"></i>CONTACTO & SOLICITUD</h3>
+          <button class="hud-modal-close" data-close><i class="bi bi-x-lg"></i></button>
+        </div>
+        <div class="hud-modal-body small">
+          <form id="contactoForm" novalidate>
+            <div class="row g-2 mb-2">
+              <div class="col-12 field">
+                <label for="nombre" class="field-label small text-light">Nombre</label>
+                <input type="text" id="nombre" name="nombre" class="form-control form-control-sm bg-dark text-white border-secondary" maxlength="30" placeholder="Tu nombre">
+                <div id="err-nombre" class="field-error small text-danger"></div>
+              </div>
+              <div class="col-12 field">
+                <label for="email" class="field-label small text-light">Correo</label>
+                <input type="email" id="email" name="email" class="form-control form-control-sm bg-dark text-white border-secondary" maxlength="60" placeholder="correo@ejemplo.com">
+                <div id="err-email" class="field-error small text-danger"></div>
+              </div>
+              <div class="col-12 field">
+                <label for="celular" class="field-label small text-light">Celular (8 dígitos)</label>
+                <input type="tel" id="celular" name="celular" class="form-control form-control-sm bg-dark text-white border-secondary" maxlength="8" placeholder="61234567">
+                <div id="err-celular" class="field-error small text-danger"></div>
+              </div>
+              <div class="col-12 field">
+                <label for="servicio" class="field-label small text-light">Servicio</label>
+                <select id="servicio" name="servicio" class="form-select form-control-sm bg-dark text-white border-secondary">
+                  <option value="">Selecciona</option>
+                  <option value="frontend">Frontend</option>
+                  <option value="base_datos">Base de Datos</option>
+                </select>
+                <div id="err-servicio" class="field-error small text-danger"></div>
+              </div>
+              <div class="col-12 field">
+                <label for="mensaje" class="field-label small text-light">Mensaje</label>
+                <textarea id="mensaje" name="mensaje" class="form-control form-control-sm bg-dark text-white border-secondary" rows="2" maxlength="500" placeholder="Detalles..."></textarea>
+                <span id="contadorMensaje" class="field-count small text-soft">0/500</span>
+                <div id="err-mensaje" class="field-error small text-danger"></div>
+              </div>
+              <div class="col-12 field">
+                <div class="form-check small text-light">
+                  <input type="checkbox" class="form-check-input" id="acepto" name="acepto">
+                  <label class="form-check-label text-light" for="acepto">Acepto términos</label>
+                </div>
+                <div id="err-acepto" class="field-error small text-danger"></div>
+              </div>
+            </div>
+            <button type="submit" id="btnEnviar" class="btn btn-brand btn-sm w-100 text-white">Enviar Solicitud</button>
+          </form>
+          <div id="formSuccess" class="p-3 text-center" hidden>
+            <i class="bi bi-check-circle-fill text-success fs-2"></i>
+            <h6 class="mt-2 text-white" id="successText"></h6>
+            <button type="button" id="nuevaSolicitud" class="btn btn-outline-light btn-sm mt-2">Enviar otro</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DIAGNÓSTICO PWA -->
+    <div id="modal-diagnostico" class="hud-modal">
+      <div class="hud-modal-box hud-box-lg">
+        <div class="hud-modal-header">
+          <h3 class="fs-6 mb-0 font-orbitron text-carmesi"><i class="bi bi-shield-check me-2"></i>DIAGNÓSTICO PWA & DOM</h3>
+          <button class="hud-modal-close" data-close><i class="bi bi-x-lg"></i></button>
+        </div>
+        <div class="hud-modal-body small">
+          <p class="text-soft mb-2">Pega tu código HTML/CSS abajo para detectar clases bloqueadas o ineficiencias:</p>
+          <textarea id="codigoInput" class="form-control bg-dark text-warning font-monospace mb-2" style="height: 100px;" placeholder="Pega aquí tu código..."></textarea>
+          <button class="btn btn-brand btn-sm w-100 mb-2 text-white" id="btnAnalizar">Analizar Código</button>
+          <div id="panelResultado" class="p-2 border border-secondary rounded mt-2" style="display:none;">
+            <h6 class="text-carmesi mb-1">Informe:</h6>
+            <div id="detallesReporte" class="mb-2 text-light"></div>
+            <textarea id="codigoSugerido" class="form-control bg-dark text-light font-monospace" style="height: 80px;" readonly></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="script.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('sw.js').catch(err => console.log(err));
+      });
+    }
+  </script>
+</body>
+</html>
