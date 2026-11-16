@@ -1,92 +1,229 @@
+/* ==========================================================================
+   PORTAFOLIO PWA · ALE
+   Interfaz móvil tipo HUD, temas claro/oscuro y soporte de safe-area.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. VARIABLES Y TEMAS
+   -------------------------------------------------------------------------- */
 :root {
   --fondo: #0f1115;
   --superficie: #161a22;
+  --superficie-2: #1f242d;
   --texto: #f0f3f9;
   --texto-soft: #adb5bd;
   --linea: #30363d;
   --brand: #e63946;
+  --brand-text: #f26b74;
+  --brand-fill: #cf2331;
+  --brand-fill-hover: #b81d2a;
+  --brand-hover: #ff4d5a;
   --carmesi: #b7094c;
   --carmesi-texto: #ff6b8b;
+  --sombra: 0 20px 40px rgba(0, 0, 0, 0.7);
+  --overlay: rgba(10, 12, 16, 0.86);
+  --radio: 12px;
+}
+
+[data-theme="light"] {
+  --fondo: #f4f5f7;
+  --superficie: #ffffff;
+  --superficie-2: #eef0f3;
+  --texto: #1c1f24;
+  --texto-soft: #5a6169;
+  --linea: #d8dde3;
+  --brand: #d90429;
+  --brand-text: #b3162a;
+  --brand-fill: #b3162a;
+  --brand-fill-hover: #8f1020;
+  --brand-hover: #ef233c;
+  --carmesi: #9b2226;
+  --carmesi-texto: #ae2012;
+  --sombra: 0 20px 40px rgba(28, 31, 36, 0.18);
+  --overlay: rgba(28, 31, 36, 0.55);
+}
+
+/* --------------------------------------------------------------------------
+   2. BASE
+   -------------------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
 }
 
 body.hud-game-body {
   background-color: var(--fondo);
   color: var(--texto);
-  font-family: 'Manrope', sans-serif;
+  font-family: 'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;
   margin: 0;
   padding: 0;
-  overflow: hidden;
-  height: 100vh;
+  min-height: 100vh;
+  min-height: 100dvh;
+  overflow-x: hidden;
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
 .hud-container-fluid {
   display: flex;
   flex-direction: column;
   height: 100vh;
+  height: 100dvh;
+  min-height: 100vh;
+  min-height: 100dvh;
   position: relative;
+  overflow: hidden;
+}
+
+img {
+  max-width: 100%;
+}
+
+:focus-visible {
+  outline: 3px solid var(--brand);
+  outline-offset: 2px;
 }
 
 .font-orbitron {
   font-family: 'Orbitron', sans-serif;
 }
 
-/* BARRA SUPERIOR */
+.text-carmesi {
+  color: var(--carmesi-texto) !important;
+}
+
+.text-soft {
+  color: var(--texto-soft) !important;
+}
+
+.fs-micro {
+  font-size: 0.78rem;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+.btn-brand {
+  background-color: var(--brand-fill);
+  border: 1px solid var(--brand-fill);
+  border-radius: 8px;
+  color: #fff !important;
+  font-weight: 700;
+}
+
+.btn-brand:hover,
+.btn-brand:focus-visible {
+  background-color: var(--brand-fill-hover);
+  border-color: var(--brand-fill-hover);
+  color: #fff !important;
+}
+
+/* --------------------------------------------------------------------------
+   3. BARRA SUPERIOR
+   -------------------------------------------------------------------------- */
 .hud-top-bar {
   background-color: var(--superficie);
   border-bottom: 1px solid var(--linea);
   display: flex;
+  flex-wrap: nowrap;
   justify-content: space-between;
   align-items: center;
+  gap: 0.5rem;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  padding-top: calc(0.5rem + env(safe-area-inset-top));
+  padding-bottom: 0.5rem;
   z-index: 100;
+  flex: 0 0 auto;
 }
 
 .hud-user-avatar {
-  width: 38px;
-  height: 38px;
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
   background-color: rgba(230, 57, 70, 0.15);
   border: 1px solid var(--brand);
-  border-radius: 8px;
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--brand);
+  font-size: 1.05rem;
 }
 
-.hud-icon-btn, .hud-sync-pill {
+.hud-top-bar .fs-7 {
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+}
+
+.hud-icon-btn,
+.hud-sync-pill {
   background: var(--superficie);
   border: 1px solid var(--linea);
   color: var(--texto);
-  padding: 0.4rem 0.8rem;
-  border-radius: 8px;
-  font-size: 0.9rem;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0.35rem 0.7rem;
+  border-radius: 9px;
+  font-size: 0.85rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  transition: background-color 0.2s, border-color 0.2s, color 0.2s;
 }
 
-.hud-icon-btn:hover, .hud-sync-pill:hover {
+.hud-icon-btn:hover,
+.hud-sync-pill:hover,
+.hud-icon-btn:focus-visible {
   border-color: var(--brand);
   color: var(--brand);
 }
 
 .hud-sync-pill {
-  background-color: rgba(230, 57, 70, 0.2);
+  background-color: rgba(230, 57, 70, 0.16);
   color: var(--carmesi-texto);
   border-color: var(--carmesi);
+  white-space: nowrap;
 }
 
-/* MENÚ DESPLEGABLE */
+.hud-sync-pill.is-offline {
+  background-color: rgba(255, 193, 7, 0.15);
+  border-color: #ffc107;
+  color: #ffca2c;
+}
+
+.hud-sync-pill.is-installed {
+  background-color: rgba(25, 135, 84, 0.15);
+  border-color: #198754;
+  color: #4ade80;
+}
+
+/* --------------------------------------------------------------------------
+   4. MENÚ DESPLEGABLE
+   -------------------------------------------------------------------------- */
 .menu-panel {
   position: absolute;
-  top: 100%;
-  right: 15px;
+  top: calc(100% + 6px);
+  right: 0;
   background-color: var(--superficie);
   border: 1px solid var(--linea);
-  border-radius: 12px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.6);
-  width: 250px;
-  padding: 0.5rem 0;
+  border-radius: var(--radio);
+  box-shadow: var(--sombra);
+  width: min(280px, calc(100vw - 1.5rem));
+  max-height: calc(100dvh - 5.5rem);
+  overflow-y: auto;
+  padding: 0.45rem;
   display: none;
-  z-index: 1000;
+  z-index: 1050;
+  -webkit-overflow-scrolling: touch;
 }
 
 .menu-panel.is-open {
@@ -100,69 +237,107 @@ body.hud-game-body {
 }
 
 .menu-link {
-  display: block;
-  padding: 0.6rem 1.25rem;
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0.55rem 0.8rem;
+  border-radius: 8px;
   color: var(--texto);
   text-decoration: none;
   font-size: 0.9rem;
   transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-.menu-link:hover {
-  background-color: var(--linea);
+.menu-link:hover,
+.menu-link:focus-visible {
+  background-color: var(--superficie-2);
   color: var(--brand);
 }
 
-/* CANVAS Y HERO CENTRAL */
+/* --------------------------------------------------------------------------
+   5. CANVAS Y HERO
+   -------------------------------------------------------------------------- */
 .hud-canvas-center {
-  flex-grow: 1;
+  flex: 1 1 auto;
   position: relative;
   overflow: hidden;
+  min-height: 0;
+}
+
+.hud-canvas-center .carousel,
+.hud-canvas-center .carousel-inner,
+.hud-canvas-center .carousel-item {
+  height: 100%;
 }
 
 .carousel-item img {
+  width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: brightness(0.65);
+  filter: brightness(0.62) contrast(1.05);
 }
 
 .hud-hero-caption {
   position: absolute;
-  bottom: 15%;
-  left: 5%;
-  right: 5%;
-  background: rgba(15, 17, 21, 0.8);
-  backdrop-filter: blur(8px);
-  border: 1px solid var(--linea);
-  padding: 1.5rem;
-  border-radius: 12px;
+  bottom: 9%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(92%, 720px);
+  background: rgba(15, 17, 21, 0.76);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: clamp(1rem, 4vw, 1.6rem);
+  border-radius: var(--radio);
+  text-align: center;
 }
 
 .hud-tag-game {
-  background: var(--brand);
+  display: inline-block;
+  background: var(--brand-fill);
   color: #fff;
-  font-size: 0.7rem;
-  padding: 0.2rem 0.6rem;
+  font-size: 0.68rem;
+  padding: 0.25rem 0.65rem;
   border-radius: 4px;
   font-weight: 700;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 
 .hud-title-game {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 2rem;
+  font-size: clamp(1.7rem, 6vw, 2.6rem);
   font-weight: 700;
-  margin-top: 0.5rem;
+  line-height: 1.1;
+  margin: 0.55rem 0 0.35rem;
   color: #fff;
 }
 
 .hud-desc-game {
-  color: var(--texto-soft);
-  font-size: 0.9rem;
+  color: #d7dce3;
+  font-size: clamp(0.82rem, 2.5vw, 0.95rem);
+  line-height: 1.55;
   margin-bottom: 0;
 }
 
-/* NAVEGACIÓN LATERAL Y DOCK INFERIOR */
+.hud-quote-game {
+  margin: 0;
+}
+
+.hud-quote-game p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.15rem, 3.5vw, 1.55rem);
+  color: #fff;
+  line-height: 1.4;
+}
+
+.hud-quote-game footer {
+  font-size: 0.8rem;
+  color: #c3c9d1;
+}
+
+/* --------------------------------------------------------------------------
+   6. NAVEGACIÓN LATERAL Y DOCK
+   -------------------------------------------------------------------------- */
 .hud-side-nav {
   position: absolute;
   top: 50%;
@@ -173,45 +348,58 @@ body.hud-game-body {
   z-index: 90;
 }
 
-.hud-side-nav.left { left: 10px; }
-.hud-side-nav.right { right: 10px; }
+.hud-side-nav.left {
+  left: max(10px, env(safe-area-inset-left));
+}
+
+.hud-side-nav.right {
+  right: max(10px, env(safe-area-inset-right));
+}
 
 .hud-side-btn {
-  background: rgba(22, 26, 34, 0.85);
+  background: rgba(22, 26, 34, 0.88);
   border: 1px solid var(--linea);
-  color: var(--texto);
-  padding: 0.5rem;
-  border-radius: 8px;
+  color: #f0f3f9;
+  min-width: 48px;
+  min-height: 48px;
+  padding: 0.45rem;
+  border-radius: 9px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-size: 0.7rem;
+  justify-content: center;
+  gap: 0.1rem;
+  font-size: 0.62rem;
+  font-weight: 700;
   text-decoration: none;
   cursor: pointer;
   transition: all 0.2s;
 }
 
-.hud-side-btn:hover {
-  background: var(--brand);
+.hud-side-btn:hover,
+.hud-side-btn:focus-visible {
+  background: var(--brand-fill);
   color: #fff;
-  border-color: var(--brand);
+  border-color: var(--brand-fill);
 }
 
 .hud-side-btn i {
-  font-size: 1.1rem;
+  font-size: 1.05rem;
 }
 
 .hud-bottom-dock {
   background-color: var(--superficie);
   border-top: 1px solid var(--linea);
-  padding: 0.5rem 1rem;
+  padding: 0.35rem 0.5rem calc(0.35rem + env(safe-area-inset-bottom));
   z-index: 100;
+  flex: 0 0 auto;
 }
 
 .hud-dock-menu {
   display: flex;
   justify-content: space-around;
   align-items: center;
+  gap: 0.15rem;
 }
 
 .hud-dock-item {
@@ -221,144 +409,640 @@ body.hud-game-body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-size: 0.7rem;
+  justify-content: center;
+  gap: 0.1rem;
+  min-width: 44px;
+  min-height: 48px;
+  padding: 0.2rem 0.35rem;
+  border-radius: 8px;
+  font-size: 0.65rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: color 0.2s;
+  transition: color 0.2s, background-color 0.2s;
 }
 
-.hud-dock-item:hover, .hud-dock-item.active {
+.hud-dock-item:hover,
+.hud-dock-item:focus-visible,
+.hud-dock-item.active {
   color: var(--brand);
+  background-color: var(--superficie-2);
 }
 
 .hud-dock-item i {
-  font-size: 1.2rem;
+  font-size: 1.15rem;
 }
 
 .btn-carmesi-glow {
   color: var(--carmesi-texto) !important;
 }
 
-/* MODALES HUD */
+/* --------------------------------------------------------------------------
+   7. MODALES
+   -------------------------------------------------------------------------- */
 .hud-modal {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(10, 12, 16, 0.85);
+  inset: 0;
+  background-color: var(--overlay);
   backdrop-filter: blur(8px);
   display: none;
   align-items: center;
   justify-content: center;
   z-index: 1100;
-  padding: 1rem;
+  padding: max(0.75rem, env(safe-area-inset-top)) 0.75rem max(0.75rem, env(safe-area-inset-bottom));
+  overflow-y: auto;
 }
 
 .hud-modal.is-open {
-  display: flex !important;
+  display: flex;
 }
 
 .hud-modal-box {
   background-color: var(--superficie);
   border: 1px solid var(--linea);
-  border-radius: 12px;
+  border-radius: var(--radio);
   width: 100%;
-  max-width: 480px;
-  max-height: 82vh;
+  max-width: 500px;
+  max-height: min(88dvh, 920px);
   display: flex;
   flex-direction: column;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.7);
+  box-shadow: var(--sombra);
+  overflow: hidden;
 }
 
 .hud-box-lg {
-  max-width: 700px;
+  max-width: 720px;
 }
 
 .hud-modal-header {
-  padding: 1rem;
+  flex: 0 0 auto;
+  padding: 0.9rem 1rem;
   border-bottom: 1px solid var(--linea);
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 0.75rem;
+  background-color: var(--superficie);
 }
 
 .hud-modal-body {
-  padding: 1.25rem;
+  padding: 1rem;
   overflow-y: auto;
   color: var(--texto);
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
+.hud-modal-footer {
+  flex: 0 0 auto;
+  padding: 0.75rem 1rem;
+  border-top: 1px solid var(--linea);
+  background-color: var(--superficie);
 }
 
 .hud-modal-close {
   background: transparent;
-  border: none;
+  border: 1px solid transparent;
   color: var(--texto);
+  min-width: 44px;
+  min-height: 44px;
+  border-radius: 8px;
   font-size: 1rem;
   cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
 }
 
-/* TARJETAS Y CHIPS DE FILTRO (DISEÑO LIMPIO) */
-.card-book, .card-item, .fav-card {
-  background-color: #1f242d;
+.hud-modal-close:hover,
+.hud-modal-close:focus-visible {
+  background-color: var(--superficie-2);
+  border-color: var(--linea);
+  color: var(--brand);
+}
+
+/* --------------------------------------------------------------------------
+   8. TARJETAS, CHIPS Y ETIQUETAS
+   -------------------------------------------------------------------------- */
+.card-book,
+.card-item,
+.fav-card {
+  background-color: var(--superficie-2);
   border: 1px solid var(--linea);
-  border-radius: 8px;
+  border-radius: 10px;
   overflow: hidden;
   transition: transform 0.2s, border-color 0.2s;
 }
 
-.card-book:hover, .card-item:hover, .fav-card:hover {
+.card-book:hover,
+.card-item:hover,
+.fav-card:hover {
   transform: translateY(-2px);
   border-color: var(--brand);
 }
 
-.chip, .chip--sub {
-  background-color: #1f242d;
+.card-book {
+  cursor: pointer;
+}
+
+.card-book:focus-visible {
+  outline: 3px solid var(--brand);
+  outline-offset: 2px;
+}
+
+.chip,
+.chip--sub {
+  background-color: var(--superficie-2);
   border: 1px solid var(--linea);
   color: var(--texto-soft);
-  border-radius: 6px;
+  border-radius: 999px;
+  min-height: 44px;
+  padding: 0.4rem 0.8rem;
   font-size: 0.75rem;
+  font-weight: 700;
   cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   transition: all 0.2s ease;
 }
 
-.chip:hover, .chip--sub:hover {
+.chip:hover,
+.chip--sub:hover,
+.chip:focus-visible {
   border-color: var(--brand);
-  color: #fff;
+  color: var(--texto);
 }
 
-.chip.is-active, .chip--sub.is-active {
-  background-color: var(--brand);
-  border-color: var(--brand);
+.chip.is-active,
+.chip--sub.is-active {
+  background-color: var(--brand-fill);
+  border-color: var(--brand-fill);
   color: #fff !important;
-  font-weight: 600;
-  box-shadow: 0 0 10px rgba(230, 57, 70, 0.4);
+  box-shadow: 0 0 10px rgba(230, 57, 70, 0.35);
+}
+
+.chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.subfilters {
+  padding-left: 0.6rem;
+  border-left: 2px solid var(--linea);
+  margin-top: 0.6rem;
+}
+
+.filter-count {
+  font-size: 0.75rem;
+  color: var(--texto-soft);
 }
 
 .tag {
-  font-size: 0.65rem;
-  padding: 0.15rem 0.4rem;
+  font-size: 0.62rem;
+  padding: 0.18rem 0.45rem;
   border-radius: 4px;
   font-weight: 700;
   display: inline-block;
-  background: rgba(230, 57, 70, 0.2);
+  background: rgba(230, 57, 70, 0.18);
+  color: var(--carmesi-texto);
+  border: 1px solid rgba(230, 57, 70, 0.25);
+}
+
+.tag--music {
+  background: rgba(230, 57, 70, 0.18);
   color: var(--carmesi-texto);
 }
 
+.tag--game {
+  background: rgba(40, 167, 69, 0.16);
+  color: #4ade80;
+  border-color: rgba(40, 167, 69, 0.3);
+}
+
+.tag--plata {
+  background: rgba(108, 117, 125, 0.18);
+  color: var(--texto-soft);
+  border-color: rgba(108, 117, 125, 0.3);
+}
+
+.fav-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  margin-bottom: 0.35rem;
+}
+
+.fav-card {
+  padding: 0.6rem;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.fav-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  line-height: 1.25;
+  margin-bottom: 0.2rem;
+}
+
+.fav-meta {
+  font-size: 0.72rem;
+  color: var(--texto-soft);
+  margin-bottom: 0.25rem;
+}
+
 .link-more {
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   color: var(--carmesi-texto);
   text-decoration: none;
-  display: inline-block;
-  margin-top: 0.3rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+  min-height: 40px;
+  font-weight: 600;
 }
 
 .link-more:hover {
   text-decoration: underline;
-  color: #fff;
+  color: var(--brand);
 }
 
-.btn-brand {
-  background-color: var(--brand);
-  border: none;
-  border-radius: 8px;
+.book-thumb {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 6px;
+  background-color: var(--superficie);
+}
+
+/* --------------------------------------------------------------------------
+   9. PERFIL
+   -------------------------------------------------------------------------- */
+.profile-head {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin-bottom: 0.9rem;
+}
+
+.hero-avatar {
+  width: 62px;
+  height: 62px;
+  min-width: 62px;
+  border-radius: 18px;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  font-size: 1.55rem;
+  background: linear-gradient(140deg, var(--brand-hover), var(--carmesi));
+  box-shadow: 0 8px 18px rgba(183, 9, 76, 0.3);
+}
+
+.profile-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0 0 0.15rem;
+  color: var(--texto);
+}
+
+.profile-role {
+  font-size: 0.76rem;
+  color: var(--texto-soft);
+  margin: 0;
+}
+
+.profile-facts p {
+  font-size: 0.82rem;
+  color: var(--texto-soft);
+}
+
+.profile-facts strong {
+  color: var(--texto);
+}
+
+.skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.skill-tag {
+  padding: 0.28rem 0.55rem;
+  border-radius: 6px;
+  background-color: var(--superficie-2);
+  border: 1px solid var(--linea);
+  color: var(--texto);
+  font-size: 0.7rem;
   font-weight: 600;
+}
+
+.profile-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.profile-links .btn {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+
+/* --------------------------------------------------------------------------
+   10. LISTAS Y TABLAS
+   -------------------------------------------------------------------------- */
+.list-group-dark .list-group-item {
+  background-color: var(--superficie-2) !important;
+  color: var(--texto) !important;
+  border-color: var(--linea) !important;
+  min-height: 46px;
+}
+
+.list-group-dark .list-group-item:hover {
+  border-color: var(--brand) !important;
+}
+
+.table-dark {
+  --bs-table-bg: transparent;
+  --bs-table-color: var(--texto);
+  --bs-table-border-color: var(--linea);
+  margin-bottom: 0;
+}
+
+.table-dark th {
+  color: var(--texto);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.table-dark td {
+  color: var(--texto-soft);
+  font-size: 0.82rem;
+}
+
+/* --------------------------------------------------------------------------
+   11. FORMULARIO
+   -------------------------------------------------------------------------- */
+.field-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+}
+
+.field-control,
+.form-control,
+.form-select {
+  min-height: 44px;
+  border-radius: 8px;
+}
+
+.field-control:focus,
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--brand);
+  box-shadow: 0 0 0 0.2rem rgba(230, 57, 70, 0.2);
+}
+
+.field-error {
+  min-height: 0.9rem;
+  font-size: 0.7rem;
+  color: #ff8a93;
+  margin-top: 0.2rem;
+}
+
+.field-count {
+  font-size: 0.7rem;
+  color: var(--texto-soft);
+  float: right;
+  margin-top: 0.2rem;
+}
+
+.field-check input {
+  accent-color: var(--brand);
+}
+
+.form-alert {
+  padding: 0.55rem 0.7rem;
+  border-radius: 8px;
+  background-color: rgba(220, 53, 69, 0.14);
+  border: 1px solid rgba(220, 53, 69, 0.4);
+  color: #ff8a93;
+  font-size: 0.75rem;
+}
+
+.field.is-invalid .form-control,
+.field.is-invalid .form-select {
+  border-color: #dc3545 !important;
+}
+
+.field.is-valid .form-control,
+.field.is-valid .form-select {
+  border-color: #198754 !important;
+}
+
+#detallesReporte {
+  white-space: pre-line;
+  line-height: 1.5;
+}
+
+.hud-toast {
+  position: fixed;
+  left: 50%;
+  bottom: calc(5.6rem + env(safe-area-inset-bottom));
+  transform: translateX(-50%);
+  width: min(92vw, 440px);
+  padding: 0.7rem 0.9rem;
+  border-radius: 10px;
+  background-color: var(--superficie);
+  border: 1px solid var(--brand);
+  color: var(--texto);
+  box-shadow: var(--sombra);
+  font-size: 0.8rem;
+  line-height: 1.45;
+  text-align: center;
+  z-index: 1300;
+  opacity: 1;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.hud-toast.is-hiding {
+  opacity: 0;
+  transform: translateX(-50%) translateY(10px);
+}
+
+/* --------------------------------------------------------------------------
+   12. TEMA CLARO: AJUSTES PARA CLASES DE BOOTSTRAP
+   -------------------------------------------------------------------------- */
+[data-theme="light"] .hud-modal .text-light,
+[data-theme="light"] .hud-modal .text-white {
+  color: var(--texto) !important;
+}
+
+[data-theme="light"] .hud-top-bar .text-white {
+  color: var(--texto) !important;
+}
+
+[data-theme="light"] .btn-brand.text-white,
+[data-theme="light"] .btn-brand .text-white {
+  color: #fff !important;
+}
+
+[data-theme="light"] .bg-dark {
+  background-color: var(--superficie) !important;
+}
+
+[data-theme="light"] .border-secondary {
+  border-color: var(--linea) !important;
+}
+
+[data-theme="light"] .btn-outline-light {
+  color: var(--texto);
+  border-color: var(--linea);
+}
+
+[data-theme="light"] .btn-outline-light:hover,
+[data-theme="light"] .btn-outline-light:focus-visible {
+  background-color: var(--superficie-2);
+  border-color: var(--brand);
+  color: var(--texto);
+}
+
+[data-theme="light"] .table-dark {
+  --bs-table-bg: transparent;
+  --bs-table-color: var(--texto);
+  --bs-table-border-color: var(--linea);
+}
+
+[data-theme="light"] .hud-side-btn {
+  background: var(--superficie);
+  color: var(--texto);
+}
+
+[data-theme="light"] .hud-hero-caption {
+  background: rgba(255, 255, 255, 0.82);
+  border-color: rgba(28, 31, 36, 0.1);
+}
+
+[data-theme="light"] .hud-hero-caption .hud-title-game,
+[data-theme="light"] .hud-hero-caption .hud-quote-game p {
+  color: #1c1f24;
+}
+
+[data-theme="light"] .hud-hero-caption .hud-desc-game,
+[data-theme="light"] .hud-hero-caption .hud-quote-game footer {
+  color: #4b5259;
+}
+
+/* --------------------------------------------------------------------------
+   13. RESPONSIVIDAD
+   -------------------------------------------------------------------------- */
+@media (max-width: 900px) {
+  .hud-side-nav {
+    display: none;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .hud-hero-caption {
+    bottom: 7%;
+    width: 94%;
+    padding: 0.95rem;
+  }
+
+  .hud-title-game {
+    font-size: 1.55rem;
+  }
+
+  .hud-dock-item {
+    font-size: 0.6rem;
+    min-width: 44px;
+    padding: 0.15rem 0.2rem;
+  }
+
+  .hud-dock-item i {
+    font-size: 1.05rem;
+  }
+
+  .hud-sync-pill {
+    padding: 0.3rem 0.55rem;
+    font-size: 0.75rem;
+  }
+
+  .hud-top-bar {
+    gap: 0.35rem;
+  }
+
+  .hud-modal {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .hud-dock-item span {
+    font-size: 0.55rem;
+  }
+
+  .hud-top-bar .text-soft.fs-micro {
+    display: none;
+  }
+
+  .hud-sync-pill span {
+    display: none;
+  }
+
+  .hud-sync-pill {
+    min-width: 44px;
+    padding: 0.35rem;
+  }
+}
+
+@media (orientation: landscape) and (max-height: 540px) {
+  .hud-side-nav {
+    display: none;
+  }
+
+  .hud-hero-caption {
+    bottom: 0.5rem;
+    padding: 0.6rem 0.9rem;
+  }
+
+  .hud-title-game {
+    font-size: 1.3rem;
+    margin-top: 0.3rem;
+  }
+
+  .hud-desc-game,
+  .hud-quote-game footer {
+    display: none;
+  }
+
+  .hud-dock-item {
+    min-height: 42px;
+  }
+
+  .hud-modal {
+    padding-top: 0.4rem;
+    padding-bottom: 0.4rem;
+  }
+
+  .hud-modal-box {
+    max-height: 94dvh;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
