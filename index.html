@@ -12,6 +12,26 @@
   <meta property="og:image" content="assets/icon-512.png">
   <title>Ale | Presentación personal</title>
 
+  <!-- Enrutado por dispositivo: en celular/tablet se abre la PWA; en laptop se queda esta versión. -->
+  <script>
+    (function () {
+      var ua = navigator.userAgent || '';
+      var esMovil = /Android|iPhone|iPad|iPod|Windows Phone|IEMobile|Opera Mini|webOS|BlackBerry/i.test(ua)
+        || (navigator.maxTouchPoints > 1 && /Macintosh/.test(ua));
+      var preferida = '';
+      try {
+        var params = new URLSearchParams(window.location.search);
+        if (params.get('v') === 'escritorio') {
+          sessionStorage.setItem('vista', 'escritorio');
+        }
+        preferida = sessionStorage.getItem('vista') || '';
+      } catch (error) {}
+      if (esMovil && preferida !== 'escritorio') {
+        window.location.replace('pwa/presentacion.html');
+      }
+    })();
+  </script>
+
   <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
   <link rel="icon" href="assets/icon-192.png" type="image/png" sizes="192x192">
   <link rel="apple-touch-icon" href="assets/icon-192.png">
