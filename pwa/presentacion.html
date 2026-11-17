@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" data-theme="dark" data-bs-theme="dark">
+<html lang="es" data-theme="dark" data-bs-theme="dark" data-theme-key="tema" data-default-theme="dark" data-bs-theme-sync="on">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -15,23 +15,22 @@
   <link rel="icon" href="assets/icon-192.png" type="image/png" sizes="192x192">
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
   <title>Ale | Portafolio PWA</title>
-  
-  <script>
-    (function () {
-      var tema = 'dark';
-      try { tema = localStorage.getItem('tema') || 'dark'; } catch (e) {}
-      document.documentElement.dataset.theme = tema;
-      document.documentElement.dataset.bsTheme = tema;
-    })();
-  </script>
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+
+  <!-- Arranque compartido: tema inicial -->
+  <script src="shared/boot.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://i.pinimg.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&family=Orbitron:wght@600;800&display=swap" rel="stylesheet">
+
+
+  <!-- Arranque compartido: tema inicial -->
+  <script src="shared/boot.js"></script>
   
   <link rel="stylesheet" href="presentacion.css">
 </head>
@@ -232,6 +231,26 @@
             <div class="col-12"><div class="p-2 card-item rounded text-light"><strong>Infraestructura y redes.</strong> Primeras prácticas y nociones de administración, SSH, DNS, Telnet en Rocky Linux, virtualización y Docker.</div></div>
             <div class="col-12"><div class="p-2 card-item rounded text-light"><strong>Desarrollo frontend.</strong> Creación y diseño de interfaces limpias con HTML, CSS y JavaScript.</div></div>
             <div class="col-12"><div class="p-2 card-item rounded text-light"><strong>Bases de datos.</strong> Comprensión y diseño de esquemas relacionales ordenados.</div></div>
+          </div>
+
+          <p class="text-soft mb-2 mt-3"><strong>Temas de interés:</strong></p>
+          <div class="topic-accordion" data-accordion>
+            <details class="topic-item" open>
+              <summary>Desarrollo frontend y UX</summary>
+              <p>Interfaces con HTML, CSS y JavaScript, accesibles, responsivas y con estados visuales claros.</p>
+            </details>
+            <details class="topic-item">
+              <summary>Bases de datos y lógica</summary>
+              <p>Modelado relacional, normalización y consultas en SQL Server y PostgreSQL.</p>
+            </details>
+            <details class="topic-item">
+              <summary>Redes e infraestructura</summary>
+              <p>Rocky Linux, SSH, DNS, Docker y virtualización con VMware.</p>
+            </details>
+            <details class="topic-item">
+              <summary>Literatura, cine y cultura pop</summary>
+              <p>Lectura y análisis de historias que inspiran mi mirada visual y narrativa.</p>
+            </details>
           </div>
         </div>
       </div>
@@ -529,22 +548,22 @@
             <div class="row g-2 mb-2">
               <div class="col-12 field">
                 <label for="nombre" class="field-label small text-light">Nombre</label>
-                <input type="text" id="nombre" name="nombre" class="form-control form-control-sm bg-dark text-white border-secondary" maxlength="30" autocomplete="name" placeholder="Tu nombre">
+                <input type="text" id="nombre" name="nombre" class="form-control form-control-sm bg-dark text-white border-secondary" required minlength="2" maxlength="30" autocomplete="name" placeholder="Tu nombre">
                 <div id="err-nombre" class="field-error small text-danger"></div>
               </div>
               <div class="col-12 field">
                 <label for="email" class="field-label small text-light">Correo</label>
-                <input type="email" id="email" name="email" class="form-control form-control-sm bg-dark text-white border-secondary" maxlength="60" autocomplete="email" placeholder="correo@ejemplo.com">
+                <input type="email" id="email" name="email" class="form-control form-control-sm bg-dark text-white border-secondary" required maxlength="60" autocomplete="email" placeholder="correo@ejemplo.com">
                 <div id="err-email" class="field-error small text-danger"></div>
               </div>
               <div class="col-12 field">
                 <label for="celular" class="field-label small text-light">Celular (8 dígitos)</label>
-                <input type="tel" id="celular" name="celular" class="form-control form-control-sm bg-dark text-white border-secondary" maxlength="8" inputmode="numeric" autocomplete="tel-national" placeholder="61234567">
+                <input type="tel" id="celular" name="celular" class="form-control form-control-sm bg-dark text-white border-secondary" required pattern="[0-9]{8}" minlength="8" maxlength="8" inputmode="numeric" autocomplete="tel-national" placeholder="61234567">
                 <div id="err-celular" class="field-error small text-danger"></div>
               </div>
               <div class="col-12 field">
                 <label for="servicio" class="field-label small text-light">Servicio</label>
-                <select id="servicio" name="servicio" class="form-select form-control-sm bg-dark text-white border-secondary" autocomplete="off">
+                <select id="servicio" name="servicio" class="form-select form-control-sm bg-dark text-white border-secondary" autocomplete="off" required>
                   <option value="">Selecciona una opción</option>
                   <option value="frontend">Desarrollo web frontend e interfaces</option>
                   <option value="fullstack">Desarrollo web full-stack (C#, PHP, SQL)</option>
@@ -556,13 +575,13 @@
               </div>
               <div class="col-12 field">
                 <label for="mensaje" class="field-label small text-light">Mensaje</label>
-                <textarea id="mensaje" name="mensaje" class="form-control form-control-sm bg-dark text-white border-secondary" rows="3" maxlength="500" placeholder="Describe brevemente qué necesitas y para cuándo."></textarea>
+                <textarea id="mensaje" name="mensaje" class="form-control form-control-sm bg-dark text-white border-secondary" required minlength="10" rows="3" maxlength="500" placeholder="Describe brevemente qué necesitas y para cuándo."></textarea>
                 <span id="contadorMensaje" class="field-count small text-soft">0/500</span>
                 <div id="err-mensaje" class="field-error small text-danger"></div>
               </div>
               <div class="col-12 field">
                 <div class="form-check small text-light">
-                  <input type="checkbox" class="form-check-input" id="acepto" name="acepto">
+                  <input type="checkbox" class="form-check-input" id="acepto" name="acepto" required>
                   <label class="form-check-label text-light" for="acepto">Acepto términos</label>
                 </div>
                 <div id="err-acepto" class="field-error small text-danger"></div>

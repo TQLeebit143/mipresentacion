@@ -53,6 +53,7 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
   margin: 0;
   padding: 0;
+  min-height: 100dvh;
   overflow-x: hidden;
 }
 
@@ -456,6 +457,64 @@ a:hover {
   font-weight: 500;
 }
 
+/* Acordeón de temas */
+.topic-accordion {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.topic-item {
+  background-color: var(--superficie-2);
+  border: 1px solid var(--linea);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.topic-item summary {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 44px;
+  padding: 0.8rem 1rem;
+  font-weight: 700;
+  color: var(--texto);
+  cursor: pointer;
+}
+
+.topic-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.topic-item summary::after {
+  content: "+";
+  font-size: 1.25rem;
+  line-height: 1;
+  color: var(--brand-text);
+}
+
+.topic-item[open] summary::after {
+  content: "−";
+}
+
+.topic-item[open] summary {
+  border-bottom: 1px solid var(--linea);
+}
+
+.topic-item summary:hover,
+.topic-item summary:focus-visible {
+  color: var(--brand-text);
+}
+
+.topic-item p {
+  margin: 0;
+  padding: 0.8rem 1rem 0.95rem;
+  color: var(--texto-soft);
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
 .about-text {
   color: var(--texto-soft);
   font-size: 0.95rem;
@@ -568,10 +627,10 @@ a:hover {
 .carousel-indicators [data-bs-target] {
   width: 26px;
   height: 4px;
-  border-top: 20px solid transparent;
-  border-bottom: 20px solid transparent;
-  border-left: 9px solid transparent;
-  border-right: 9px solid transparent;
+  border-top: 21px solid transparent;
+  border-bottom: 21px solid transparent;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
   border-radius: 2px;
   background-color: #fff;
   opacity: 0.5;
@@ -730,12 +789,18 @@ a:hover {
   font-size: clamp(1rem, 2vw, 1.1rem);
   font-weight: 700;
   margin-bottom: 0.25rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .fav-meta {
   font-size: 0.8rem;
   color: var(--texto-soft);
   margin-bottom: 0.5rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .fav-text {
@@ -744,6 +809,10 @@ a:hover {
   margin-bottom: 0.9rem;
   flex-grow: 1;
   line-height: 1.55;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .link-more {
@@ -863,17 +932,55 @@ a:hover {
 .field-check {
   display: flex;
   gap: 0.55rem;
-  align-items: flex-start;
+  align-items: center;
+  min-height: 44px;
   font-size: 0.85rem;
   color: var(--texto-soft);
 }
 
 .field-check input {
-  width: 18px;
-  height: 18px;
-  margin-top: 0.12rem;
-  accent-color: var(--brand);
-  flex: 0 0 auto;
+  position: relative;
+  width: 44px;
+  height: 44px;
+  margin: 0;
+  flex: 0 0 44px;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.field-check input::after {
+  content: "";
+  position: absolute;
+  inset: 12px;
+  border: 2px solid var(--linea);
+  border-radius: 5px;
+  background-color: var(--superficie);
+}
+
+.field-check input:checked::after {
+  background-color: var(--brand);
+  border-color: var(--brand);
+}
+
+.field-check input:checked::before {
+  content: "✓";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.field-check input:focus-visible::after {
+  outline: 3px solid var(--brand);
+  outline-offset: 2px;
 }
 
 .form-alert {

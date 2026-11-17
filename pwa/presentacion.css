@@ -541,6 +541,64 @@ img {
   border-color: var(--brand);
 }
 
+/* Acordeón de temas */
+.topic-accordion {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.topic-item {
+  background-color: var(--superficie-2);
+  border: 1px solid var(--linea);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.topic-item summary {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  min-height: 44px;
+  padding: 0.7rem 0.85rem;
+  font-weight: 700;
+  color: var(--texto);
+  cursor: pointer;
+}
+
+.topic-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.topic-item summary::after {
+  content: "+";
+  font-size: 1.15rem;
+  line-height: 1;
+  color: var(--brand-text);
+}
+
+.topic-item[open] summary::after {
+  content: "−";
+}
+
+.topic-item[open] summary {
+  border-bottom: 1px solid var(--linea);
+}
+
+.topic-item summary:hover,
+.topic-item summary:focus-visible {
+  color: var(--brand-text);
+}
+
+.topic-item p {
+  margin: 0;
+  padding: 0.7rem 0.85rem 0.85rem;
+  color: var(--texto-soft);
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
 .card-book {
   cursor: pointer;
 }
@@ -646,12 +704,33 @@ img {
   font-weight: 700;
   line-height: 1.25;
   margin-bottom: 0.2rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .fav-meta {
   font-size: 0.72rem;
   color: var(--texto-soft);
   margin-bottom: 0.25rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card-book strong,
+.card-book small {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card-book .fav-text {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .link-more {
@@ -1045,4 +1124,14 @@ img {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* Accesibilidad táctil: objetivos de al menos 44 px en móvil y tablet. */
+@media (max-width: 900px) {
+  .btn-sm { min-height: 44px; }
+  .form-control-sm,
+  .form-select-sm { min-height: 44px; }
+  .form-check-input { width: 24px; height: 24px; }
+  .form-check { min-height: 44px; display: flex; align-items: center; gap: 0.5rem; }
+  .hud-modal-close { min-width: 44px; min-height: 44px; }
 }

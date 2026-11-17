@@ -9,13 +9,14 @@
 'use strict';
 
 var CACHE_PREFIX = 'ale-hud-pwa-';
-var CACHE_NAME = 'ale-hud-pwa-v5';
-var RUNTIME_CACHE = 'ale-hud-pwa-runtime-v5';
+var CACHE_NAME = 'ale-hud-pwa-v10';
+var RUNTIME_CACHE = 'ale-hud-pwa-runtime-v10';
 
 var APP_SHELL = [
   './presentacion.html',
   './presentacion.css',
   './script.js',
+  './shared/boot.js',
   './manifest.json',
   './assets/icon.svg',
   './assets/icon-192.png',

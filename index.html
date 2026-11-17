@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" data-theme="dark" data-bs-theme="dark">
+<html lang="es" data-theme="dark" data-bs-theme="dark" data-theme-key="tema" data-default-theme="dark" data-bs-theme-sync="on" data-device-router="on" data-vista-key="vistaPresentacion" data-pwa-target="pwa/presentacion.html">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,40 +12,12 @@
   <meta property="og:image" content="assets/icon-512.png">
   <title>Ale | Presentación personal</title>
 
-  <!-- Enrutado por dispositivo: en celular/tablet se abre la PWA; en laptop se queda esta versión. -->
-  <script>
-    (function () {
-      var ua = navigator.userAgent || '';
-      var esMovil = /Android|iPhone|iPad|iPod|Windows Phone|IEMobile|Opera Mini|webOS|BlackBerry/i.test(ua)
-        || (navigator.maxTouchPoints > 1 && /Macintosh/.test(ua));
-      var preferida = '';
-      try {
-        var params = new URLSearchParams(window.location.search);
-        if (params.get('v') === 'escritorio') {
-          sessionStorage.setItem('vista', 'escritorio');
-        }
-        preferida = sessionStorage.getItem('vista') || '';
-      } catch (error) {}
-      if (esMovil && preferida !== 'escritorio') {
-        window.location.replace('pwa/presentacion.html');
-      }
-    })();
-  </script>
+  <!-- Arranque compartido: tema inicial + enrutado laptop/móvil -->
+  <script src="shared/boot.js"></script>
 
   <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
   <link rel="icon" href="assets/icon-192.png" type="image/png" sizes="192x192">
   <link rel="apple-touch-icon" href="assets/icon-192.png">
-
-  <script>
-    (function () {
-      var tema = 'dark';
-      try {
-        tema = localStorage.getItem('tema') || 'dark';
-      } catch (error) {}
-      document.documentElement.dataset.theme = tema;
-      document.documentElement.dataset.bsTheme = tema;
-    })();
-  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://i.pinimg.com" crossorigin>
@@ -165,6 +137,28 @@
               <li><i class="bi bi-phone" aria-hidden="true"></i><span><strong>Este portafolio:</strong> disponible en versión desktop y PWA instalable.</span></li>
             </ul>
           </div>
+        </div>
+      </div>
+
+      <div class="panel panel--plata mt-4">
+        <h3 class="panel-title">Temas de interés <span class="panel-note">Despliega cada área</span></h3>
+        <div class="topic-accordion" data-accordion>
+          <details class="topic-item" name="temas" open>
+            <summary>Desarrollo frontend y experiencia de usuario</summary>
+            <p>Construcción de interfaces con HTML5, CSS3 y JavaScript, cuidando la jerarquía visual, la accesibilidad, los estados de foco y la adaptación a distintos tamaños de pantalla.</p>
+          </details>
+          <details class="topic-item" name="temas">
+            <summary>Bases de datos y lógica de negocio</summary>
+            <p>Diseño de esquemas relacionales, normalización y consultas en SQL Server y PostgreSQL, además de la validación de datos y la organización de la lógica del lado del servidor con C# y PHP.</p>
+          </details>
+          <details class="topic-item" name="temas">
+            <summary>Redes e infraestructura</summary>
+            <p>Prácticas de administración en Rocky Linux, conexiones SSH, DNS, virtualización con VMware y despliegue de servicios con Docker como base de mi formación en infraestructura.</p>
+          </details>
+          <details class="topic-item" name="temas">
+            <summary>Literatura, cine y cultura pop</summary>
+            <p>La lectura y el análisis de historias complementan mi formación técnica: novelas, series, anime y música me ayudan a observar narrativas, personajes y lenguajes visuales que también aplico al diseño de interfaces.</p>
+          </details>
         </div>
       </div>
     </section>
@@ -559,25 +553,25 @@
           <div class="row g-3 mb-2">
             <div class="col-md-6 field">
               <label for="nombre" class="field-label">Nombre completo</label>
-              <input type="text" id="nombre" name="nombre" class="form-control field-control" maxlength="30" autocomplete="name" placeholder="Ej. María Fernanda Quispe">
+              <input type="text" id="nombre" name="nombre" class="form-control field-control" required minlength="2" maxlength="30" autocomplete="name" placeholder="Ej. María Fernanda Quispe">
               <div id="err-nombre" class="field-error"></div>
             </div>
             <div class="col-md-6 field">
               <label for="email" class="field-label">Correo electrónico</label>
-              <input type="email" id="email" name="email" class="form-control field-control" maxlength="60" autocomplete="email" placeholder="Ej. usuario@gmail.com">
+              <input type="email" id="email" name="email" class="form-control field-control" required maxlength="60" autocomplete="email" placeholder="Ej. usuario@gmail.com">
               <div id="err-email" class="field-error"></div>
             </div>
             <div class="col-md-6 field">
               <label for="celular" class="field-label">Celular o WhatsApp</label>
               <div class="input-group flex-nowrap">
                 <span class="input-prefix" id="prefijo">+591</span>
-                <input type="tel" id="celular" name="celular" class="form-control field-control" inputmode="numeric" maxlength="8" autocomplete="tel-national" placeholder="61234567">
+                <input type="tel" id="celular" name="celular" class="form-control field-control" required pattern="[0-9]{8}" minlength="8" inputmode="numeric" maxlength="8" autocomplete="tel-national" placeholder="61234567">
               </div>
               <div id="err-celular" class="field-error"></div>
             </div>
             <div class="col-md-6 field">
               <label for="servicio" class="field-label">Tipo de servicio</label>
-              <select id="servicio" name="servicio" class="form-select field-control">
+              <select id="servicio" name="servicio" class="form-select field-control" required>
                 <option value="">Selecciona una opción</option>
                 <option value="frontend">Desarrollo web frontend e interfaces</option>
                 <option value="fullstack">Desarrollo web full-stack (C#, PHP, SQL)</option>
@@ -589,13 +583,13 @@
             </div>
             <div class="col-12 field">
               <label for="mensaje" class="field-label">Detalle del proyecto</label>
-              <textarea id="mensaje" name="mensaje" class="form-control field-control" rows="4" maxlength="500" placeholder="Describe brevemente qué necesitas y para cuándo."></textarea>
+              <textarea id="mensaje" name="mensaje" class="form-control field-control" required minlength="10" rows="4" maxlength="500" placeholder="Describe brevemente qué necesitas y para cuándo."></textarea>
               <span id="contadorMensaje" class="field-count">0/500</span>
               <div id="err-mensaje" class="field-error"></div>
             </div>
             <div class="col-12 field">
               <div class="field-check">
-                <input type="checkbox" id="acepto" name="acepto">
+                <input type="checkbox" id="acepto" name="acepto" required>
                 <label for="acepto">Acepto que usen mis datos solo para responder a esta solicitud.</label>
               </div>
               <div id="err-acepto" class="field-error"></div>
