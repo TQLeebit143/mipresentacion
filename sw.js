@@ -1,5 +1,5 @@
-const CACHE_STATIC = 'ale-pwa-static-v8';
-const CACHE_RUNTIME = 'ale-pwa-runtime-v8';
+const CACHE_STATIC = 'ale-pwa-static-v9';
+const CACHE_RUNTIME = 'ale-pwa-runtime-v9';
 const APP_SHELL = [
   './',
   './index.html',
